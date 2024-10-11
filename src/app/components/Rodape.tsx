@@ -18,13 +18,12 @@ export default function Footer() {
         {/* Botões Alinhados à Direita */}
         <div className="flex flex-col items-end">
           <div className="flex space-x-2">
-            <Image src="/img/logoCienciasH.png" alt="logo" width={90} height={90} /> 
-            <Image src="/img/logoSistemasH.png" alt="logo" width={90} height={90} /> 
+            <Image src="/img/logoCienciasH.png" alt="logo" width={110} height={110} /> 
+            <Image src="/img/logoEngenhariaH.png" alt="logo" width={110} height={110} />
           </div>
-          <div className="flex space-x-2 mt-2">
+          {/* <div className="flex space-x-2 mt-2">
             <Image src="/img/logoEngenhariaH.png" alt="logo" width={90} height={90} /> 
-            <Image src="/img/logoEngenhariaH.png" alt="logo" width={90} height={90} /> 
-          </div>
+          </div> */}
         </div>
       </div>
     </footer>

@@ -1,13 +1,14 @@
 import Image from "next/image";
 import { SlGameController } from "react-icons/sl";
 import { GrGamepad } from "react-icons/gr";
-import NavbarActive from "../components/NavbarActive";
+// import NavbarActive from "../components/NavbarActive";
+import Navbar from '../components/MenuNavbar';
 import Footer from "../components/Rodape";
 
 export default function Conta() {
   return (
     <>
-      <NavbarActive/>
+      <Navbar/>
         <div className="grid grid-cols-2 min-h-screen">
           <div className="bg-gradient-to-r from-blue-100 to-purple-500 flex items-center justify-center border-r-2 border-white">
               <div className="flex flex-col items-center justify-center min-h-screen">

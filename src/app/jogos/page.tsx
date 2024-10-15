@@ -1,8 +1,10 @@
+import Navbar from '../components/MenuNavbar';
 
 export default function Jogos() {
   return (
     <>
-        <h1>Jogos</h1>
+      <Navbar/>
+        <h1 className='text-center mt-20'>Jogos</h1>
     </>
   );
 }

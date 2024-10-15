@@ -1,7 +1,6 @@
-import Image from "next/image";
+// import Image from "next/image";
 import { SlGameController } from "react-icons/sl";
 import { GrGamepad } from "react-icons/gr";
-// import NavbarActive from "../components/NavbarActive";
 import Navbar from '../components/MenuNavbar';
 import Footer from "../components/Rodape";
 
@@ -20,9 +19,10 @@ export default function Conta() {
                 <div className="text-center mt-3">
                   <p className="text-sm text-black">Explore os incríveis jogos desenvolvidos no CeulpUlbra</p>
                 </div>
-                  <div className="ml-4 flex justify-end mt-5">
-                    <SlGameController className="w-60 h-60 text-pink-500" />
-                  </div>
+
+                <div className="ml-4 flex justify-end mt-5">
+                  <SlGameController className="w-60 h-60 text-pink-500" />
+                </div>
               </div>
               {/* <Image src="/img/logoCienciasH.png" alt="logo" width={90} height={90} /> */}
             </div>
@@ -65,7 +65,7 @@ export default function Conta() {
                  Cadastrar
                 </button>
                 <div className="mt-3 text-center text-sm">
-                    <a href="">Já possui cadastro? </a>
+                  <a href="">Já possui cadastro? </a>
                 </div>
               </form>
               <div>

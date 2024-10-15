@@ -1,5 +1,4 @@
 import Image from "next/image";
-// import NavbarActive from "../components/NavbarActive";
 import Navbar from '../components/MenuNavbar';
 import Footer from "../components/Rodape";
 

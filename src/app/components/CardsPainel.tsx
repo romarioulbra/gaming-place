@@ -22,19 +22,19 @@ export default function CardsGrid() {
       gradientTo: "to-purple-500",
       link: "/config/perfil"
     },
+   {
+      title: "Jogos",
+      icon: <FaGamepad  />,
+      gradientFrom: "from-yellow-500",
+      gradientTo: "to-orange-500",
+      link: "/config/notificacoes"
+    },
     {
       title: "Categorias de Jogos",
       icon: <GiGamepadCross />,
       gradientFrom: "from-green-500",
       gradientTo: "to-teal-500",
       link: "/config/seguranca"
-    },
-    {
-      title: "Jogos",
-      icon: <FaGamepad  />,
-      gradientFrom: "from-yellow-500",
-      gradientTo: "to-orange-500",
-      link: "/config/notificacoes"
     }
   ];
 
@@ -45,7 +45,7 @@ export default function CardsGrid() {
           <div
             className={`p-6 rounded-xl bg-gradient-to-r ${card.gradientFrom} ${card.gradientTo} transform transition-transform duration-300 hover:scale-105 hover:shadow-xl text-white text-center cursor-pointer`}
           >
-              <div className="text-5xl mb-4">{card.icon}</div>
+              <div className="text-4xl mb-4 ">{card.icon}</div>
               <h3 className=" text-xl font-bold text-wrap">{card.title}</h3>
           </div>
         </Link>

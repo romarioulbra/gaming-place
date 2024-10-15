@@ -74,7 +74,7 @@ export default function Navbar() {
               className={`${
                 pathname === link.path
                   ? 'bg-pink-500 text-white font-bold py-2 px-4 rounded' // Estilo do link ativo
-                  : 'block text-lg py-2 px-3 hover:bg-gray-700' // Estilo padrão para os outros links
+                  : 'block text-lg py-2 px-3 hover:bg-violet-500' // Estilo padrão para os outros links
               } transition duration-300`}
               onClick={() => setIsOpen(false)} // Fechar menu ao clicar no link
             >

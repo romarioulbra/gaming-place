@@ -13,28 +13,28 @@ export default function CardsGrid() {
       icon: <FaGear />,
       gradientFrom: "from-pink-500",
       gradientTo: "to-red-500",
-      link: "/config/geral"
+      link: "/configuracao/geral"
     },
     {
       title: "Usuários",
       icon: <FaUsersGear  />,
       gradientFrom: "from-blue-500",
       gradientTo: "to-purple-500",
-      link: "/config/perfil"
+      link: "/configuracao/usuarios"
     },
    {
       title: "Jogos",
       icon: <FaGamepad  />,
       gradientFrom: "from-yellow-500",
       gradientTo: "to-orange-500",
-      link: "/config/notificacoes"
+      link: "/configuracao/jogos"
     },
     {
       title: "Categorias de Jogos",
       icon: <GiGamepadCross />,
       gradientFrom: "from-green-500",
       gradientTo: "to-teal-500",
-      link: "/config/seguranca"
+      link: "/configuracao/jogosCategoria"
     }
   ];
 

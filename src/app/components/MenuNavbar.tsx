@@ -25,13 +25,13 @@ export default function Navbar() {
 
 
   return (
-    <nav className="bg-violet-500 text-white fixed w-full top-0 z-50 border-b-2 border-white">
+    <nav className="bg-purple-800 text-white fixed w-full top-0 z-50 border-b-2 border-white">
        {/* className=" p-4 border-b-2 border-white" */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex space-x-6 justify-between items-center h-16">
         {/* Logo */}
         
         <div className="flex text-white text-xl font-bold space-x-2 items-center">
-          <SlGameController />
+          <SlGameController className="w-7 h-7 text-white"/>
           <Link href="/">Gaming Place</Link>
         </div>
 
@@ -55,7 +55,7 @@ export default function Navbar() {
               className={`${
                 pathname === link.path
                   ? 'bg-pink-600 text-white font-bold py-2 px-4 rounded' // Estilo do link ativo
-                  : 'text-lg py-2 px-3 hover:bg-gray-700 rounded-md' // Estilo padrão para os links
+                  : 'text-lg py-2 px-3 hover:bg-purple-500 hover:text-grey-200 rounded-md' // Estilo padrão para os links
               } transition duration-300`}
             >
               {link.label}
@@ -66,15 +66,15 @@ export default function Navbar() {
 
       {/* Menu Mobile - Exibe quando o ícone é clicado */}
       {isOpen && (
-        <div className="lg:hidden bg-pink-600 text-white text-left space-y-2 py-4 font-bold">
+        <div className="lg:hidden bg-purple-900 text-white text-left space-y-2 py-4 font-bold">
           {links.map((link) => (
             <Link
               key={link.path}
               href={link.path}
               className={`${
                 pathname === link.path
-                  ? 'bg-pink-500 text-white font-bold py-2 px-4 rounded' // Estilo do link ativo
-                  : 'block text-lg py-2 px-3 hover:bg-violet-500' // Estilo padrão para os outros links
+                  ? 'bg-pink-500 text-white font-bold py-2 px-4 rounded ml-2' // Estilo do link ativo
+                  : 'block text-lg py-2 px-3 hover:bg-purple-500' // Estilo padrão para os outros links
               } transition duration-300`}
               onClick={() => setIsOpen(false)} // Fechar menu ao clicar no link
             >

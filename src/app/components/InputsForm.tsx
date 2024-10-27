@@ -11,15 +11,17 @@ interface FormularioProps {
 
 export default function InputForm({
   tipoInput,
+  metodoSubmit,
+  valorInput,
   options = [],
   label,
   placeholder = '',
 }: FormularioProps) {
   const [formData, setFormData] = useState('');
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setFormData(e.target.value);
-  };
+  // const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  //   setFormData(e.target.value);
+  // };
 
   return (
     // <div className="max-w-md mx-auto bg-white p-8 shadow-lg rounded-lg mt-10">
@@ -35,8 +37,8 @@ export default function InputForm({
               type="text"
               id={label.toLowerCase()}
               name={label.toLowerCase()}
-              value={formData}
-              onChange={handleChange}
+              value={valorInput}
+              onChange={metodoSubmit}
               className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
               placeholder={placeholder}
               required
@@ -47,8 +49,8 @@ export default function InputForm({
             <select
               id={label.toLowerCase()}
               name={label.toLowerCase()}
-              value={formData}
-              onChange={handleChange}
+              value={valorInput}
+              onChange={metodoSubmit}
               className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
               required
             >
@@ -65,8 +67,8 @@ export default function InputForm({
             <textarea
               id={label.toLowerCase()}
               name={label.toLowerCase()}
-              value={formData}
-              onChange={handleChange}
+              value={valorInput}
+              onChange={metodoSubmit}
               className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
               placeholder={placeholder}
               rows={4}
@@ -78,9 +80,9 @@ export default function InputForm({
             <input
               type="date"
               id={label.toLowerCase()}
-              name={label.toLowerCase()}
-              value={formData}
-              onChange={handleChange}
+              name={label.toLowerCase()}   
+              value={valorInput}
+              onChange={metodoSubmit}
               className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
               required
             />
@@ -91,8 +93,8 @@ export default function InputForm({
               type="email"
               id={label.toLowerCase()}
               name={label.toLowerCase()}
-              value={formData}
-              onChange={handleChange}
+              value={valorInput}
+              onChange={metodoSubmit}
               className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
               placeholder={placeholder}
               required
@@ -104,8 +106,8 @@ export default function InputForm({
               type="number"
               id={label.toLowerCase()}
               name={label.toLowerCase()}
-              value={formData}
-              onChange={handleChange}
+              value={valorInput}
+              onChange={metodoSubmit}
               className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
               placeholder={placeholder}
               required
@@ -120,7 +122,7 @@ export default function InputForm({
                     type="radio"
                     name={label.toLowerCase()}
                     value={option}
-                    onChange={handleChange}
+                    // onChange={handleChange}
                     className="form-radio text-blue-500"
                   />
                   <span className="ml-2">{option}</span>
@@ -134,8 +136,8 @@ export default function InputForm({
               type="password"
               id={label.toLowerCase()}
               name={label.toLowerCase()}
-              value={formData}
-              onChange={handleChange}
+              value={valorInput}
+              onChange={metodoSubmit}
               className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
               placeholder={placeholder}
               required

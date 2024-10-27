@@ -14,11 +14,11 @@ datasource db {
 }
 
 model usuarios {
-  id        Int      @id @default(autoincrement())
-  nome      String
-  email     String
-  senha     String
-  nivel     String
-  criacao   DateTime @default(now())
-  alteracao DateTime @updatedAt
+  usuario_id        Int      @id @default(autoincrement())
+  usuario_nome      String
+  usuario_email     String
+  usuario_senha     String
+  usuario_nivel     String
+  usuario_criacao   DateTime @default(now())
+  usuario_alteracao DateTime @updatedAt
 }

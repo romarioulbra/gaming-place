@@ -39,17 +39,31 @@ export default function CardsGrid() {
   ];
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div className="grid grid-cols-1  md:grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6">
       {cardsData.map((card, index) => (
         <Link key={index} href={card.link}>
           <div
-            className={`p-6 rounded-xl bg-gradient-to-r ${card.gradientFrom} ${card.gradientTo} transform transition-transform duration-300 hover:scale-105 hover:shadow-xl text-white text-center cursor-pointer`}
+            className={` card p-6 shadow-md rounded-xl bg-gradient-to-r ${card.gradientFrom} ${card.gradientTo} transform transition-transform duration-300 hover:scale-105 hover:shadow-xl text-white text-center cursor-pointer  flex flex-gow`}
           >
+            <div className="flex flex-col items-center">
               <div className="text-4xl mb-4 ">{card.icon}</div>
               <h3 className=" text-xl font-bold text-wrap">{card.title}</h3>
+            </div>
           </div>
         </Link>
       ))}
     </div>
+
+//     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+//   <div className="card bg-white p-4 shadow-md rounded-lg">1
+//   </div>
+//   <div className="card bg-white p-4 shadow-md rounded-lg">2
+//   </div>
+//   <div className="card bg-white p-4 shadow-md rounded-lg">12
+//   </div>
+  
+// </div>
   );
 }
+
+

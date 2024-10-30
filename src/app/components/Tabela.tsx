@@ -3,9 +3,9 @@ import React from 'react';
 import { useState } from 'react';
 import ReactPaginate from 'react-paginate'; 
 
-import { FaPencilAlt,FaTrashAlt  } from "react-icons/fa";
-import Modal from '../components/Modal';
 import { GrCaretPrevious,GrCaretNext  } from "react-icons/gr";
+import { FaPencilAlt,FaTrashAlt  } from "react-icons/fa";
+import Modal from './Modal';
 
 interface TableProps {
   data: { id: number; usuario_nome: string; usuario_email: string; usuario_senha: string;usuario_nivel: string }[];
@@ -13,7 +13,7 @@ interface TableProps {
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
-export default function TabelaDark({ data }: TableProps) {
+export default function Tabela({ data }: TableProps) {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalContent, setModalContent] = useState({
@@ -57,7 +57,7 @@ export default function TabelaDark({ data }: TableProps) {
     
     // ================= PAGINAÇÃO DAS TABELAS ================= //
     
-    const itemsPerPage = 10;
+    const itemsPerPage = 5;
     const [currentPage, setCurrentPage] = useState(0);
     const [searchTerm, setSearchTerm] = useState('');
   
@@ -82,7 +82,7 @@ export default function TabelaDark({ data }: TableProps) {
     // ================= PAGINAÇÃO DAS TABELAS ================= //
     
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-x-auto container mx-auto mt-8 mb-8">
        <div  className="flex flex-col items-end p-4">
           <input
               type="text"
@@ -108,10 +108,10 @@ export default function TabelaDark({ data }: TableProps) {
             <tbody>
               {paginatedData.map((item) => (
                 <tr
-                  key={item.id}
+                  key={item.usuario_id}
                   className="border-b border-gray-700 hover:bg-gray-700 transition-colors"
                 >
-                  <td className="py-3 px-6 border border-gray-700">{item.id}</td>
+                  <td className="py-3 px-6 border border-gray-700">{item.usuario_id}</td>
                   <td className="py-3 px-6 border border-gray-700">{item.usuario_nome}</td>
                   <td className="py-3 px-6 border border-gray-700">{item.usuario_email}</td>
                   <td className="py-3 px-6 border border-gray-700">{item.usuario_senha}</td>
@@ -138,14 +138,14 @@ export default function TabelaDark({ data }: TableProps) {
             </tbody>
           </table>
       
-      {/* Modal */}
-      <Modal
-        isOpen={isModalOpen}
-        title={modalContent.title}
-        content={modalContent.content}
-        onClose={() => setIsModalOpen(false)}
-        onConfirm={modalContent.onConfirm}
-      />
+        {/* Modal */}
+        <Modal
+          isOpen={isModalOpen}
+          title={modalContent.title}
+          content={modalContent.content}
+          onClose={() => setIsModalOpen(false)}
+          onConfirm={modalContent.onConfirm}
+        />
 
       {/* Componente de Paginação */}
       <ReactPaginate

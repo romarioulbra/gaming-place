@@ -16,7 +16,7 @@ export default function CadastroUsuario() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    const res = await fetch('/controller/usuarios', {
+    const res = await fetch('/api/usuarios', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

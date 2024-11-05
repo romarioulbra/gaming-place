@@ -82,90 +82,93 @@ export default function Tabela({ data }: TableProps) {
     // ================= PAGINAÇÃO DAS TABELAS ================= //
     
   return (
-    <div className="overflow-x-auto container mx-auto mt-8 mb-8">
-       <div  className="flex flex-col items-end p-4">
-          <input
-              type="text"
-              placeholder="Pesquisar..."
-              className="mb-4 px-4 py-2 border border-gray-600 rounded "
-              onChange={e => {
-                setSearchTerm(e.target.value);
-                setCurrentPage(0); // Reseta para a primeira página em cada nova pesquisa
-              }}
-            /> 
-        
-          <table className="min-w-full bg-gray-800 text-white rounded-lg table-auto border-collapse border border-gray-700">
-            <thead>
-              <tr className="bg-gray-900 text-gray-300">
-                <th className="py-3 px-6 text-left border border-gray-700">ID</th>
-                <th className="py-3 px-6 text-left border border-gray-700">Nome</th>
-                <th className="py-3 px-6 text-left border border-gray-700">Email</th>
-                <th className="py-3 px-6 text-left border border-gray-700">Senha</th>
-                <th className="py-3 px-6 text-left border border-gray-700">Nível</th>
-                <th className="py-3 px-6 text-left border border-gray-700">Ação</th>
-              </tr>
-            </thead>
-            <tbody>
-              {paginatedData.map((item) => (
-                <tr
-                  key={item.usuario_id}
-                  className="border-b border-gray-700 hover:bg-gray-700 transition-colors"
-                >
-                  <td className="py-3 px-6 border border-gray-700">{item.usuario_id}</td>
-                  <td className="py-3 px-6 border border-gray-700">{item.usuario_nome}</td>
-                  <td className="py-3 px-6 border border-gray-700">{item.usuario_email}</td>
-                  <td className="py-3 px-6 border border-gray-700">{item.usuario_senha}</td>
-                  <td className="py-3 px-6 border border-gray-700">{item.usuario_nivel}</td>
-                  <td className="py-4 px-6 border border-gray-700 flex space-x-4"> 
-                    {/* Botão Editar */}
-                    <button 
-                        
-                        onClick={() => handleEditClick(item)}
-                        className="flex items-center px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-700 transition-colors border border-white shadow-md shadow-yellow-500/50">
-                        <FaPencilAlt className="w-5 h-5 mr-2" />
-                    </button>
-                    {/* Botão Excluir */}
-                    <button 
-                        className="flex items-center px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700 transition-colors border border-white shadow-md shadow-red-500/50"
-                        onClick={() => handleDeleteClick(item)}
-                    >
-                          
-                      <FaTrashAlt className="w-5 h-5 mr-2" />
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-      
-        {/* Modal */}
-        <Modal
-          isOpen={isModalOpen}
-          title={modalContent.title}
-          content={modalContent.content}
-          onClose={() => setIsModalOpen(false)}
-          onConfirm={modalContent.onConfirm}
-        />
 
-      {/* Componente de Paginação */}
-      <ReactPaginate
-        previousLabel={<GrCaretPrevious size={20} />}
-        nextLabel={<GrCaretNext size={20}/>}
-        breakLabel={"..."}
-        pageCount={pageCount}
-        marginPagesDisplayed={2}
-        pageRangeDisplayed={3}
-        onPageChange={handlePageClick}
-        containerClassName={"flex mt-4 space-x-2"}
-        pageClassName={"px-4 py-2 bg-indigo-600 rounded text-white cursor-pointer hover:bg-indigo-700"}
-        activeClassName={"bg-indigo-800"}
-        previousClassName={"px-4 py-2 bg-indigo-600 rounded text-white cursor-pointer hover:bg-indigo-700"}
-        nextClassName={"px-4 py-2 bg-indigo-600 rounded text-white cursor-pointer hover:bg-indigo-700"}
-        breakClassName={"px-4 py-2 text-gray-400"}
-        disabledClassName={"bg-gray-600 cursor-not-allowed"}
-      />
+
+    <div className="flex-auto ml-4 mr-4 mt-4 mb-4"> 
+      <div className="overflow-x-auto mx-auto mt-8 mb-8 p-8 border border-gray-300 shadow-lg rounded-lg justify-between items-center">
+        <div  className="flex flex-col items-end p-4">
+            <input
+                type="text"
+                placeholder="Pesquisar..."
+                className="mb-4 px-4 py-2 border border-gray-600 rounded "
+                onChange={e => {
+                  setSearchTerm(e.target.value);
+                  setCurrentPage(0); // Reseta para a primeira página em cada nova pesquisa
+                }}
+              /> 
+          
+            <table className="min-w-full bg-gray-800 text-white rounded-lg table-auto border-collapse border border-gray-700">
+              <thead>
+                <tr className="bg-gray-900 text-gray-300">
+                  <th className="py-3 px-6 text-left border border-gray-700">ID</th>
+                  <th className="py-3 px-6 text-left border border-gray-700">Nome</th>
+                  <th className="py-3 px-6 text-left border border-gray-700">Email</th>
+                  <th className="py-3 px-6 text-left border border-gray-700">Senha</th>
+                  <th className="py-3 px-6 text-left border border-gray-700">Nível</th>
+                  <th className="py-3 px-6 text-left border border-gray-700">Ação</th>
+                </tr>
+              </thead>
+              <tbody>
+                {paginatedData.map((item) => (
+                  <tr
+                    key={item.usuario_id}
+                    className="border-b border-gray-700 hover:bg-gray-700 transition-colors"
+                  >
+                    <td className="py-3 px-6 border border-gray-700">{item.usuario_id}</td>
+                    <td className="py-3 px-6 border border-gray-700">{item.usuario_nome}</td>
+                    <td className="py-3 px-6 border border-gray-700">{item.usuario_email}</td>
+                    <td className="py-3 px-6 border border-gray-700">{item.usuario_senha}</td>
+                    <td className="py-3 px-6 border border-gray-700">{item.usuario_nivel}</td>
+                    <td className="py-4 px-6 border border-gray-700 flex space-x-4"> 
+                      {/* Botão Editar */}
+                      <button 
+                          
+                          onClick={() => handleEditClick(item)}
+                          className="flex items-center px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-700 transition-colors border border-white shadow-md shadow-yellow-500/50">
+                          <FaPencilAlt className="w-5 h-5 mr-2" />
+                      </button>
+                      {/* Botão Excluir */}
+                      <button 
+                          className="flex items-center px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700 transition-colors border border-white shadow-md shadow-red-500/50"
+                          onClick={() => handleDeleteClick(item)}
+                      >
+                            
+                        <FaTrashAlt className="w-5 h-5 mr-2" />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+        
+          {/* Modal */}
+          <Modal
+            isOpen={isModalOpen}
+            title={modalContent.title}
+            content={modalContent.content}
+            onClose={() => setIsModalOpen(false)}
+            onConfirm={modalContent.onConfirm}
+          />
+
+        {/* Componente de Paginação */}
+        <ReactPaginate
+          previousLabel={<GrCaretPrevious size={20} />}
+          nextLabel={<GrCaretNext size={20}/>}
+          breakLabel={"..."}
+          pageCount={pageCount}
+          marginPagesDisplayed={2}
+          pageRangeDisplayed={3}
+          onPageChange={handlePageClick}
+          containerClassName={"flex mt-4 space-x-2"}
+          pageClassName={"px-4 py-2 bg-indigo-600 rounded text-white cursor-pointer hover:bg-indigo-700"}
+          activeClassName={"bg-indigo-800"}
+          previousClassName={"px-4 py-2 bg-indigo-600 rounded text-white cursor-pointer hover:bg-indigo-700"}
+          nextClassName={"px-4 py-2 bg-indigo-600 rounded text-white cursor-pointer hover:bg-indigo-700"}
+          breakClassName={"px-4 py-2 text-gray-400"}
+          disabledClassName={"bg-gray-600 cursor-not-allowed"}
+        />
+        </div>
       </div>
     </div>
-  
   );
 }

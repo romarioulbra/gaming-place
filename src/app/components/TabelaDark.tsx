@@ -11,7 +11,7 @@ interface TableProps {
   data: { id: number; usuario_nome: string; usuario_email: string; usuario_senha: string;usuario_nivel: string }[];
 }
 
-const fetcher = (url) => fetch(url).then((res) => res.json());
+// const fetcher = (url) => fetch(url).then((res) => res.json());
 
 export default function TabelaDark({ data }: TableProps) {
 
@@ -82,7 +82,8 @@ export default function TabelaDark({ data }: TableProps) {
     // ================= PAGINAÇÃO DAS TABELAS ================= //
     
   return (
-    <div className="overflow-x-auto">
+    <div className="flex-auto ml-4 mr-4 mt-4 mb-4">
+      <div className="overflow-x-auto p-8 border border-gray-300 shadow-lg rounded-lg">
        <div  className="flex flex-col items-end p-4">
           <input
               type="text"
@@ -166,6 +167,7 @@ export default function TabelaDark({ data }: TableProps) {
       />
       </div>
     </div>
+  </div>  
   
   );
 }

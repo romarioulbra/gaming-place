@@ -6,7 +6,7 @@ import { GrGamepad } from "react-icons/gr";
 export default function Footer() {
  
   return (
-      <footer className="flex flex-col items-center  p-4 bg-gray-900 text-gray-200 py-4 border-t-2 border-white">
+      <footer className="flex flex-col items-center  p-4 bg-gray-900 text-gray-200 py-4 border-t-2 border-white fixed bottom-0 w-full z-10">
         {/* Logo Alinhada à Esquerda */}
         <div className="flex items-center justify-between w-full max-w-6xl space-x-4">
           

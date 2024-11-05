@@ -1,32 +1,26 @@
-'use client';
 
-import { useState} from 'react';
+import { useState } from 'react';
 import { IoGameController } from "react-icons/io5";
-import { useRouter } from 'next/navigation'; 
 
-export default function LoadBotao({caminho}) {
+export default function CarregarTela() {
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
-
 
   const showLoading = () => {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-      // window.location.href = "/dashboard";
-      router.push(caminho);
-    }, 1000); // Simulação de 3 segundos
+    }, 3000); // Simulação de 3 segundos
   };
 
   return (
-    <div className="mt-4">      
+    <div className="mt-4">
       <button
-        onClick={showLoading} 
-        className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-700 transition duration-300 border-white border shadow-md  shadow-green-500/50"
-        >
-        Cadastrar
+        onClick={showLoading}
+        className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition duration-300"
+      >
+        Carregar
       </button>
-    
+
       {loading && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50">
           {/* Animação de borda circular */}

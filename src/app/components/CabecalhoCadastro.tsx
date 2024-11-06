@@ -1,7 +1,15 @@
 'use client'
 import Botao from "@/app/components/Botao";
+import { useRouter } from 'next/navigation';
 
 export default function CabecalhoCadastro({Icone}) {
+  
+  const router = useRouter();
+
+  const BtnVoltar = () => {
+    router.back();
+  };
+
   return (
   <>
     <div className="flex-auto ml-4 mr-4 mt-4 mb-4">
@@ -22,6 +30,7 @@ export default function CabecalhoCadastro({Icone}) {
             texto="Voltar"
             cor="amarelo"
             tipo="submit"
+            onClick={BtnVoltar}
           />
         </div>
       </div>

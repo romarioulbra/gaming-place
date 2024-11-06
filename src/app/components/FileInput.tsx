@@ -1,6 +1,4 @@
-// InputFile.tsx
 import React from 'react';
-
 interface InputFileProps {
   label: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;

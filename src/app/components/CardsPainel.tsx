@@ -2,7 +2,7 @@
 import Link from 'next/link';
 // import { FaRocket} from 'react-icons/fa'; // Ícones para os cards
 
-import { FaGear,FaUsersGear,FaGamepad    } from "react-icons/fa6";
+import { FaGear,FaUsersGear,FaGamepad } from "react-icons/fa6";
 import { GiGamepadCross } from "react-icons/gi";
 
 
@@ -53,16 +53,6 @@ export default function CardsGrid() {
         </Link>
       ))}
     </div>
-
-//     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-//   <div className="card bg-white p-4 shadow-md rounded-lg">1
-//   </div>
-//   <div className="card bg-white p-4 shadow-md rounded-lg">2
-//   </div>
-//   <div className="card bg-white p-4 shadow-md rounded-lg">12
-//   </div>
-  
-// </div>
   );
 }
 

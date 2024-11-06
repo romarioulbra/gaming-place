@@ -8,7 +8,6 @@ export default function LoadBotao({caminho}) {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-
   const showLoading = () => {
     setLoading(true);
     setTimeout(() => {

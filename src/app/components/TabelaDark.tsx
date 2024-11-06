@@ -11,7 +11,6 @@ interface TableProps {
   data: { id: number; usuario_nome: string; usuario_email: string; usuario_senha: string;usuario_nivel: string }[];
 }
 
-// const fetcher = (url) => fetch(url).then((res) => res.json());
 
 export default function TabelaDark({ data }: TableProps) {
 

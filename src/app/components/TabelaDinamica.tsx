@@ -21,8 +21,6 @@ export default function TabelaDinamica({ initialUsers }) {
     return <div>Carregando usuários...</div>;
   }
 
-
-
   const pageCount = Math.ceil(usuarios.length / usersPerPage);
 
   const handlePageChange = ({ selected }) => {

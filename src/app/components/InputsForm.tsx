@@ -1,7 +1,5 @@
 'use client'
-
 import { useState } from 'react';
-
 interface FormularioProps {
   tipoInput: 'text' | 'select' | 'textarea' | 'date' | 'email' | 'number' | 'radio' | 'password'; // Novos tipos adicionados
   label: string;
@@ -144,17 +142,6 @@ export default function InputForm({
             />
           )}
         </div>
-
-        {/* Botão de enviar */}
-        {/* <div>
-          <button
-            type="submit"
-            className="w-full bg-blue-500 text-white p-2 rounded-lg font-bold hover:bg-blue-700 transition-colors duration-300"
-          >
-            Enviar
-          </button>
-        </div> */}
       </div>
-    // </div>
   );
 }

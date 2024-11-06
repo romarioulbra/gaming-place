@@ -1,10 +1,10 @@
 'use client'
 import { useState } from 'react';
-import { FaAlignJustify,FaCogs,FaCog } from "react-icons/fa"; // Ajuste os imports dos ícones
-import Link from 'next/link';
+import { FaCogs,FaCog } from "react-icons/fa"; // Ajuste os imports dos ícones
 import MenuVertical from '../components/MenuVertical';
 
 export default function Fly() {
+  
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const toggleDrawer = () => {

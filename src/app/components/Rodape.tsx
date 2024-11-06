@@ -1,11 +1,8 @@
 import Image from 'next/image'; // Usado para carregar a imagem no Next.js
 import { GrGamepad } from "react-icons/gr";
 
-
-
 export default function Footer() {
- 
-  return (
+   return (
       <footer className="flex flex-col items-center  p-4 bg-gray-900 text-gray-200 py-4 border-t-2 border-white fixed bottom-0 w-full z-10">
         {/* Logo Alinhada à Esquerda */}
         <div className="flex items-center justify-between w-full max-w-6xl space-x-4">
@@ -24,7 +21,6 @@ export default function Footer() {
               <GrGamepad className="w-6 h-6 md:w-5 md:h-5" />
               <h2 className=" max-w-xs break-words" >Gaming Place</h2>
           </div>
-          
         
           {/* Botões Alinhados à Direita */}
            <div className="flex flex-col items-end md:items-end mr-5">
@@ -44,7 +40,7 @@ export default function Footer() {
               </div>
           </div>
 
-{/*         
+        {/*         
           <div className="flex flex-col items-center md:items-end mr-5">
             <div className="flex space-y-2">           
               <Image 
@@ -62,10 +58,7 @@ export default function Footer() {
                 className='object-contain  pb-2 pr-2 pl-2 pt-2'
               />
             </div>
-          </div> */}
-
-          
-
+          </div> */}    
         </div>
       </footer>
   );

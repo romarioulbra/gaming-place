@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react';
-import { FaCogs,FaCog } from "react-icons/fa"; // Ajuste os imports dos ícones
+import { FaCogs,FaCog} from "react-icons/fa"; // Ajuste os imports dos ícones
 import MenuVertical from '../components/MenuVertical';
 
 export default function Fly() {
@@ -23,7 +23,7 @@ export default function Fly() {
           </div>
           {/* Conteúdo do Drawer */}
           {isDrawerOpen && (
-            <div className="fixed inset-0 flex mt-20">
+            <div className="fixed inset-0 flex mt-16">
               <div className="bg-white w-64 p-6 shadow-lg">
                 <div className="flex flex-col items-center mb-4">
                   <FaCog className="text-gray-600 cursor-pointer w-24 h-24 rounded-full" />

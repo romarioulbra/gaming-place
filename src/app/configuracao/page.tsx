@@ -1,14 +1,11 @@
 'use client'
-// import Sidebar from '../components/MenuLateral';
 import CardsGrid from '../components/CardsPainel';
 
 export default function ConfigPanel() {
-
   return (
     <>
       <div className="flex h-screen mt-9">
           {/* Menu Lateral */}
-          {/* <Sidebar /> */}
           {/* Painel Principal */}
           <div className="flex-1 bg-gray-100 p-6  sm:ml-0">
             <h1 className='text-center  font-bold text-2xl mt-5 mb-5 text-purple-700'>Painel de Configuração</h1>
@@ -16,7 +13,6 @@ export default function ConfigPanel() {
             />
           </div>
       </div>
-  
     </>
   );
 }

@@ -5,55 +5,99 @@ import ReactPaginate from 'react-paginate';
 
 import { GrCaretPrevious,GrCaretNext  } from "react-icons/gr";
 import { FaPencilAlt,FaTrashAlt  } from "react-icons/fa";
-import Modal from './Modal';
+// import Modal from './Modal2';
+import ModalFormulario from '../components/ModalFormulario';
 
 interface TableProps {
   data: { id: number; usuario_nome: string; usuario_email: string; usuario_senha: string;usuario_nivel: string }[];
 }
 
-const fetcher = (url) => fetch(url).then((res) => res.json());
 
 export default function Tabela({ data }: TableProps) {
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [modalContent, setModalContent] = useState({
-      title: "",
-      content: "",
-      onConfirm: null,
-    });
+    // const [isModalOpen, setIsModalOpen] = useState(false);
+    // const [modalContent, setModalContent] = useState({
+    //   title: "",
+    //   content: "",
+    //   onConfirm: null,
+    // });
 
-    // Função para abrir o modal para edição
-    const handleEditClick = (item) => {
-      setModalContent({
-        title: "Editar Item",
-        content: `Deseja editar os dados de ${item.nome}?`,
-        onConfirm: () => handleEditConfirm(item),
-      });
-      setIsModalOpen(true);
-    };
+    // // Função para abrir o modal para edição
+    // const handleEditClick = (item) => {
+    //   setModalContent({
+    //     title: "Editar Item",
+    //     content: `Deseja editar os dados de ${item.nome}?`,
+    //     onConfirm: () => handleEditConfirm(item),
+    //   });
+    //   setIsModalOpen(true);
+    // };
 
-    // Função para confirmar a edição (aqui você pode adicionar a lógica de edição)
-    const handleEditConfirm = (item) => {
-      console.log("Editando item:", item);
-      setIsModalOpen(false);
-    };
+    // // Função para confirmar a edição (aqui você pode adicionar a lógica de edição)
+    // const handleEditConfirm = (item) => {
+    //   console.log("Editando item:", item);
+    //   setIsModalOpen(false);
+    // };
 
-    // Função para abrir o modal para exclusão
-    const handleDeleteClick = (item) => {
-      setModalContent({
-        title: "Excluir Item",
-        content: `Tem certeza que deseja excluir ${item.nome}?`,
-        onConfirm: () => handleDeleteConfirm(item),
-      });
-      setIsModalOpen(true);
-    };
+    // // Função para abrir o modal para exclusão
+    // const handleDeleteClick = (item) => {
+    //   setModalContent({
+    //     title: "Excluir Item",
+    //     content: `Tem certeza que deseja excluir ${item.nome}?`,
+    //     onConfirm: () => handleDeleteConfirm(item),
+    //   });
+    //   setIsModalOpen(true);
+    // };
 
-    // Função para confirmar a exclusão (aqui você pode adicionar a lógica de exclusão)
-    const handleDeleteConfirm = (item) => {
-      console.log("Excluindo item:", item);
-      setIsModalOpen(false);
-    };
+    // // Função para confirmar a exclusão (aqui você pode adicionar a lógica de exclusão)
+    // const handleDeleteConfirm = (item) => {
+    //   console.log("Excluindo item:", item);
+    //   setIsModalOpen(false);
+    // };
+
+    
+    const nomeModulo= 'Usuários';
+    const [modalAberto,setModalAberto] = useState(false);
+    
+    // type ModalType = 'editar' | 'excluir' | null;
+    // const [modalType, setModalType] = useState<ModalType>(null);
+    // const [modalType, setModalType] = useState<('editar' | 'excluir' | null)>(null);
+    // const [modalType, setModalType] = useState<'editar' | 'excluir' | null>(null as 'editar' | 'excluir' | null);
+
+    // const [modalType, setModalType] = useState<'editar' | 'excluir' | undefined>(undefined);
+
+
+  // ============== Métodos de Modais Inicio===================//
  
+  // ********  ******** Modal Abrir Editar ********  ******** 
+
+    // const [selectedItem,setSelectedItem] = useState<TableProps>();
+
+    function handleEditModal(item: TableProps){
+      setSelectedItem(item);    
+      setModalType('editar');
+      setModalAberto(!modalAberto)
+    }
+
+  // ********  ******** ============== ******** ********
+
+  // ********  ******** Modal Abrir Excluir ********  ******** 
+  function handleDeletarModal(item: TableProps){
+    setSelectedItem(item);
+    setModalType('excluir');
+    setModalAberto(!modalAberto)
+  }
+  // ********  ******** ============== ******** ********
+
+  // ********  ******** Modal Fechar ********  ******** 
+  function fecharModal() {
+    setModalAberto(false);
+    setModalType(null);
+    setSelectedItem(null);
+  }
+
+  // ============== Métodos de Modais Final ===================//
+
+
     
     // ================= PAGINAÇÃO DAS TABELAS ================= //
     
@@ -82,8 +126,6 @@ export default function Tabela({ data }: TableProps) {
     // ================= PAGINAÇÃO DAS TABELAS ================= //
     
   return (
-
-
     <div className="flex-auto ml-4 mr-4 mt-4 mb-4"> 
       <div className="overflow-x-auto mx-auto mt-8 mb-8 p-8 border border-gray-300 shadow-lg rounded-lg justify-between items-center">
         <div  className="flex flex-col items-end p-4">
@@ -109,9 +151,9 @@ export default function Tabela({ data }: TableProps) {
                 </tr>
               </thead>
               <tbody>
-                {paginatedData.map((item) => (
+                {paginatedData.map((item,index) => (
                   <tr
-                    key={item.usuario_id}
+                    key={index}
                     className="border-b border-gray-700 hover:bg-gray-700 transition-colors"
                   >
                     <td className="py-3 px-6 border border-gray-700">{item.usuario_id}</td>
@@ -120,19 +162,19 @@ export default function Tabela({ data }: TableProps) {
                     <td className="py-3 px-6 border border-gray-700">{item.usuario_senha}</td>
                     <td className="py-3 px-6 border border-gray-700">{item.usuario_nivel}</td>
                     <td className="py-4 px-6 border border-gray-700 flex space-x-4"> 
+                      
                       {/* Botão Editar */}
                       <button 
-                          
                           onClick={() => handleEditClick(item)}
                           className="flex items-center px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-700 transition-colors border border-white shadow-md shadow-yellow-500/50">
                           <FaPencilAlt className="w-5 h-5 mr-2" />
                       </button>
+
                       {/* Botão Excluir */}
                       <button 
                           className="flex items-center px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700 transition-colors border border-white shadow-md shadow-red-500/50"
                           onClick={() => handleDeleteClick(item)}
-                      >
-                            
+                      >  
                         <FaTrashAlt className="w-5 h-5 mr-2" />
                       </button>
                     </td>
@@ -140,15 +182,27 @@ export default function Tabela({ data }: TableProps) {
                 ))}
               </tbody>
             </table>
+
+            
+          {/* Modal Editar*/}
+          {/* <ModalFormulario 
+            modalAberto={modalAberto} 
+            fecharModal={handleEditModal} 
+            titulo={modalType === 'editar' ? 'Modo de Alteração' : 'Modo de Exclusão'} 
+            subtitulo={modalType === 'editar' ? `Edição de dados de ${nomeModulo}` : `Exclusão de Item`}
+            modalType = 'editar'
+          >
+
+          </ModalFormulario> */}
         
           {/* Modal */}
-          <Modal
+          {/* <Modal
             isOpen={isModalOpen}
             title={modalContent.title}
             content={modalContent.content}
             onClose={() => setIsModalOpen(false)}
             onConfirm={modalContent.onConfirm}
-          />
+          /> */}
 
         {/* Componente de Paginação */}
         <ReactPaginate

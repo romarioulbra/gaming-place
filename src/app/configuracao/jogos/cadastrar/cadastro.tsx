@@ -1,7 +1,7 @@
 import Botao from "@/app/components/Botao";
 import InputForm from "@/app/components/InputsForm";
 
-export default function CadastroCatJogos() {
+export default function CadastroJogos() {
   
   return (
     <div className="container">

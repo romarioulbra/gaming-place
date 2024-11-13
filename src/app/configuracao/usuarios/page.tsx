@@ -2,8 +2,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-import Navbar from "@/app/components/MenuNavbar";
-import Footer from "@/app/components/Rodape";
 import Tabela from "@/app/components/Tabela";
 import { FaUser} from "react-icons/fa";
 import CabecalhoViwer from "../../components/CabecalhoViwer";
@@ -31,16 +29,15 @@ export default function Usuarios() {
 
   return (
     <>
-      <Navbar/>
       <Fly/>
       <CabecalhoViwer 
         nomeModel={nomeModulo} 
         Icone={FaUser}
+        urlCadastro= "/configuracao/usuarios/cadastrar"
       />
       <div className="">
         <Tabela data={usuarios}/>
       </div>
-      <Footer/>
     </>
   );
 }

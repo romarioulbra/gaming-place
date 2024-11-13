@@ -23,7 +23,7 @@ export default function MenuVertical() {
     {
       title: "Categorias de Jogos",
       icone:<CgGames className='w-6 h-6  text-gray-400'/>,
-      link: "/configuracao/jogosCategoria"
+      link: "/configuracao/jogos_categoria"
     }
   ];
 

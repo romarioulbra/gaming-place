@@ -1,6 +1,6 @@
 import LoadBotao from "./Loading";
 
-export default function CabecalhoViwer({nomeModel,Icone}) {
+export default function CabecalhoViwer({nomeModel,Icone,urlCadastro}) {
   const titulo = `Gerenciamento de ${nomeModel}`;
   return (
       <>
@@ -16,7 +16,7 @@ export default function CabecalhoViwer({nomeModel,Icone}) {
             </div>
             {/* Botões alinhados à direita */}
             <div className="flex space-x-2">
-              <LoadBotao caminho = '/configuracao/usuarios/cadastro'/>
+              <LoadBotao caminho = {urlCadastro}/>
             </div>
           </div>
         </div>

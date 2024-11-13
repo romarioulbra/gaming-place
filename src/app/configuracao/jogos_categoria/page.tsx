@@ -3,7 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 import TabelaCatJogos from "@/app/components/TabelaCatJogos";
-import { FaUser} from "react-icons/fa";
+import { CgGames } from "react-icons/cg";
 import CabecalhoViwer from "../../components/CabecalhoViwer";
 import Fly from "@/app/components/Flyout";
 
@@ -32,7 +32,7 @@ export default function CategoriaJogos() {
       <Fly/>
       <CabecalhoViwer 
         nomeModel={nomeModulo} 
-        Icone={FaUser}
+        Icone={CgGames}
         urlCadastro= "/configuracao/jogos_categoria/cadastrar"
       />
       <div className="">

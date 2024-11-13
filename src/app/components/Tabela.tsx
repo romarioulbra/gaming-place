@@ -4,9 +4,9 @@ import { useState } from 'react';
 import ReactPaginate from 'react-paginate'; 
 
 import { GrCaretPrevious,GrCaretNext  } from "react-icons/gr";
-import { FaPencilAlt,FaTrashAlt  } from "react-icons/fa";
-// import Modal from './Modal2';
-import ModalFormulario from '../components/ModalFormulario';
+import { FaPencilAlt,FaTrashAlt,FaTrash  } from "react-icons/fa";
+import { ModalFormulario } from './ModalFormulario';
+import AlterarUsuarios from '../configuracao/usuarios/alterar/page';
 
 interface TableProps {
   data: { id: number; usuario_nome: string; usuario_email: string; usuario_senha: string;usuario_nivel: string }[];
@@ -14,7 +14,7 @@ interface TableProps {
 
 
 export default function Tabela({ data }: TableProps) {
-
+// console.log(data);
     // const [isModalOpen, setIsModalOpen] = useState(false);
     // const [modalContent, setModalContent] = useState({
     //   title: "",
@@ -57,20 +57,13 @@ export default function Tabela({ data }: TableProps) {
     
     const nomeModulo= 'Usuários';
     const [modalAberto,setModalAberto] = useState(false);
+    const [modalType, setModalType] = useState<'editar' | 'excluir' | null>(null);
     
-    // type ModalType = 'editar' | 'excluir' | null;
-    // const [modalType, setModalType] = useState<ModalType>(null);
-    // const [modalType, setModalType] = useState<('editar' | 'excluir' | null)>(null);
-    // const [modalType, setModalType] = useState<'editar' | 'excluir' | null>(null as 'editar' | 'excluir' | null);
-
-    // const [modalType, setModalType] = useState<'editar' | 'excluir' | undefined>(undefined);
-
-
-  // ============== Métodos de Modais Inicio===================//
+    // ============== Métodos de Modais Inicio===================//
  
   // ********  ******** Modal Abrir Editar ********  ******** 
 
-    // const [selectedItem,setSelectedItem] = useState<TableProps>();
+    const [selectedItem,setSelectedItem] = useState<TableProps>();
 
     function handleEditModal(item: TableProps){
       setSelectedItem(item);    
@@ -165,7 +158,7 @@ export default function Tabela({ data }: TableProps) {
                       
                       {/* Botão Editar */}
                       <button 
-                          onClick={() => handleEditClick(item)}
+                          onClick={() => handleEditModal(item)}
                           className="flex items-center px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-700 transition-colors border border-white shadow-md shadow-yellow-500/50">
                           <FaPencilAlt className="w-5 h-5 mr-2" />
                       </button>
@@ -173,7 +166,7 @@ export default function Tabela({ data }: TableProps) {
                       {/* Botão Excluir */}
                       <button 
                           className="flex items-center px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700 transition-colors border border-white shadow-md shadow-red-500/50"
-                          onClick={() => handleDeleteClick(item)}
+                          onClick={() => handleDeletarModal(item)}
                       >  
                         <FaTrashAlt className="w-5 h-5 mr-2" />
                       </button>
@@ -185,24 +178,69 @@ export default function Tabela({ data }: TableProps) {
 
             
           {/* Modal Editar*/}
-          {/* <ModalFormulario 
+          <ModalFormulario 
             modalAberto={modalAberto} 
             fecharModal={handleEditModal} 
             titulo={modalType === 'editar' ? 'Modo de Alteração' : 'Modo de Exclusão'} 
             subtitulo={modalType === 'editar' ? `Edição de dados de ${nomeModulo}` : `Exclusão de Item`}
             modalType = 'editar'
           >
+         
 
-          </ModalFormulario> */}
-        
-          {/* Modal */}
-          {/* <Modal
-            isOpen={isModalOpen}
-            title={modalContent.title}
-            content={modalContent.content}
-            onClose={() => setIsModalOpen(false)}
-            onConfirm={modalContent.onConfirm}
-          /> */}
+            {modalType === 'editar' ? (
+              <div>
+                {/* Formulário de edição */}
+                <AlterarUsuarios
+                  dados = {selectedItem}
+                >              
+                </AlterarUsuarios>
+                  {/* Botão Alterar centralizado */}
+                <div className="flex justify-center mt-6 bg-gray-100 py-4 rounded-b-lg space-x-4">
+                  <button
+                    type="button"
+                    className="px-6 py-2 bg-yellow-500 text-white font-semibold rounded-lg shadow-md hover:bg-yellow-600 transition"
+                  >
+                    Alterar
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <>
+                {/* Conteúdo do Modal para Exclusão */}
+                  <div className="flex justify-center">
+                    <FaTrash className="flex w-10 h-10 mb-3 mt-3" />
+                  </div>
+                
+                  <div className="flex flex-col text-center space-y-2">
+                    <p className="text-red-800 font-semibold">Este processo é irreversível!</p>
+                    <p>Tem certeza que deseja excluir o registro:</p>
+                    <p className=''>{`${selectedItem?.usuario_id} - ${selectedItem?.usuario_nome}?`}</p>
+                  </div>
+
+                {/* Botões de Confirmar Exclusão e Cancelar */}
+                <div className="flex justify-center mt-6 bg-gray-100 py-4 rounded-b-lg space-x-4">
+                  
+                  <button
+                    type="button"
+                    onClick={fecharModal}
+                    className="px-6 py-2 bg-gray-300 text-gray-700 font-semibold rounded-lg shadow-md hover:bg-gray-400 transition"
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      console.log("Item excluído com sucesso!");
+                      fecharModal();
+                    }}
+                    className="px-6 py-2 bg-red-500 text-white font-semibold rounded-lg shadow-md hover:bg-red-600 transition"
+                  >
+                    Excluir
+                  </button>
+                </div>
+              </>  
+              )}
+            </ModalFormulario>
 
         {/* Componente de Paginação */}
         <ReactPaginate

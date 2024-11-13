@@ -15,6 +15,7 @@ export default function InputForm({
   label,
   placeholder = '',
 }: FormularioProps) {
+ 
   const [formData, setFormData] = useState('');
 
   // const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {

@@ -16,3 +16,8 @@ model usuarios {
   usuario_criacao   DateTime @default(now())
   usuario_alteracao DateTime @updatedAt
 }
+
+model categoria_jogos {
+  categoria_jogo_id           Int    @id @default(autoincrement())
+  categoria_jogo_area_atuacao String
+}

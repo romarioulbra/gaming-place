@@ -34,7 +34,7 @@ export default function CardsGrid() {
       icon: <GiGamepadCross />,
       gradientFrom: "from-green-500",
       gradientTo: "to-teal-500",
-      link: "/configuracao/jogosCategoria"
+      link: "/configuracao/jogos_categoria"
     }
   ];
 

@@ -1,10 +1,13 @@
 'use client'
 import { useState } from 'react';
 interface FormularioProps {
-  tipoInput: 'text' | 'select' | 'textarea' | 'date' | 'email' | 'number' | 'radio' | 'password'; // Novos tipos adicionados
+  tipoInput: 'text' | 'select' |'selectDados' | 'textarea' | 'date' | 'email' | 'number' | 'radio' | 'password'; // Novos tipos adicionados
   label: string;
   placeholder?: string;
   options?: string[]; // Para o select e radio
+  dadosSelect?: string[]; 
+  idSelect?: string; 
+  nomeSelect?: string; 
 }
 
 export default function InputForm({
@@ -12,15 +15,14 @@ export default function InputForm({
   metodoSubmit,
   valorInput,
   options = [],
+  dadosSelect = [],
+  idSelect = 'id', // Valor padrão
+  nomeSelect = 'name', // Valor padrão
   label,
   placeholder = '',
 }: FormularioProps) {
  
   const [formData, setFormData] = useState('');
-
-  // const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-  //   setFormData(e.target.value);
-  // };
 
   return (
     // <div className="max-w-md mx-auto bg-white p-8 shadow-lg rounded-lg mt-10">
@@ -44,7 +46,7 @@ export default function InputForm({
             />
           )}
 
-          {tipoInput === 'select' && (
+          {(tipoInput === 'select') && (
             <select
               id={label.toLowerCase()}
               name={label.toLowerCase()}
@@ -61,6 +63,31 @@ export default function InputForm({
               ))}
             </select>
           )}
+
+
+
+          {tipoInput === 'selectDados' && (
+              <select
+                id={label.toLowerCase()}
+                name={label.toLowerCase()}
+                value={valorInput}
+                onChange={metodoSubmit}
+                className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
+                required>
+                {/* <option value="">Selecione uma opção</option>
+                  {dadosSelect.map((option) => (
+                    <option key={option.categoria_jogo_id} value={option.categoria_jogo_id}>
+                      {option.categoria_jogo_area_atuacao.toUpperCase()}
+                    </option>
+                  ))} */}
+                <option value="">Selecione uma Opção</option>
+                {dadosSelect.map((option, index) => (
+                  <option key={option[idSelect]} value={option[idSelect]}>
+                      {option[nomeSelect].toUpperCase()}
+                  </option>
+                ))}
+              </select>
+            )}
 
           {tipoInput === 'textarea' && (
             <textarea

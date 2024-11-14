@@ -3,9 +3,9 @@
 import { useState } from "react";
 import Botao from "@/app/components/Botao";
 import InputForm from "@/app/components/InputsForm";
-import { FaUserPlus} from "react-icons/fa";
+import { FaGamepad} from "react-icons/fa";
 import Alert from "@/app/components/Alert";
-import CabecalhoCadastro from "@/app/components/CabecalhoCadastro";
+import CabecalhoVoltar from "@/app/components/CabecalhoVoltar";
 import InputFile from "../../../components/FileInput";
 
 export default function Jogos() {
@@ -53,9 +53,11 @@ export default function Jogos() {
   return (
     <>
       <h1 className="text-center mt-24 mb-3 text-2xl font-bold">Cadastro de Jogos</h1>
-      <CabecalhoCadastro  
-        Icone = {FaUserPlus}
+      <CabecalhoVoltar  
+        Icone = {FaGamepad}
       />
+
+
       <Alert/>
 
       <div className="flex-auto ml-4 mr-4 mt-4 mb-4">

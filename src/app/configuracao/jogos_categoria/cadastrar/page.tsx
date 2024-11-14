@@ -3,9 +3,9 @@
 import { useState } from "react";
 import Botao from "@/app/components/Botao";
 import InputForm from "@/app/components/InputsForm";
-import { FaUserPlus} from "react-icons/fa";
+import { CgGames} from "react-icons/cg";
 import Alert from "@/app/components/Alert";
-import CabecalhoCadastro from "@/app/components/CabecalhoCadastro";
+import CabecalhoVoltar from "@/app/components/CabecalhoVoltar";
 
 export default function CadastroCatJogos() {
   const [formData, setFormData] = useState(
@@ -36,8 +36,8 @@ export default function CadastroCatJogos() {
   return (
     <>
       <h1 className="text-center mt-24 mb-3 text-2xl font-bold">Cadastro de Categoria de Jogos</h1>
-      <CabecalhoCadastro  
-        Icone = {FaUserPlus}
+      <CabecalhoVoltar  
+        Icone = {CgGames}
       />
       <Alert/>
 

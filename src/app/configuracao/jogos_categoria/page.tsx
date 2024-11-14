@@ -8,8 +8,7 @@ import CabecalhoViwer from "../../components/CabecalhoViwer";
 import Fly from "@/app/components/Flyout";
 
 export default function CategoriaJogos() {
-    
-  // variáveis globais
+ // variáveis globais
   const nomeModulo = 'Categoria de Jogos';
 
   const [catJogos, setcatJogos] = useState([]);

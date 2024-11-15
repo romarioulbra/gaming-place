@@ -18,16 +18,16 @@ model usuarios {
 }
 
 model categoria_jogos {
-  categoria_jogo_id           Int     @id @default(autoincrement())
+  categoria_jogo_id           Int    @id @default(autoincrement())
   categoria_jogo_area_atuacao String
-  categoria_jogos             jogos[]
+  // categoria_jogos             jogos[]
 }
 
 model jogos {
-  jogos_id         Int             @id @default(autoincrement())
-  jogos_nome       String
-  jogos_descricao  String
-  jogos_link       String
-  jogos_img        String
-  jogos_categorias categoria_jogos @relation(fields: [jogos_id], references: [categoria_jogo_id])
+  jogos_id        Int     @id @default(autoincrement())
+  jogos_nome      String
+  jogos_descricao String
+  jogos_link      String
+  jogos_url_img   String?
+  // jogos_categorias categoria_jogos @relation(fields: [jogos_id], references: [categoria_jogo_id])
 }

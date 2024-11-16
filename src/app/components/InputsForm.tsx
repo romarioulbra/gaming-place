@@ -1,7 +1,9 @@
 'use client'
 import { useState } from 'react';
+import Image from 'next/image';
+
 interface FormularioProps {
-  tipoInput: 'text' | 'select' |'selectDados' | 'textarea' | 'date' | 'email' | 'number' | 'radio' | 'password'; // Novos tipos adicionados
+  tipoInput: 'text' | 'select' |'selectDados' | 'textarea' | 'date' | 'email' | 'number' | 'radio' | 'password' | 'fileInput'; // Novos tipos adicionados
   label: string;
   placeholder?: string;
   options?: string[]; // Para o select e radio
@@ -23,6 +25,19 @@ export default function InputForm({
 }: FormularioProps) {
  
   const [formData, setFormData] = useState('');
+
+
+
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+
+  const FileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setPreviewUrl(URL.createObjectURL(file)); // Cria uma URL temporária para a imagem
+      // onChange(e); // Chama a função onChange passada como prop
+    }
+  };
+
 
   return (
     // <div className="max-w-md mx-auto bg-white p-8 shadow-lg rounded-lg mt-10">
@@ -166,6 +181,37 @@ export default function InputForm({
               onChange={metodoSubmit}
               className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
               placeholder={placeholder}
+              required
+            />
+          )}
+
+
+
+       {/* Exibir pré-visualização da imagem se estiver disponível */}
+       {previewUrl && (
+        <div className="flex justify-center mb-4">
+          <div className="relative w-32 h-32">
+            <Image
+              src={previewUrl}
+              alt="Pré-visualização"
+              layout="fill"
+              objectFit="cover"
+              className="rounded-md"
+            />
+          </div>
+        </div>
+      )} 
+
+
+
+          {tipoInput === 'fileInput' && (
+            <input
+              type="file"
+              value={valorInput}
+              // onChange={metodoSubmit}
+              accept='image/*'
+              onChange={metodoSubmit}
+              className="block w-full text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-500 file:text-white hover:file:bg-blue-600"
               required
             />
           )}

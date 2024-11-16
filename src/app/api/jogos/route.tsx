@@ -92,19 +92,27 @@ export async function PUT(req: Request) {
 
 // Função de Exclusão de Dados
 export async function DELETE(req: Request) {
-  const { jogos_id } = await req.json();
+  
+  const { searchParams } = new URL(req.url);
+  
+  const jogos_id = searchParams.get("jogos_id"); // Captura o ID do registro a ser excluído
+
+  if (!jogos_id || isNaN(Number(jogos_id))) {
+    return NextResponse.json({ error: "ID inválido ou não fornecido" }, { status: 400 });
+  }
 
   try {
     await prisma.jogos.delete({
       where: { jogos_id: Number(jogos_id) },
     });
 
-    return NextResponse.json({ message: 'Jogo excluído com sucesso.' }, { status: 200 });
+    return NextResponse.json({ message: "Registro excluído com sucesso!" }, { status: 200 });
   } catch (error) {
-    console.error('Erro ao excluir o Jogo:', error);
-    return NextResponse.json({ error: 'Erro ao excluir o Jogo.' }, { status: 500 });
-  } finally {
-    await prisma.$disconnect();
-  }
+    console.error('Erro ao excluir o registro:', error);
+    return NextResponse.json({ error: 'Erro ao excluir registro.' }, { status: 500 });
+  } 
+  // finally {
+  //   // await prisma.$disconnect();
+  // }
 }
 

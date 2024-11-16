@@ -28,6 +28,7 @@ export async function GET() {
 
 // Função de Inserção de Dados
 export async function POST(req: Request) {
+  // const { jogos_nome,jogos_descricao,jogos_link,jogos_url_img,categoria_jogo_id  } = await req.json();
   const { jogos_nome,jogos_descricao,jogos_link,jogos_url_img } = await req.json();
 
   try {
@@ -36,9 +37,24 @@ export async function POST(req: Request) {
        jogos_nome,
        jogos_descricao,
        jogos_link,
-       jogos_url_img
+       jogos_url_img,
       },
     });
+
+
+    // const newJogos = await prisma.jogos.create({
+    //   data: {
+    //    jogos_nome,
+    //    jogos_descricao,
+    //    jogos_link,
+    //    jogos_url_img,
+    //    jogos_categorias: {
+    //     connect: {
+    //       categoria_jogo_id: Number(categoria_jogo_id),
+    //     },
+    //   },
+    //   },
+    // });
 
     return NextResponse.json(newJogos, { status: 201 });
   } catch (error) {

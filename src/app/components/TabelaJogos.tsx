@@ -101,7 +101,7 @@ export default function TabelaJogos({ data,atributosCabTab,atributosDados }: Tab
                 }}
               /> 
           
-            <table className="min-w-full bg-purple-300 text-black rounded-lg table-auto border-collapse border border-white">
+            <table className="min-w-full bg-white text-black rounded-lg table-auto border-collapse border border-black">
               <thead>
               
                 {/* <tr className="bg-purple-900 text-gray-300 "> */}
@@ -117,15 +117,15 @@ export default function TabelaJogos({ data,atributosCabTab,atributosDados }: Tab
                   <th className="py-3 px-6 text-left ">Ação</th>
                 </tr>
               </thead>
-              <tbody className='border border-white'>
+              <tbody className='border border-black'>
                 {paginatedData.map((item,index) => (
                   <tr
                     key={index}
-                    className="border-b border-white hover:bg-white hover:border-2  hover:border-fuchsia-300 transition-colors"
+                    className="border-b border-black hover:bg-gray-200 hover:border  hover:border-fuchsia-300 transition-colors"
                   > 
                  
                   {atributosDados.map((atributoArray, idx) => (
-                    <td key={idx} className="py-3 px-6 border border-white">
+                    <td key={idx} className="py-3 px-6 border border-black">
                       {item[atributoArray]}
                     </td>
                   ))}
@@ -187,6 +187,7 @@ export default function TabelaJogos({ data,atributosCabTab,atributosDados }: Tab
                   <div className="flex flex-col text-center space-y-2">
                     <p className="text-red-800 font-semibold">Este processo é irreversível!</p>
                     <p className="text-blue-800 font-semibold">{modalText}</p>
+                    {/* <p className='bg-yellow-100 p-3 text-2xl'>{`${selectedItem?.jogos_id} - ${selectedItem?.jogos_nome}`}</p> */}
                     <p className='bg-yellow-100 p-3 text-2xl'>{`${selectedItem?.jogos_id} - ${selectedItem?.jogos_nome}`}</p>
                   </div>
 

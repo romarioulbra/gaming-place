@@ -15,8 +15,6 @@ interface TableProps {
 export default function TabelaJogos({ data,atributosCabTab,atributosDados }: TableProps) {
 
     
- 
-
     const [isLoading, setIsLoading] = useState(false);
    
     const [modalText, setModalText] = useState("Tem certeza que deseja excluir o Registro abaixo?");
@@ -32,7 +30,7 @@ export default function TabelaJogos({ data,atributosCabTab,atributosDados }: Tab
   // ********  ******** Modal Abrir Editar ********  ******** 
 
     const [selectedItem,setSelectedItem] = useState<TableProps>();
-
+    
     function handleEditModal(item: TableProps){
       setSelectedItem(item);    
       setModalType('editar');
@@ -55,6 +53,9 @@ export default function TabelaJogos({ data,atributosCabTab,atributosDados }: Tab
     setModalType(null);
     setSelectedItem(null);
   }
+
+  const id = selectedItem?.jogos_id || null;
+  const nome = selectedItem?.jogos_nome || null;
 
   // ============== Métodos de Modais Final ===================//
 
@@ -188,7 +189,7 @@ export default function TabelaJogos({ data,atributosCabTab,atributosDados }: Tab
                     <p className="text-red-800 font-semibold">Este processo é irreversível!</p>
                     <p className="text-blue-800 font-semibold">{modalText}</p>
                     {/* <p className='bg-yellow-100 p-3 text-2xl'>{`${selectedItem?.jogos_id} - ${selectedItem?.jogos_nome}`}</p> */}
-                    <p className='bg-yellow-100 p-3 text-2xl'>{`${selectedItem?.jogos_id} - ${selectedItem?.jogos_nome}`}</p>
+                    <p className='bg-yellow-100 p-3 text-2xl'>{id} - {nome}</p>
                   </div>
 
                 

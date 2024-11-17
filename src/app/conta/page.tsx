@@ -1,14 +1,17 @@
 import { SlGameController } from "react-icons/sl";
 import { GrGamepad } from "react-icons/gr";
+import Image from "next/image";
 
 export default function Conta() {
   return (
     <>
       <div className="grid grid-cols-2 min-h-screen">
-        <div className="bg-gradient-to-r from-blue-100 to-purple-500 flex items-center justify-center border-r-2 border-white">
+        {/* <div className="bg-gradient-to-r from-blue-100 to-purple-500 flex items-center justify-center border-white"> */}
+        <div className="bg-white  flex items-center justify-center ">
             <div className="flex flex-col items-center justify-center min-h-screen">
               <div className="flex text-black text-xl font-bold space-x-2 ">
-                <GrGamepad className='w-8 h-8 text-center'/>
+                {/* <GrGamepad className='w-8 h-8 text-center'/> */}
+                <SlGameController className='w-11 h-11 text-center'/>
                 <h1 className="text-5xl font-bold ml-6 "> Gaming Place</h1>
               </div>
 
@@ -16,14 +19,23 @@ export default function Conta() {
                 <p className="text-sm text-black">Explore os incríveis jogos desenvolvidos no CeulpUlbra</p>
               </div>
 
-              <div className="ml-4 flex justify-end mt-5">
+              {/* <div className="ml-4 flex justify-end mt-5">
                 <SlGameController className="w-60 h-60 text-pink-500" />
+              </div> */}
+              <div className="ml-4 flex justify-end mt-5">
+                  <Image 
+                      src="/img/foguete_espaco.png" 
+                      alt="logo" 
+                      width={210} 
+                      height={210} 
+                      className=""
+                  />
+           
               </div>
             </div>
-            {/* <Image src="/img/logoCienciasH.png" alt="logo" width={90} height={90} /> */}
           </div>
 
-          <div className="bg-purple-500 flex items-center justify-center bg-purple-700 ">
+          <div className="bg-purple-950 flex items-center justify-center">
             <form className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
               <h2 className="text-2xl font-bold text-center mb-6">Criar uma Conta</h2>
               

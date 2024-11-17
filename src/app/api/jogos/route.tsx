@@ -111,8 +111,5 @@ export async function DELETE(req: Request) {
     console.error('Erro ao excluir o registro:', error);
     return NextResponse.json({ error: 'Erro ao excluir registro.' }, { status: 500 });
   } 
-  // finally {
-  //   // await prisma.$disconnect();
-  // }
 }
 

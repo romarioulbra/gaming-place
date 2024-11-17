@@ -12,15 +12,24 @@ interface TableProps {
 }
 
 
-export default function TabelaJogos({ data }: TableProps) {
+export default function TabelaJogos({ data,atributosCabTab,atributosDados }: TableProps) {
 
-    // jogos_id, jogos_nome, jogos_descricao, jogos_link, jogos_url_img
-    const atributosCabTab = ["ID", "Nome", "Descrição", "Link", "Imagem"];
+    
+    // const atributosCabTab = ["ID", "Nome", "Descrição", "Link", "Imagem"];
 
-    const atributosDados = ["jogos_id", "jogos_nome", "jogos_descricao", "jogos_link", "jogos_url_img"];
+    // const atributosDados = ["jogos_id", "jogos_nome", "jogos_descricao", "jogos_link", "jogos_url_img"];
 
     const [isLoading, setIsLoading] = useState(false);
 
+    const [mensagem, setMensagem] = useState("");
+
+    const atualizarTabela = async () => {
+      const response = await fetch("/api/jogos");
+      const data = await response.json();
+      setTabelaDados(data);
+    };
+    
+    const [tabelaDados,setTabelaDados] = useState(data);
 
     const nomeModulo= 'Jogos';
     const [modalAberto,setModalAberto] = useState(false);
@@ -194,48 +203,47 @@ export default function TabelaJogos({ data }: TableProps) {
                   
                   <button
                     type="button"
-                    onClick={fecharModal}
-                    className="px-6 py-2 bg-gray-300 text-gray-700 font-semibold rounded-lg shadow-md hover:bg-gray-400 transition"
-                  >
-                    Cancelar
-                  </button>
-                  <button
-                    type="button"
                     onClick={async () => {
-                        if (!`${selectedItem?.jogos_id}`) {
-                          console.error("Erro: Selected Item está vazio!");
-                          return;
+                      
+                      if (!selectedItem?.jogos_id) {
+                        console.error("Erro: Selected Item está vazio!");
+                        return;
+                      }
+                  
+                      setIsLoading(true);
+                      setMensagem(""); // Limpa mensagens anteriores
+                  
+                      try {
+                        const endpoint = `/api/jogos?jogos_id=${selectedItem.jogos_id}`;
+                        console.log("Enviando requisição para:", endpoint);
+                  
+                        const response = await fetch(endpoint, {
+                          method: "DELETE",
+                        });
+                  
+                        console.log("Response Status:", response.status);
+                  
+                        if (!response.ok) {
+                          throw new Error(`Erro ao excluir o registro: ${response.status}`);
                         }
                   
-                        setIsLoading(true);
+                        const data = await response.json();
+                        console.log("Resposta da API:", data);
                   
-                        try {
-                          
-                          const endpoint = `/api/jogos?jogos_id=${selectedItem.jogos_id}`;
-
-                          console.log("Enviando requisição para:", endpoint);
-                    
-                          const response = await fetch(endpoint, {
-                            method: "DELETE",
-                          });
-                    
-                          console.log("Response Status:", response.status);
-                    
-                          if (!response.ok) {
-                            throw new Error(`Erro ao excluir o registro: ${response.status}`);
-                          }
-                    
-                          const data = await response.json();
-                          console.log("Resposta da API:", data);
+                        setMensagem("Registro excluído com sucesso!");
                   
-                    
-                          // Feche o modal
+                        // Aguarde 2 segundos antes de fechar o modal
+                        setTimeout(() => {
                           fecharModal();
-                        } catch (error) {
-                          console.error("Erro ao excluir o item:", error.message);
-                        } finally {
-                          setIsLoading(false);
-                        }
+                          atualizarTabela(); // Atualiza os dados na tabela
+                          // <p>Dados Excluídos com Sucesso!</p>
+                        }, 2000);
+                      } catch (error) {
+                        console.error("Erro ao excluir o item:", error.message);
+                        setMensagem("Erro ao excluir o registro.");
+                      } finally {
+                        setIsLoading(false);
+                      }
                     }}
                     className={`px-6 py-2 bg-red-500 text-white font-semibold rounded-lg shadow-md ${
                       isLoading ? "opacity-50 cursor-not-allowed" : "hover:bg-red-600"

@@ -12,6 +12,11 @@ export default function Jogos() {
   // variáveis globais
   const nomeModulo = 'Jogos';
 
+  const atributosCabTab = ["ID", "Nome", "Descrição", "Link", "Imagem"];
+
+  const atributosDados = ["jogos_id", "jogos_nome", "jogos_descricao", "jogos_link", "jogos_url_img"];
+
+
   const [jogos, setJogos] = useState([]);
 
   useEffect(() => {
@@ -36,7 +41,7 @@ export default function Jogos() {
         urlCadastro= "/configuracao/jogos/cadastrar"
       />
       <div className="">
-        <TabelaJogos data={jogos}/>
+        <TabelaJogos data={jogos} atributosCabTab={atributosCabTab} atributosDados={atributosDados}/>
       </div>
     </>
   );

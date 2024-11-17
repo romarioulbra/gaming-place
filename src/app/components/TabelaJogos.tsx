@@ -15,20 +15,12 @@ interface TableProps {
 export default function TabelaJogos({ data,atributosCabTab,atributosDados }: TableProps) {
 
     
-    // const atributosCabTab = ["ID", "Nome", "Descrição", "Link", "Imagem"];
-
-    // const atributosDados = ["jogos_id", "jogos_nome", "jogos_descricao", "jogos_link", "jogos_url_img"];
+ 
 
     const [isLoading, setIsLoading] = useState(false);
+   
+    const [modalText, setModalText] = useState("Tem certeza que deseja excluir o Registro abaixo?");
 
-    const [mensagem, setMensagem] = useState("");
-
-    const atualizarTabela = async () => {
-      const response = await fetch("/api/jogos");
-      const data = await response.json();
-      setTabelaDados(data);
-    };
-    
     const [tabelaDados,setTabelaDados] = useState(data);
 
     const nomeModulo= 'Jogos';
@@ -77,7 +69,6 @@ export default function TabelaJogos({ data,atributosCabTab,atributosDados }: Tab
     // Filtra os dados com base no termo de pesquisa
     const filteredData = data.filter(
       item =>
-         // jogos_id, jogos_nome, jogos_descricao, jogos_link, jogos_url_img
         item.jogos_nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.jogos_descricao.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.jogos_link.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -110,34 +101,35 @@ export default function TabelaJogos({ data,atributosCabTab,atributosDados }: Tab
                 }}
               /> 
           
-            <table className="min-w-full bg-gray-800 text-white rounded-lg table-auto border-collapse border border-gray-700">
+            <table className="min-w-full bg-purple-300 text-black rounded-lg table-auto border-collapse border border-white">
               <thead>
               
-                <tr className="bg-gray-900 text-gray-300">
+                {/* <tr className="bg-purple-900 text-gray-300 "> */}
+                <tr className="bg-neutral-900 text-gray-300 ">
                   {atributosCabTab.map((atributo, index) => (
                     <th
                       key={index}
-                      className="py-3 px-6 text-left border border-gray-700"
+                      className="py-3 px-6 text-left border border-white"
                     >
                       {atributo}
                     </th>
                   ))}
-                  <th className="py-3 px-6 text-left border border-gray-700">Ação</th>
+                  <th className="py-3 px-6 text-left ">Ação</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className='border border-white'>
                 {paginatedData.map((item,index) => (
                   <tr
                     key={index}
-                    className="border-b border-gray-700 hover:bg-gray-700 transition-colors"
+                    className="border-b border-white hover:bg-white hover:border-2  hover:border-fuchsia-300 transition-colors"
                   > 
                  
                   {atributosDados.map((atributoArray, idx) => (
-                    <td key={idx} className="py-3 px-6 border border-gray-700">
+                    <td key={idx} className="py-3 px-6 border border-white">
                       {item[atributoArray]}
                     </td>
                   ))}
-                    <td className="py-4 px-6 border border-gray-700 flex space-x-4"> 
+                    <td className="py-4 px-6  flex space-x-4"> 
                       
                       {/* Botão Editar */}
                       <button 
@@ -194,34 +186,30 @@ export default function TabelaJogos({ data,atributosCabTab,atributosDados }: Tab
                 
                   <div className="flex flex-col text-center space-y-2">
                     <p className="text-red-800 font-semibold">Este processo é irreversível!</p>
-                    <p>Tem certeza que deseja excluir o registro:</p>
-                    <p className=''>{`${selectedItem?.jogos_id} - ${selectedItem?.jogos_nome}?`}</p>
+                    <p className="text-blue-800 font-semibold">{modalText}</p>
+                    <p className='bg-yellow-100 p-3 text-2xl'>{`${selectedItem?.jogos_id} - ${selectedItem?.jogos_nome}`}</p>
                   </div>
 
+                
                 {/* Botões de Confirmar Exclusão e Cancelar */}
                 <div className="flex justify-center mt-6 bg-gray-100 py-4 rounded-b-lg space-x-4">
                   
                   <button
                     type="button"
                     onClick={async () => {
-                      
                       if (!selectedItem?.jogos_id) {
                         console.error("Erro: Selected Item está vazio!");
                         return;
                       }
                   
+                      setModalText("Excluindo registro, por favor aguarde...");
                       setIsLoading(true);
-                      setMensagem(""); // Limpa mensagens anteriores
                   
                       try {
                         const endpoint = `/api/jogos?jogos_id=${selectedItem.jogos_id}`;
-                        console.log("Enviando requisição para:", endpoint);
-                  
                         const response = await fetch(endpoint, {
                           method: "DELETE",
                         });
-                  
-                        console.log("Response Status:", response.status);
                   
                         if (!response.ok) {
                           throw new Error(`Erro ao excluir o registro: ${response.status}`);
@@ -230,17 +218,17 @@ export default function TabelaJogos({ data,atributosCabTab,atributosDados }: Tab
                         const data = await response.json();
                         console.log("Resposta da API:", data);
                   
-                        setMensagem("Registro excluído com sucesso!");
-                  
+                        setModalText("Registro excluído com sucesso!");
+                        
                         // Aguarde 2 segundos antes de fechar o modal
                         setTimeout(() => {
                           fecharModal();
-                          atualizarTabela(); // Atualiza os dados na tabela
-                          // <p>Dados Excluídos com Sucesso!</p>
+                          location.reload();
                         }, 2000);
+
                       } catch (error) {
                         console.error("Erro ao excluir o item:", error.message);
-                        setMensagem("Erro ao excluir o registro.");
+                        setModalText("Erro ao excluir o registro. Tente novamente.");
                       } finally {
                         setIsLoading(false);
                       }

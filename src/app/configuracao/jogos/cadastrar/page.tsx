@@ -9,6 +9,7 @@ import CabecalhoVoltar from "@/app/components/CabecalhoVoltar";
 import InputFile from "../../../components/FileInput";
 
 import Image from 'next/image';
+import UploadImage from "@/app/components/UploadImage";
 
 export default function Jogos() {
   const [formData, setFormData] = useState(
@@ -49,10 +50,10 @@ export default function Jogos() {
     e.preventDefault();
 
     // Certificar que a imagem foi carregada
-    if (!formData.jogos_url_img) {
-      alert("Por favor, selecione e carregue uma imagem antes de cadastrar.");
-      return;
-    }
+    // if (!formData.jogos_url_img) {
+    //   alert("Por favor, selecione e carregue uma imagem antes de cadastrar.");
+    //   return;
+    // }
 
     try {
       const response = await fetch('/api/jogos', {
@@ -135,36 +136,35 @@ export default function Jogos() {
 
 
 
+    const [file, setFile] = useState<File | undefined>();
+  const [uploadedFileName, setUploadedFileName] = useState<string | null>(null);
 
-    // const [file, setFile] = useState<File | undefined>();
+  const handleUpload = async () => {
+    if (!file) return;
 
-    // const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    //   e.preventDefault();
-    //   if (!file) return;
-  
-    //   try {
-    //     const data = new FormData();
-    //     data.set("file", file);
-  
-    //     const res = await fetch("/api/upload", {
-    //       method: "POST",
-    //       body: data,
-    //     });
-    //     console.log(res);
-  
-    //     if (res.ok) {
-    //       console.log("File uploaded successfully");
-    //     }
-    //   } catch (error) {
-    //     console.error(error);
-    //   }
-    // };
-  
-    // const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    //   if (!e.target.files?.[0]) return;
-    //   setFile(e.target.files?.[0]);
-    // };
-    
+    try {
+      const data = new FormData();
+      data.set("file", file);
+
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        body: data,
+      });
+
+      if (res.ok) {
+        // const responseData = await res.json();
+        setUploadedFileName(file.name); // Armazena o nome do arquivo
+        console.log(`A imagem ${file.name} foi gravada com sucesso!`);
+      } else {
+        const error = await res.json();
+        console.error("Erro ao gravar o arquivo:", error);
+        console.log(`Erro ao gravar a imagem: ${error.message || "Erro desconhecido"}`);
+      }
+    } catch (error) {
+      console.error("Erro:", error);
+      console.log("Ocorreu um erro durante o upload. Tente novamente.");
+    }
+  };
 
   return (
     <>
@@ -231,13 +231,13 @@ export default function Jogos() {
               )}
 
 
-              <InputForm
+              {/* <InputForm
                   tipoInput="fileInput"
                   label="Selecione uma Imagem para o Jogo"
                   placeholder="Clique aqui para escolher uma imagem"
                   onChange={handleFileChange} 
                   metodoSubmit={(e) => setFormData({ ...formData, jogos_url_img: e.target.value })}
-              />  
+              />   */}
 
 
 
@@ -247,6 +247,11 @@ export default function Jogos() {
                 metodoSubmit={(e) => setFormData({ ...formData, jogos_url_img: e.target.value })}
               /> */}
 
+              <UploadImage
+                label="Selecione uma Imagem"
+                metodoSubmit={(e) => setFormData({ ...formData, jogos_url_img: e.target.value })}
+              />
+
             </div>
 
             
@@ -255,6 +260,7 @@ export default function Jogos() {
                 texto='Cadastrar'
                 tipo='submit'
                 cor = 'azul'
+                // onClick={handleUpload}
               />
             </div>  
           </form>

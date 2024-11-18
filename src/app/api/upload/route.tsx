@@ -1,3 +1,26 @@
+import { writeFile } from "fs/promises";
+import { NextRequest, NextResponse } from "next/server";
+import path from "path";
+
+export async function POST(request: NextRequest) {
+  const data = await request.formData();
+  const file: File | null = data.get("file") as unknown as File;
+
+  if (!file) {
+    return NextResponse.json({ success: false });
+  }
+
+  const bytes = await file.arrayBuffer();
+  const buffer = Buffer.from(bytes);
+
+  const filePath = path.join(process.cwd(), "public/upload/jogos", file.name);
+  await writeFile(filePath, buffer);
+  console.log(`open ${filePath} to see the uploaded file`);
+
+  return NextResponse.json({ success: true });
+}
+
+
 // import { NextResponse } from "next/server";
 // import { IncomingForm } from "formidable";
 // import fs from "fs";
@@ -204,73 +227,73 @@
 // }
 
 
-// Somente para os arquivos
-'use server'
-import { writeFile } from "fs/promises";
-import { NextRequest, NextResponse } from "next/server";
-import path from "path";
-import fs from "fs"; // Importação necessária
+// // Somente para os arquivos
+// 'use server'
+// import { writeFile } from "fs/promises";
+// import { NextRequest, NextResponse } from "next/server";
+// import path from "path";
+// import fs from "fs"; // Importação necessária
 
-export const config = {
-  api: {
-    bodyParser: false, // Necessário desativar o bodyParser para manipular arquivos
-  },
-};
+// export const config = {
+//   api: {
+//     bodyParser: false, // Necessário desativar o bodyParser para manipular arquivos
+//   },
+// };
 
-export async function POST(request: NextRequest) {
-  try {
-    // Obter os dados enviados via formulário
-    const formData = await request.formData();
+// export async function POST(request: NextRequest) {
+//   try {
+//     // Obter os dados enviados via formulário
+//     const formData = await request.formData();
     
-    // Obter o arquivo
-    const file: File | null = formData.get("file") as File;
-    if (!file) {
-      return NextResponse.json(
-        { success: false, message: "Arquivo não enviado" },
-        { status: 400 }
-      );
-    }
+//     // Obter o arquivo
+//     const file: File | null = formData.get("file") as File;
+//     if (!file) {
+//       return NextResponse.json(
+//         { success: false, message: "Arquivo não enviado" },
+//         { status: 400 }
+//       );
+//     }
 
-    // Validar o tipo do arquivo (opcional, mas recomendado)
-    const allowedTypes = ["image/jpeg", "image/png", "image/gif"];
-    if (!allowedTypes.includes(file.type)) {
-      return NextResponse.json(
-        { success: false, message: "Tipo de arquivo não suportado" },
-        { status: 400 }
-      );
-    }
+//     // Validar o tipo do arquivo (opcional, mas recomendado)
+//     const allowedTypes = ["image/jpeg", "image/png", "image/gif"];
+//     if (!allowedTypes.includes(file.type)) {
+//       return NextResponse.json(
+//         { success: false, message: "Tipo de arquivo não suportado" },
+//         { status: 400 }
+//       );
+//     }
 
-    // Gerar um nome único para evitar conflitos
-    const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
-    const fileName = `${uniqueSuffix}-${file.name}`;
+//     // Gerar um nome único para evitar conflitos
+//     const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
+//     const fileName = `${uniqueSuffix}-${file.name}`;
     
-    // Converter o arquivo para Buffer
-    const arrayBuffer = await file.arrayBuffer();
-    const buffer = Buffer.from(arrayBuffer);
+//     // Converter o arquivo para Buffer
+//     const arrayBuffer = await file.arrayBuffer();
+//     const buffer = Buffer.from(arrayBuffer);
 
-    // Caminho para salvar o arquivo
-    const uploadDir = path.join(process.cwd(), "public/upload/jogos");
-    const filePath = path.join(uploadDir, fileName);
+//     // Caminho para salvar o arquivo
+//     const uploadDir = path.join(process.cwd(), "public/upload/jogos");
+//     const filePath = path.join(uploadDir, fileName);
 
-    // Criar o diretório se não existir
-    await fs.promises.mkdir(uploadDir, { recursive: true });
+//     // Criar o diretório se não existir
+//     await fs.promises.mkdir(uploadDir, { recursive: true });
 
-    // Salvar o arquivo no diretório
-    await writeFile(filePath, buffer);
-    console.log(`Arquivo salvo em: ${filePath}`);
+//     // Salvar o arquivo no diretório
+//     await writeFile(filePath, buffer);
+//     console.log(`Arquivo salvo em: ${filePath}`);
 
-    // Gerar a URL pública do arquivo
-    const fileUrl = `/upload/jogos/${fileName}`;
+//     // Gerar a URL pública do arquivo
+//     const fileUrl = `/upload/jogos/${fileName}`;
 
-    return NextResponse.json({ success: true, url: fileUrl }, { status: 201 });
-  } catch (error) {
-    console.error("Erro no upload:", error);
-    return NextResponse.json(
-      { success: false, message: "Erro no upload do arquivo" },
-      { status: 500 }
-    );
-  }
-}
+//     return NextResponse.json({ success: true, url: fileUrl }, { status: 201 });
+//   } catch (error) {
+//     console.error("Erro no upload:", error);
+//     return NextResponse.json(
+//       { success: false, message: "Erro no upload do arquivo" },
+//       { status: 500 }
+//     );
+//   }
+// }
 
 
 

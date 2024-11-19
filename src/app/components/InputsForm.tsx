@@ -43,7 +43,9 @@ export default function InputForm({
     // <div className="max-w-md mx-auto bg-white p-8 shadow-lg rounded-lg mt-10">
       <div className="space-y-6">
         <div>
-          <label htmlFor={label.toLowerCase()} className="block text-gray-700 font-medium mb-2">
+          <label 
+            htmlFor={label.toLowerCase()} 
+            className="block text-gray-700 font-medium mb-2">
             {label}
           </label>
 

@@ -93,8 +93,7 @@ export async function PUT(req: Request) {
 // Função de Exclusão de Dados
 export async function DELETE(req: Request) {
   
-  const { searchParams } = new URL(req.url);
-  
+  const { searchParams } = new URL(req.url);  
   const jogos_id = searchParams.get("jogos_id"); // Captura o ID do registro a ser excluído
 
   if (!jogos_id || isNaN(Number(jogos_id))) {

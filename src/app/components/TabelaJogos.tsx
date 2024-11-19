@@ -6,11 +6,10 @@ import ReactPaginate from 'react-paginate';
 import { GrCaretPrevious,GrCaretNext  } from "react-icons/gr";
 import { FaPencilAlt,FaTrashAlt,FaTrash  } from "react-icons/fa";
 import { ModalFormulario } from './ModalFormulario';
-
+import AlterarJogosCategoria from '../configuracao/usuarios/alterar/page';
 interface TableProps {
   data: { jogos_id: number; jogos_nome: string; jogos_descricao:string; jogos_link: string; jogos_url_img: string; }[];
 }
-
 
 export default function TabelaJogos({ data,atributosCabTab,atributosDados }: TableProps) {
 
@@ -165,10 +164,10 @@ export default function TabelaJogos({ data,atributosCabTab,atributosDados }: Tab
 
             {modalType === 'editar' ? (
               <div>
-                <AlterarUsuarios
+                <AlterarJogosCategoria
                   dados = {selectedItem}
                 >              
-                </AlterarUsuarios>
+                </AlterarJogosCategoria>
                 <div className="flex justify-center mt-6 bg-gray-100 py-4 rounded-b-lg space-x-4">
                   <button
                     type="button"

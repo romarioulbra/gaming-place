@@ -2,14 +2,17 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-import TabelaCatJogos from "@/app/components/TabelaCatJogos";
+// import TabelaCatJogos from "@/app/components/TabelaCatJogos";
+import TabelaPadrao from "@/app/components/TabelaPadrao";
 import { CgGames } from "react-icons/cg";
 import CabecalhoViwer from "../../components/CabecalhoViwer";
 import Fly from "@/app/components/Flyout";
 
 export default function CategoriaJogos() {
  // variáveis globais
-  const nomeModulo = 'Categoria de Jogos';
+ const atributosCabTab = ["ID", "Área de Atuação"];
+ const atributosDados = ["categoria_jogo_id", "categoria_jogo_area_atuacao"];
+ const nomeModulo = 'Categoria de Jogos';
 
   const [catJogos, setcatJogos] = useState([]);
 
@@ -34,8 +37,12 @@ export default function CategoriaJogos() {
         Icone={CgGames}
         urlCadastro= "/configuracao/jogos_categoria/cadastrar"
       />
-      <div className="">
+      {/* <div className="">
         <TabelaCatJogos data={catJogos}/>
+      </div> */}
+
+      <div className="">
+        <TabelaPadrao data={catJogos} atributosCabTab={atributosCabTab} atributosDados={atributosDados}/>
       </div>
     </>
   );

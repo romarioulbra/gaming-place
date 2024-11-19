@@ -44,43 +44,25 @@ export async function POST(req: Request) {
 
 
 
-// Função de Alteração de Dados
-export async function PUT(req: Request) {
-  const { categoria_jogo_id, categoria_jogo_area_atuacao } = await req.json();
-
-  try {
-    const updatedCatJogos = await prisma.categoria_jogos.update({
-      where: { id: Number(categoria_jogo_id) },
-      data: {
-        categoria_jogo_area_atuacao
-      },
-    });
-
-    return NextResponse.json(updatedCatJogos, { status: 200 });
-  } catch (error) {
-    console.error('Erro ao atualizar Categorias de Jogos', error);
-    return NextResponse.json({ error: 'Erro ao atualizar Categorias de Jogos.' }, { status: 500 });
-  } finally {
-    await prisma.$disconnect();
-  }
-}
-
-
 // Função de Exclusão de Dados
 export async function DELETE(req: Request) {
-  const { id } = await req.json();
+  
+  const { searchParams } = new URL(req.url);  
+  const categoria_jogo_id = searchParams.get("categoria_jogo_id"); // Captura o ID do registro a ser excluído
+
+  if (!categoria_jogo_id || isNaN(Number(categoria_jogo_id))) {
+    return NextResponse.json({ error: "ID inválido ou não fornecido" }, { status: 400 });
+  }
 
   try {
     await prisma.categoria_jogos.delete({
-      where: { id: Number(categoria_jogo_id) },
+      where: { categoria_jogo_id: Number(categoria_jogo_id) },
     });
 
-    return NextResponse.json({ message: 'Categoria de Jogos excluída com sucesso.' }, { status: 200 });
+    return NextResponse.json({ message: "Registro excluído com sucesso!" }, { status: 200 });
   } catch (error) {
-    console.error('Erro ao excluir Categoria de Jogos:', error);
-    return NextResponse.json({ error: 'Erro ao excluir Categoria de Jogos.' }, { status: 500 });
-  } finally {
-    await prisma.$disconnect();
-  }
+    console.error('Erro ao excluir o registro:', error);
+    return NextResponse.json({ error: 'Erro ao excluir registro.' }, { status: 500 });
+  } 
 }
 

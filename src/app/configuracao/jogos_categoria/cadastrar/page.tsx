@@ -35,7 +35,7 @@ export default function CadastroCatJogos() {
 
   return (
     <>
-      <h1 className="text-center mt-24 mb-3 text-2xl font-bold">Cadastro de Categoria de Jogos</h1>
+      <h1 className="text-center mt-32 mb-3 text-2xl font-bold">Cadastro de Categoria de Jogos</h1>
       <CabecalhoVoltar  
         Icone={CgGames}
       />

@@ -42,7 +42,11 @@ export default function CategoriaJogos() {
       </div> */}
 
       <div className="">
-        <TabelaPadrao data={catJogos} atributosCabTab={atributosCabTab} atributosDados={atributosDados}/>
+        <TabelaPadrao 
+          data={catJogos} 
+          atributosCabTab={atributosCabTab} 
+          atributosDados={atributosDados}
+        />
       </div>
     </>
   );

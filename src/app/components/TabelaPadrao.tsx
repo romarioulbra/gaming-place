@@ -12,16 +12,13 @@ interface TableProps {
 }
 
 
-export default function TabelaPadrao({ data,atributosCabTab,atributosDados }: TableProps) {
+export default function TabelaPadrao({ data,atributosCabTab,atributosDados}: TableProps) {
 
     
-    const [isLoading, setIsLoading] = useState(false);
-   
-    const [modalText, setModalText] = useState("Tem certeza que deseja excluir o Registro abaixo?");
-
-    const [tabelaDados,setTabelaDados] = useState(data);
-
     const nomeModulo= 'Jogos';
+    const [isLoading, setIsLoading] = useState(false);
+    const [modalText, setModalText] = useState("Tem certeza que deseja excluir o Registro abaixo?");
+    const [tabelaDados,setTabelaDados] = useState(data);
     const [modalAberto,setModalAberto] = useState(false);
     const [modalType, setModalType] = useState<'editar' | 'excluir' | null>(null);
     
@@ -58,7 +55,6 @@ export default function TabelaPadrao({ data,atributosCabTab,atributosDados }: Ta
   const nome = selectedItem?.categoria_jogo_area_atuacao || null;
 
   // ============== Métodos de Modais Final ===================//
-
 
     
     // ================= PAGINAÇÃO DAS TABELAS ================= //
@@ -173,7 +169,7 @@ export default function TabelaPadrao({ data,atributosCabTab,atributosDados }: Ta
               <>
                 {/* Conteúdo do Modal para Exclusão */}
                   <div className="flex justify-center">
-                    <FaTrash className="flex w-10 h-10 mb-3 mt-3" />
+                    <FaTrash className="flex w-10 h-10 mb-3 mt-3 transition-transform duration-300 hover:scale-125"/>
                   </div>
                 
                   <div className="flex flex-col text-center space-y-2">
@@ -185,8 +181,7 @@ export default function TabelaPadrao({ data,atributosCabTab,atributosDados }: Ta
 
                 
                 {/* Botões de Confirmar Exclusão e Cancelar */}
-                <div className="flex justify-center mt-6 bg-gray-100 py-4 rounded-b-lg space-x-4">
-                  
+                <div className="flex flex-col mt-6 py-4 rounded-b-lg space-x-4">
                   <button
                     type="button"
                     onClick={async () => {

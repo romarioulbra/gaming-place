@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import TabelaJogos from "@/app/components/TabelaJogos";
 import { FaGamepad} from "react-icons/fa";
 import CabecalhoViwer from "../../components/CabecalhoViwer";
-import Fly from "@/app/components/Flyout";
+// import Fly from "@/app/components/Flyout";
 
 export default function Jogos() {
     
@@ -34,7 +34,7 @@ export default function Jogos() {
 
   return (
     <>
-      <Fly/>
+      {/* <Fly/> */}
       <CabecalhoViwer 
         nomeModel={nomeModulo} 
         Icone={FaGamepad}

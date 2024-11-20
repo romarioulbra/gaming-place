@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import Tabela from "@/app/components/Tabela";
 import { FaUser} from "react-icons/fa";
 import CabecalhoViwer from "../../components/CabecalhoViwer";
-import Fly from "@/app/components/Flyout";
+// import Fly from "@/app/components/Flyout";
 
 export default function Usuarios() {
     
@@ -29,7 +29,7 @@ export default function Usuarios() {
 
   return (
     <>
-      <Fly/>
+      {/* <Fly/> */}
       <CabecalhoViwer 
         nomeModel={nomeModulo} 
         Icone={FaUser}

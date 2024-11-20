@@ -2,38 +2,34 @@
 import React from 'react';
 import { useState } from 'react';
 import ReactPaginate from 'react-paginate'; 
-
 import { GrCaretPrevious,GrCaretNext  } from "react-icons/gr";
 import { FaPencilAlt,FaTrashAlt,FaTrash  } from "react-icons/fa";
 import { ModalFormulario } from './ModalFormulario';
 import AlterarJogosCategoria from '../configuracao/jogos_categoria/alterar/page';
+
 interface TableProps {
   data: { categoria_jogo_id: number; categoria_jogo_area_atuacao: string;}[];
 }
 
 
 export default function TabelaPadrao({ data,atributosCabTab,atributosDados}: TableProps) {
-
-    
+    //  Variáveis Globais
     const nomeModulo= 'Jogos';
     const [isLoading, setIsLoading] = useState(false);
     const [modalText, setModalText] = useState("Tem certeza que deseja excluir o Registro abaixo?");
-    const [tabelaDados,setTabelaDados] = useState(data);
     const [modalAberto,setModalAberto] = useState(false);
     const [modalType, setModalType] = useState<'editar' | 'excluir' | null>(null);
+    const [selectedItem,setSelectedItem] = useState<TableProps>();
     
     // ============== Métodos de Modais Inicio===================//
  
-  // ********  ******** Modal Abrir Editar ********  ******** 
 
-    const [selectedItem,setSelectedItem] = useState<TableProps>();
-    
+  // ********  ******** Modal Abrir Editar ********  ********   
     function handleEditModal(item: TableProps){
       setSelectedItem(item);    
       setModalType('editar');
       setModalAberto(!modalAberto)
     }
-
   // ********  ******** ============== ******** ********
 
   // ********  ******** Modal Abrir Excluir ********  ******** 
@@ -51,14 +47,14 @@ export default function TabelaPadrao({ data,atributosCabTab,atributosDados}: Tab
     setSelectedItem(null);
   }
 
+  // ********  ******** Variáves da Listagem da Exclusão ********  ******** 
   const id = selectedItem?.categoria_jogo_id || null;
   const nome = selectedItem?.categoria_jogo_area_atuacao || null;
 
-  // ============== Métodos de Modais Final ===================//
+  // ==============  xxxxxxxxxxxxxxxx Métodos de Modais Final xxxxxxxxxxxxxxxx ===================//
 
     
     // ================= PAGINAÇÃO DAS TABELAS ================= //
-    
     const itemsPerPage = 5;
     const [currentPage, setCurrentPage] = useState(0);
     const [searchTerm, setSearchTerm] = useState('');
@@ -66,7 +62,6 @@ export default function TabelaPadrao({ data,atributosCabTab,atributosDados}: Tab
     // Filtra os dados com base no termo de pesquisa
     const filteredData = data.filter(
       item =>
-        // item.categoria_jogo_id.includes(searchTerm.toLowerCase()) ||
         item.categoria_jogo_area_atuacao.toLowerCase().includes(searchTerm.toLowerCase())
     );
   
@@ -80,7 +75,7 @@ export default function TabelaPadrao({ data,atributosCabTab,atributosDados}: Tab
       setCurrentPage(selected);
     };
   
-    // ================= PAGINAÇÃO DAS TABELAS ================= //
+    // =================  xxxxxxxxxxxxxxxx PAGINAÇÃO DAS TABELAS  xxxxxxxxxxxxxxxx ================= //
     
   return (
     <div className="flex-auto ml-4 mr-4 mt-4 mb-4"> 
@@ -98,8 +93,6 @@ export default function TabelaPadrao({ data,atributosCabTab,atributosDados}: Tab
           
             <table className="min-w-full bg-white text-black rounded-lg table-auto border-collapse border border-black">
               <thead>
-              
-                {/* <tr className="bg-purple-900 text-gray-300 "> */}
                 <tr className="bg-neutral-900 text-gray-300 ">
                   {atributosCabTab.map((atributo, index) => (
                     <th
@@ -145,7 +138,6 @@ export default function TabelaPadrao({ data,atributosCabTab,atributosDados}: Tab
                 ))}
               </tbody>
             </table>
-
             
           {/* Modal Editar*/}
           <ModalFormulario 
@@ -155,17 +147,16 @@ export default function TabelaPadrao({ data,atributosCabTab,atributosDados}: Tab
             subtitulo={modalType === 'editar' ? `Edição de dados de ${nomeModulo}` : `Exclusão de Item`}
             modalType = 'editar'
           >
-         
-
-            {modalType === 'editar' ? (
-              <div>
-                <AlterarJogosCategoria
-                  dados = {selectedItem}
-                >              
-                </AlterarJogosCategoria>
-                
-              </div>
-            ) : (
+     
+          {modalType === 'editar' ? (
+            <div>
+              <AlterarJogosCategoria
+                dados = {selectedItem}
+              >              
+              </AlterarJogosCategoria>
+              
+            </div>
+          ) : (
               <>
                 {/* Conteúdo do Modal para Exclusão */}
                   <div className="flex justify-center">
@@ -175,11 +166,9 @@ export default function TabelaPadrao({ data,atributosCabTab,atributosDados}: Tab
                   <div className="flex flex-col text-center space-y-2">
                     <p className="text-red-800 font-semibold">Este processo é irreversível!</p>
                     <p className="text-blue-800 font-semibold">{modalText}</p>
-                    {/* <p className='bg-yellow-100 p-3 text-2xl'>{`${selectedItem?.jogos_id} - ${selectedItem?.jogos_nome}`}</p> */}
                     <p className='bg-yellow-100 p-3 text-2xl'>{id} - {nome}</p>
                   </div>
 
-                
                 {/* Botões de Confirmar Exclusão e Cancelar */}
                 <div className="flex flex-col mt-6 py-4 rounded-b-lg space-x-4">
                   <button
@@ -232,24 +221,23 @@ export default function TabelaPadrao({ data,atributosCabTab,atributosDados}: Tab
               </>  
               )}
             </ModalFormulario>
-
-        {/* Componente de Paginação */}
-        <ReactPaginate
-          previousLabel={<GrCaretPrevious size={20} />}
-          nextLabel={<GrCaretNext size={20}/>}
-          breakLabel={"..."}
-          pageCount={pageCount}
-          marginPagesDisplayed={2}
-          pageRangeDisplayed={3}
-          onPageChange={handlePageClick}
-          containerClassName={"flex mt-4 space-x-2"}
-          pageClassName={"px-4 py-2 bg-indigo-600 rounded text-white cursor-pointer hover:bg-indigo-700"}
-          activeClassName={"bg-indigo-800"}
-          previousClassName={"px-4 py-2 bg-indigo-600 rounded text-white cursor-pointer hover:bg-indigo-700"}
-          nextClassName={"px-4 py-2 bg-indigo-600 rounded text-white cursor-pointer hover:bg-indigo-700"}
-          breakClassName={"px-4 py-2 text-gray-400"}
-          disabledClassName={"bg-gray-600 cursor-not-allowed"}
-        />
+          {/* Componente de Paginação */}
+          <ReactPaginate
+            previousLabel={<GrCaretPrevious size={20} />}
+            nextLabel={<GrCaretNext size={20}/>}
+            breakLabel={"..."}
+            pageCount={pageCount}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={3}
+            onPageChange={handlePageClick}
+            containerClassName={"flex mt-4 space-x-2"}
+            pageClassName={"px-4 py-2 bg-indigo-600 rounded text-white cursor-pointer hover:bg-indigo-700"}
+            activeClassName={"bg-indigo-800"}
+            previousClassName={"px-4 py-2 bg-indigo-600 rounded text-white cursor-pointer hover:bg-indigo-700"}
+            nextClassName={"px-4 py-2 bg-indigo-600 rounded text-white cursor-pointer hover:bg-indigo-700"}
+            breakClassName={"px-4 py-2 text-gray-400"}
+            disabledClassName={"bg-gray-600 cursor-not-allowed"}
+          />
         </div>
       </div>
     </div>

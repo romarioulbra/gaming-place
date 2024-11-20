@@ -12,7 +12,6 @@ interface ModalProps {
 
 export function ModalFormulario({ modalAberto, fecharModal, children, titulo, subtitulo, modalType}: ModalProps) {
   if (!modalAberto) return null;
-
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-md">
       {/* Fundo escuro */}
@@ -42,7 +41,6 @@ export function ModalFormulario({ modalAberto, fecharModal, children, titulo, su
           </>
         ) : (
           <>
-            
           </>
         )}
       </div>

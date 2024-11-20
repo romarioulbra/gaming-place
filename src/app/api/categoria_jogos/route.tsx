@@ -43,7 +43,6 @@ export async function POST(req: Request) {
 }
 
 
-
 // Função de Exclusão de Dados
 export async function DELETE(req: Request) {
   

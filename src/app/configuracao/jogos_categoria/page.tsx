@@ -1,21 +1,18 @@
 'use client'
 import axios from "axios";
 import { useEffect, useState } from "react";
-
-// import TabelaCatJogos from "@/app/components/TabelaCatJogos";
 import TabelaPadrao from "@/app/components/TabelaPadrao";
 import { CgGames } from "react-icons/cg";
 import CabecalhoViwer from "../../components/CabecalhoViwer";
-import Fly from "@/app/components/Flyout";
 
 export default function CategoriaJogos() {
  // variáveis globais
  const atributosCabTab = ["ID", "Área de Atuação"];
  const atributosDados = ["categoria_jogo_id", "categoria_jogo_area_atuacao"];
  const nomeModulo = 'Categoria de Jogos';
+ const [catJogos, setcatJogos] = useState([]);
 
-  const [catJogos, setcatJogos] = useState([]);
-
+  //Buscando Dados do BD para Recarregar na página
   useEffect(() => {
     async function fetchCatJogos() {
       try {
@@ -30,25 +27,20 @@ export default function CategoriaJogos() {
   }, []);
 
   return (
-    <>
-      <Fly/>
-      <CabecalhoViwer 
-        nomeModel={nomeModulo} 
-        Icone={CgGames}
-        urlCadastro= "/configuracao/jogos_categoria/cadastrar"
-      />
-      {/* <div className="">
-        <TabelaCatJogos data={catJogos}/>
-      </div> */}
-
-      <div className="">
-        <TabelaPadrao 
-          data={catJogos} 
-          atributosCabTab={atributosCabTab} 
-          atributosDados={atributosDados}
+      <>
+        <CabecalhoViwer 
+          nomeModel={nomeModulo} 
+          Icone={CgGames}
+          urlCadastro= "/configuracao/jogos_categoria/cadastrar"
         />
-      </div>
-    </>
+        <div className="">
+          <TabelaPadrao 
+            data={catJogos} 
+            atributosCabTab={atributosCabTab} 
+            atributosDados={atributosDados}
+          />
+        </div>
+      </>
   );
 }
 

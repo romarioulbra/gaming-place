@@ -81,8 +81,6 @@ export default function InputForm({
             </select>
           )}
 
-
-
           {tipoInput === 'selectDados' && (
               <select
                 id={label.toLowerCase()}
@@ -91,12 +89,6 @@ export default function InputForm({
                 onChange={metodoSubmit}
                 className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
                 required>
-                {/* <option value="">Selecione uma opção</option>
-                  {dadosSelect.map((option) => (
-                    <option key={option.categoria_jogo_id} value={option.categoria_jogo_id}>
-                      {option.categoria_jogo_area_atuacao.toUpperCase()}
-                    </option>
-                  ))} */}
                 <option value="">Selecione uma Opção</option>
                 {dadosSelect.map((option, index) => (
                   <option key={option[idSelect]} value={option[idSelect]}>
@@ -187,37 +179,33 @@ export default function InputForm({
             />
           )}
 
-
-
-       {/* Exibir pré-visualização da imagem se estiver disponível */}
-       {previewUrl && (
-        <div className="flex justify-center mb-4">
-          <div className="relative w-32 h-32">
-            <Image
-              src={previewUrl}
-              alt="Pré-visualização"
-              layout="fill"
-              objectFit="cover"
-              className="rounded-md"
-            />
+        {/* Exibir pré-visualização da imagem se estiver disponível */}
+        {previewUrl && (
+          <div className="flex justify-center mb-4">
+            <div className="relative w-32 h-32">
+              <Image
+                src={previewUrl}
+                alt="Pré-visualização"
+                layout="fill"
+                objectFit="cover"
+                className="rounded-md"
+              />
+            </div>
           </div>
-        </div>
-      )} 
+        )} 
 
-
-
-          {tipoInput === 'fileInput' && (
-            <input
-              type="file"
-              value={valorInput}
-              // onChange={metodoSubmit}
-              accept='image/*'
-              onChange={metodoSubmit}
-              className="block w-full text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-500 file:text-white hover:file:bg-blue-600"
-              required
-            />
-          )}
-        </div>
+        {tipoInput === 'fileInput' && (
+          <input
+            type="file"
+            value={valorInput}
+            // onChange={metodoSubmit}
+            accept='image/*'
+            onChange={metodoSubmit}
+            className="block w-full text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-500 file:text-white hover:file:bg-blue-600"
+            required
+          />
+        )}
       </div>
+    </div>
   );
 }

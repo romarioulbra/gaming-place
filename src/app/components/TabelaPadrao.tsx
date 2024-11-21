@@ -164,9 +164,9 @@ export default function TabelaPadrao({ data,atributosCabTab,atributosDados}: Tab
                   </div>
                 
                   <div className="flex flex-col text-center space-y-2">
-                    <p className="text-red-800 font-semibold">Este processo é irreversível!</p>
-                    <p className="text-blue-800 font-semibold">{modalText}</p>
-                    <p className='bg-yellow-100 p-3 text-2xl'>{id} - {nome}</p>
+                    <p className=" text-black font-semibold">Este processo é irreversível!</p>
+                    <p className="text-black font-semibold">{modalText}</p>
+                    <p className=' p-3 text-2xl font-extrabold'>{id} - {nome}</p>
                   </div>
 
                 {/* Botões de Confirmar Exclusão e Cancelar */}
@@ -210,7 +210,7 @@ export default function TabelaPadrao({ data,atributosCabTab,atributosDados}: Tab
                         setIsLoading(false);
                       }
                     }}
-                    className={`px-6 py-2 bg-red-500 text-white font-semibold rounded-lg shadow-md ${
+                    className={`px-6 py-2 bg-rose-400 text-white font-semibold rounded-lg shadow-md ${
                       isLoading ? "opacity-50 cursor-not-allowed" : "hover:bg-red-600"
                     } transition`}
                     disabled={isLoading}

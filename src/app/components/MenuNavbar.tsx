@@ -18,7 +18,8 @@ export default function Navbar() {
   const links = [
     { label: 'Inicio', path: '/' },
     { label: 'Sobre', path: '/sobre' },
-    { label: 'Jogos', path: '/jogos' },
+    // { label: 'Jogos', path: '/jogos' },
+    { label: 'Jogos', path: '/jogos/categorias' },
     { label: 'Conta', path: '/conta' },
     { label: 'Configuracao', path: '/configuracao' },
   ];

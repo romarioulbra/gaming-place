@@ -1,17 +1,14 @@
 'use client'
 import axios from "axios";
 import { useEffect, useState } from "react";
-
 import Tabela from "@/app/components/Tabela";
 import { FaUser} from "react-icons/fa";
 import CabecalhoViwer from "../../components/CabecalhoViwer";
-// import Fly from "@/app/components/Flyout";
 
-export default function Usuarios() {
-    
+
+export default function Usuarios() {  
   // variáveis globais
   const nomeModulo = 'Perfis de Usuários';
-
   const [usuarios, setUsuarios] = useState([]);
 
   useEffect(() => {
@@ -28,17 +25,16 @@ export default function Usuarios() {
   }, []);
 
   return (
-    <>
-      {/* <Fly/> */}
-      <CabecalhoViwer 
-        nomeModel={nomeModulo} 
-        Icone={FaUser}
-        urlCadastro= "/configuracao/usuarios/cadastrar"
-      />
-      <div className="">
-        <Tabela data={usuarios}/>
-      </div>
-    </>
+      <>
+        <CabecalhoViwer 
+          nomeModel={nomeModulo} 
+          Icone={FaUser}
+          urlCadastro= "/configuracao/usuarios/cadastrar"
+        />
+        <div className="">
+          <Tabela data={usuarios}/>
+        </div>
+      </>
   );
 }
 

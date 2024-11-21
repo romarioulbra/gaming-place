@@ -1,8 +1,6 @@
 'use server'
 import { PrismaClient } from '@prisma/client';
 import { NextResponse } from 'next/server';
-
-// import formidable from 'formidable';
 import { promises as fs } from 'fs';
 import path from 'path';
 
@@ -16,6 +14,7 @@ export async function GET() {
       select: {
         categoria_jogo_id: true,
         categoria_jogo_area_atuacao: true,
+        categoria_jogo_icone: true,
       },
     });
     return NextResponse.json(cat_jogos, { status: 200 });
@@ -27,8 +26,6 @@ export async function GET() {
     );
   }
 }
-
-
 
 // Função de Inserção de Dados
 // export async function POST(req: Request) {
@@ -99,9 +96,31 @@ export async function POST(req: Request) {
 
 
 // Função de Exclusão de Dados
-export async function DELETE(req: Request) {
+// export async function DELETE(req: Request) {
   
-  const { searchParams } = new URL(req.url);  
+//   const { searchParams } = new URL(req.url);  
+//   const categoria_jogo_id = searchParams.get("categoria_jogo_id"); // Captura o ID do registro a ser excluído
+
+//   if (!categoria_jogo_id || isNaN(Number(categoria_jogo_id))) {
+//     return NextResponse.json({ error: "ID inválido ou não fornecido" }, { status: 400 });
+//   }
+
+//   try {
+//     await prisma.categoria_jogos.delete({
+//       where: { categoria_jogo_id: Number(categoria_jogo_id) },
+//     });
+
+//     return NextResponse.json({ message: "Registro excluído com sucesso!" }, { status: 200 });
+//   } catch (error) {
+//     console.error('Erro ao excluir o registro:', error);
+//     return NextResponse.json({ error: 'Erro ao excluir registro.' }, { status: 500 });
+//   } 
+// }
+
+
+// Função de Exclusão de Dados
+export async function DELETE(req: Request) {
+  const { searchParams } = new URL(req.url);
   const categoria_jogo_id = searchParams.get("categoria_jogo_id"); // Captura o ID do registro a ser excluído
 
   if (!categoria_jogo_id || isNaN(Number(categoria_jogo_id))) {
@@ -109,14 +128,39 @@ export async function DELETE(req: Request) {
   }
 
   try {
+    // 1. Busca os dados do registro no banco antes de excluir (para obter o nome do arquivo)
+    const categoria = await prisma.categoria_jogos.findUnique({
+      where: { categoria_jogo_id: Number(categoria_jogo_id) },
+    });
+
+    if (!categoria) {
+      return NextResponse.json({ error: "Registro não encontrado" }, { status: 404 });
+    }
+
+    const filePath = path.join(
+      process.cwd(), // Diretório raiz do projeto
+      "upload/categoria_jogos", // Subdiretório onde os arquivos estão armazenados
+      categoria.categoria_jogo_icone // Nome do arquivo
+    );
+
+    // 2. Exclui o registro no banco
     await prisma.categoria_jogos.delete({
       where: { categoria_jogo_id: Number(categoria_jogo_id) },
     });
 
+    // 3. Remove o arquivo associado do sistema de arquivos
+    fs.unlink(filePath, (err) => {
+      if (err) {
+        console.error("Erro ao excluir o arquivo:", err);
+      } else {
+        console.log("Arquivo excluído com sucesso:", filePath);
+      }
+    });
+
     return NextResponse.json({ message: "Registro excluído com sucesso!" }, { status: 200 });
   } catch (error) {
-    console.error('Erro ao excluir o registro:', error);
-    return NextResponse.json({ error: 'Erro ao excluir registro.' }, { status: 500 });
-  } 
+    console.error("Erro ao excluir o registro:", error);
+    return NextResponse.json({ error: "Erro ao excluir registro." }, { status: 500 });
+  }
 }
 

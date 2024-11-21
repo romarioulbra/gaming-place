@@ -1,11 +1,4 @@
-// export default function CardCircular({ icon, text }) {
-//   return (
-//     <div className="flex flex-col items-center justify-center bg-purple-100 rounded-full w-36 h-36 shadow-lg">
-//       <div className="text-purple-600 text-3xl">{icon}</div>
-//       <p className="text-sm font-medium text-purple-600 mt-2">{text}</p>
-//     </div>
-//   );
-// }
+
 import Image from 'next/image';
 import Link from 'next/link';
 

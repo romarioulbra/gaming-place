@@ -2,6 +2,11 @@
 import { PrismaClient } from '@prisma/client';
 import { NextResponse } from 'next/server';
 
+// import formidable from 'formidable';
+import { promises as fs } from 'fs';
+import path from 'path';
+
+
 const prisma = new PrismaClient();
 
 // Função de Listagem de Dados
@@ -24,23 +29,73 @@ export async function GET() {
 }
 
 
-// Função de Inserção de Dados
-export async function POST(req: Request) {
-  const { categoria_jogo_area_atuacao } = await req.json();
 
+// Função de Inserção de Dados
+// export async function POST(req: Request) {
+//   const { categoria_jogo_area_atuacao } = await req.json();
+
+//   try {
+//     const newCatJogos = await prisma.categoria_jogos.create({
+//       data: {
+//        categoria_jogo_area_atuacao
+//       },
+//     });
+
+//     return NextResponse.json(newCatJogos, { status: 201 });
+//   } catch (error) {
+//    console.error('Erro ao criar nova Categoria de Jogos:', error);
+//     return NextResponse.json({ error: 'Erro ao criar Categoria de Jogos.' }, { status: 500 });
+//   }
+// }
+
+
+
+// Função de Inserção de Dados com Upload
+// Configuração para desabilitar o bodyParser padrão do Next.js
+// export const config = {
+//   api: {
+//     bodyParser: false, // Desativa o bodyParser
+//   },
+// };
+
+export async function POST(req: Request) {
   try {
+    const formData = await req.formData();
+    const categoria_jogo_area_atuacao = formData.get("categoria_jogo_area_atuacao") ;
+    const file = formData.get("categoria_jogo_icone") as File;
+
+    if (!categoria_jogo_area_atuacao || !file) {
+      return NextResponse.json({ error: "Todos os campos são obrigatórios!" }, { status: 400 });
+    }
+
+    // Verifica o tipo do arquivo
+    if (file.type !== "image/svg+xml") {
+      return NextResponse.json({ error: "Apenas arquivos SVG são permitidos." }, { status: 400 });
+    }
+
+    // Salvando o arquivo SVG no servidor
+    const uploadsDir = path.join(process.cwd(), "public", "upload", "categoria_jogos");
+    await fs.mkdir(uploadsDir, { recursive: true }); // Garante que o diretório exista
+
+    const filePath = path.join(uploadsDir, file.name);
+    const fileData = Buffer.from(await file.arrayBuffer());
+    await fs.writeFile(filePath, fileData);
+
+    // Salvando os dados no banco
     const newCatJogos = await prisma.categoria_jogos.create({
       data: {
-       categoria_jogo_area_atuacao
+        categoria_jogo_area_atuacao,
+        categoria_jogo_icone: `/upload/categoria_jogos/${file.name}`, // Caminho do ícone salvo
       },
     });
 
     return NextResponse.json(newCatJogos, { status: 201 });
   } catch (error) {
-   console.error('Erro ao criar nova Categoria de Jogos:', error);
-    return NextResponse.json({ error: 'Erro ao criar Categoria de Jogos.' }, { status: 500 });
+    console.error("Erro ao criar nova Categoria de Jogos:", error);
+    return NextResponse.json({ error: "Erro ao criar Categoria de Jogos." }, { status: 500 });
   }
 }
+
 
 
 // Função de Exclusão de Dados

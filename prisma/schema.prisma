@@ -32,4 +32,5 @@ model categoria_jogos {
   categoria_jogo_id           Int     @id @default(autoincrement())
   categoria_jogo_area_atuacao String
   jogos                       jogos[]
+  categoria_jogo_icone        String
 }

@@ -3,13 +3,14 @@ import { useState } from 'react';
 import Image from 'next/image';
 
 interface FormularioProps {
-  tipoInput: 'text' | 'select' |'selectDados' | 'textarea' | 'date' | 'email' | 'number' | 'radio' | 'password' | 'fileInput'; // Novos tipos adicionados
+  tipoInput: 'text' | 'select' |'selectDados' | 'textarea' | 'date' | 'email' | 'number' | 'radio' | 'password' | 'fileInput' | 'fileInputSVG'; // Novos tipos adicionados
   label: string;
   placeholder?: string;
   options?: string[]; // Para o select e radio
   dadosSelect?: string[]; 
   idSelect?: string; 
   nomeSelect?: string; 
+  idFileInput?: string; 
 }
 
 export default function InputForm({
@@ -22,6 +23,8 @@ export default function InputForm({
   nomeSelect = 'name', // Valor padrão
   label,
   placeholder = '',
+  fileSVG,
+  idFileInput
 }: FormularioProps) {
  
   const [formData, setFormData] = useState('');
@@ -205,6 +208,25 @@ export default function InputForm({
             required
           />
         )}
+
+        {tipoInput === 'fileInputSVG' && (
+          <input
+            type="file"
+            id={idFileInput}
+            accept='.svg'
+            onChange={fileSVG}
+            className="block w-full border rounded text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-rose-500 file:text-white hover:file:bg-rose-600"
+            required
+          />
+        )}
+
+{/* <input
+                type="file"
+                id="categoria_jogo_icone"
+                accept=".svg" // Apenas arquivos SVG
+                className="w-full p-2 border mb-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                onChange={handleFileChange}
+              /> */}
       </div>
     </div>
   );

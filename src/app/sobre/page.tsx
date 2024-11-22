@@ -1,53 +1,3 @@
-// import CardJogo from '../components/CardJogo';
-// import ImagensCirculares from '../components/Imagens';
-
-// export default function Sobre() {
-//   return (
-//     <>
-//       <div className="min-h-screen bg-gradient-to-tr from-purple-500 to-purple-300 p-8 mt-16">
-//           <h1 className="text-3xl font-bold ml-16  mb-6">Sobre</h1>
-//           <div className="flex items-center space-x-12 mb-20 mt-4">
-//               <CardJogo 
-//                   title="Minecraft" 
-//                   image="/img/sobre.png" 
-//                   buttonText="Jogar"
-//               />
-//               <div>
-//                   <h2 className="text-2xl font-bold mb-2 text-fuchsia-600">Gaming Place</h2>
-//                   <p className="text-white text-md text-justify">
-//                   A Gaming Place é uma plataforma gamificada que atua sendo um ambiente
-//                   unificado para os jogos desenvolvidos no ULBRA Palmas, os quais são 
-//                   segmentados por áreas como saúde,Social,Educação e Acessibilidade.
-//                   Esse espaço é importante pois concentra todos os jogos em um só lugar,
-//                     facilitando o acesso e a divulgação por parte dos desenvolvedores.
-//                   </p>
-//               </div>
-//           </div>
-          
-//           <div className="flex items-center space-x-4 mt-10 mr-16">
-//             <div className="ml-16">
-//               <h2 className="text-2xl font-bold mb-2 text-white">Acompanhe seu progresso e ganhe recompensas</h2>
-//               <div>
-//                   <p className="text-white text-md">
-//                   No Gaming Place, você pode acompanhar seu progresso de forma fácil e divertida. 
-//                   Através dos emblemas conquistados, troféus e nível do usuário, você pode ver como 
-//                   está se saindo dentro da plataforma.
-//                   </p>
-//                   <div className="flex justify-left ml-4 gap-4 mt-5">
-//                     <ImagensCirculares caminho='/img/zoombi.png'/>
-//                     <ImagensCirculares caminho='/img/homem.png'/>
-//                     <ImagensCirculares caminho='/img/img3.png'/>
-//                     <ImagensCirculares caminho='/img/menina.png'/>
-//                   </div>
-//               </div>
-//             </div>
-//             <CardJogo title="" image="/img/recompensa.png"  buttonText="Jogar" />
-//           </div>           
-//         </div>
-//     </>
-//   );
-// }
-
 import CardJogo from '../components/CardJogo';
 import ImagensCirculares from '../components/Imagens';
 
@@ -57,56 +7,86 @@ export default function Sobre() {
     '/img/homem.png',
     '/img/img3.png',
     '/img/menina.png',
+    // '/img/menin.png',
+  ];
+  const recompensa = [
+    '/img/trofeu.png',
+    '/img/lancamento__foguete.png',
+    // '/img/foguete.png',
+    '/img/dist.png',
+    // '/img/taça.png',
+    '/img/montanha.png',
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-tr from-purple-500 to-purple-300 p-8 mt-16">
-      <header className="ml-16 mb-6">
-        <h1 className="text-3xl font-bold">Sobre</h1>
+    <div className="bg-gray-200 text-gray-900">
+      {/* Header */}
+      <header className="text-center py-10 bg-indigo-800 shadow-lg mt-12">
+        <h1 className="text-4xl font-extrabold text-white">Sobre</h1>
+        <p className="mt-2 text-lg font-light text-indigo-300">
+          Explore a nossa plataforma e descubra seus benefícios.
+        </p>
       </header>
 
-      <section className="flex flex-col lg:flex-row items-center space-y-8 lg:space-y-0 lg:space-x-12 mb-20 mt-4">
-        <CardJogo 
-          title="Minecraft" 
-          image="/img/sobre.png" 
-          buttonText="Jogar" 
-          alt="Imagem representando o jogo Minecraft"
-        />
-        <article>
-          <h2 className="text-2xl font-bold mb-2 text-black">Gaming Place</h2>
-          <p className="text-white text-md text-justify">
-            A Gaming Place é uma plataforma gamificada que atua sendo um ambiente
-            unificado para os jogos desenvolvidos no ULBRA Palmas, os quais são 
-            segmentados por áreas como saúde, social, educação e acessibilidade.
-            Esse espaço é importante pois concentra todos os jogos em um só lugar,
-            facilitando o acesso e a divulgação por parte dos desenvolvedores.
-          </p>
-        </article>
-      </section>
+      <main className="container mx-auto px-6 lg:px-20 py-12 text-center">
+        {/* Seção 1: Sobre a Plataforma */}
+        <section className="flex flex-col lg:flex-row items-center gap-12 mb-20">
+          <CardJogo
+            title="Minecraft"
+            image="/img/sobre.png"
+            buttonText="Jogar"
+            alt="Imagem representando o jogo Minecraft"
+          />
+          <article className="max-w-lg">
+            <div className="max-w-lg text-center lg:text-justify">
+              <h2 className="text-3xl font-bold text-green-700 mb-4">Gaming Place</h2>
+              <p className="text-gray-700 leading-relaxed">
+                A Gaming Place é uma plataforma gamificada que concentra todos os jogos desenvolvidos na ULBRA Palmas. 
+                Organizamos jogos em categorias como saúde, social, educação e acessibilidade, facilitando o acesso e a divulgação 
+                dos desenvolvedores. Um ambiente único, pensado para unir diversão e aprendizado.
+              </p>
+            </div>  
+          </article>
+        </section>
 
-      <section className="flex flex-col lg:flex-row items-center space-y-8 lg:space-y-0 lg:space-x-4 mt-10 mr-16">
-        <div className="ml-16">
-          <h2 className="text-2xl font-bold mb-2 text-black">
-            Acompanhe seu progresso e ganhe recompensas
-          </h2>
-          <p className="text-white text-md text-justify">
-            No Gaming Place, você pode acompanhar seu progresso de forma fácil e divertida. 
-            Através dos emblemas conquistados, troféus e nível do usuário, você pode ver como 
-            está se saindo dentro da plataforma.
-          </p>
-          <div className="flex justify-left ml-4 gap-4 mt-5">
-            {circularImages.map((imgPath, index) => (
-              <ImagensCirculares key={index} caminho={imgPath} />
-            ))}
+        {/* Seção 2: Ganhe Recompensas */}
+        <section className="flex flex-col-reverse lg:flex-row items-center gap-12">
+          <div className="max-w-lg text-center lg:text-justify">
+            <h2 className="text-3xl font-bold text-green-700 mb-4">Ganhe Recompensas</h2>
+            <p className="text-gray-700 leading-relaxed">
+              Na Gaming Place, sua jornada é recompensada! Ganhe emblemas, troféus e níveis de usuário conforme 
+              avança nos desafios. Um sistema feito para motivar e engajar jogadores enquanto aprendem e se divertem.
+            </p>
+            <div className="flex justify-center lg:justify-start gap-4 mt-6">
+              {recompensa.map((imgPath, index) => (
+                <ImagensCirculares key={index} caminho={imgPath} />
+              ))}
+            </div>
           </div>
+          <CardJogo
+            title=""
+            image="/img/recompensa.png"
+            buttonText="Jogar"
+            alt="Imagem representando recompensas no Gaming Place"
+          />
+        </section>
+      </main>
+
+      {/* Footer */}
+      <div className="mb-20 lg:mb-36">
+      <footer className="bg-indigo-800 py-10 text-center border-t-2 border-white">
+        <h2 className="text-2xl font-bold text-white">Acompanhe seu Progresso</h2>
+        <p className="text-indigo-300 mt-4">
+          Monitore seu progresso com emblemas, troféus e muito mais.
+        </p>
+        <div className="flex justify-center gap-6 mt-6 mb-4">
+          {circularImages.map((img, index) => (
+            <ImagensCirculares key={index} caminho={img} />
+          ))}
         </div>
-        <CardJogo 
-          title="" 
-          image="/img/recompensa.png"  
-          buttonText="Jogar" 
-          alt="Imagem representando recompensas no Gaming Place"
-        />
-      </section>           
+      </footer>
+      </div>
     </div>
   );
 }
+

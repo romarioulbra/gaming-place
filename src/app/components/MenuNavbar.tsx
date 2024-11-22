@@ -14,16 +14,14 @@ export default function Navbar() {
 
   const pathname = usePathname(); // Obter a rota atual
 
-  // Links de navegação
   const links = [
-    { label: 'Inicio', path: '/' },
+    { label: 'Ínicio', path: '/' },
     { label: 'Sobre', path: '/sobre' },
     // { label: 'Jogos', path: '/jogos' },
     { label: 'Jogos', path: '/jogos/categorias' },
     { label: 'Conta', path: '/conta' },
-    { label: 'Configuracao', path: '/configuracao' },
+    { label: 'Configuração', path: '/configuracao' },
   ];
-
 
   return (
     <nav className="bg-purple-800 text-white fixed w-full top-0 z-50 border-b-2 border-white">

@@ -22,7 +22,7 @@ export default function LoadVoltar({ }) {
 
       <Botao
         texto="Voltar"
-        cor="amarelo"
+        cor="azul"
         tipo="submit"
         onClick={goBack}
         

@@ -10,8 +10,8 @@ export default function CabecalhoVoltar({Icone}) {
           {/* Botões alinhados à esquerda */}
           <div className="flex space-x-2">
             <h2 className="font-bold flex">
-                <Icone className="mr-2 border-black w-7 h-7 rounded-ful"/>
-                  Preencha Todas informações Abaixo 
+                <Icone className="mr-4 border-black w-8 h-8 rounded-ful"/>
+                  Preencha Todas as informações Abaixo 
             </h2>
           </div>
 

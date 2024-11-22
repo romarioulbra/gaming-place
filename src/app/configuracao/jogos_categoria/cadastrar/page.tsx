@@ -114,7 +114,11 @@ export default function CadastroCatJogos() {
                 fileSVG = {handleFileChange}
                 idFileInput="categoria_jogo_icone"
               />
-              <p className="font-mono mt-2 text-right">Obs:Somente arquivos no Formato SVG</p>
+              <p 
+                className="font-mono mt-1 text-left font-bold"
+                style={{ fontSize: '13px' }}
+              >
+                  Obs:Somente arquivos no Formato SVG</p>
             </div>
 
             <div className="flex justify-center">

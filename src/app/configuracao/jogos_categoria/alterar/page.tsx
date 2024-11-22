@@ -2,6 +2,8 @@
 
 import { FaRegEdit } from "react-icons/fa";
 import { useState } from "react";
+import InputForm from "@/app/components/InputsForm";
+
 
 export default function AlterarJogosCategoria({ dados }: { dados: any }) {
   const [formData, setFormData] = useState(dados); // Inicializa com os dados recebidos
@@ -68,7 +70,7 @@ export default function AlterarJogosCategoria({ dados }: { dados: any }) {
             <p className="text-center text-gray-700">{modalText}</p>
           </div>
         )}
-
+{/* 
         <label 
           htmlFor="categoria_jogo_area_atuacao" 
           className="block text-sm font-medium text-gray-700">
@@ -81,13 +83,32 @@ export default function AlterarJogosCategoria({ dados }: { dados: any }) {
           placeholder="Digite a área de atuação"
           value={formData.categoria_jogo_area_atuacao}
           onChange={(e) => handleInputChange("categoria_jogo_area_atuacao", e.target.value)}
+        /> */}
+
+        <InputForm
+            tipoInput="text"
+            label="Área da Atuação"
+            valorInput={formData.categoria_jogo_area_atuacao}
+            metodoSubmit={(e) =>
+              setFormData({ ...formData, categoria_jogo_area_atuacao: e.target.value })
+            }
+            onChange={(e) => handleInputChange("categoria_jogo_area_atuacao", e.target.value)}
+        />
+
+      {/* Verificar como fazer */}
+        <InputForm
+          tipoInput="fileInputSVG"
+          label="Ícone da Categoria - (SVG)"
+          placeholder="Nome da Categoria"
+          // fileSVG = {handleFileChange}
+          idFileInput="categoria_jogo_icone"
         />
       </div>
 
       <div className="flex flex-col mt-6 mb-4 space-x-4 ">
         <button
-          className={`bg-blue-600 text-white p-2 rounded ${
-            loading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-700"
+          className={`bg-green-600 text-white p-2 rounded ${
+            loading ? "opacity-50 cursor-not-allowed" : "hover:bg-green-700"
           }`}
           onClick={handleSave}
           disabled={loading} // Desativa o botão durante o loading

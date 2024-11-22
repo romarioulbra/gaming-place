@@ -79,19 +79,22 @@ export async function PUT(req: Request) {
 
 // Função de Exclusão de Dados
 export async function DELETE(req: Request) {
-  const { id } = await req.json();
+  
+  const { searchParams } = new URL(req.url);  
+  const usuario_id = searchParams.get("usuario_id"); // Captura o ID do registro a ser excluído
+
+  if (!usuario_id || isNaN(Number(usuario_id))) {
+    return NextResponse.json({ error: "ID inválido ou não fornecido" }, { status: 400 });
+  }
 
   try {
     await prisma.usuarios.delete({
-      where: { id: Number(id) },
+      where: { usuario_id: Number(usuario_id) },
     });
 
-    return NextResponse.json({ message: 'Usuário excluído com sucesso.' }, { status: 200 });
+    return NextResponse.json({ message: "Registro excluído com sucesso!" }, { status: 200 });
   } catch (error) {
-    console.error('Erro ao excluir usuário:', error);
-    return NextResponse.json({ error: 'Erro ao excluir usuário.' }, { status: 500 });
-  } finally {
-    await prisma.$disconnect();
-  }
+    console.error('Erro ao excluir o registro:', error);
+    return NextResponse.json({ error: 'Erro ao excluir registro.' }, { status: 500 });
+  } 
 }
-

@@ -1,7 +1,7 @@
 'use client'
 import axios from "axios";
 import { useEffect, useState } from "react";
-import TabelaPadrao from "@/app/components/TabelaPadrao";
+import Tabela from "@/app/components/Tabela";
 import { CgGames } from "react-icons/cg";
 import CabecalhoViwer from "../../components/CabecalhoViwer";
 
@@ -25,6 +25,10 @@ export default function CategoriaJogos() {
     }
     fetchCatJogos();
   }, []);
+  
+  // const id = catJogos.map(catjogo => catjogo.categoria_jogo_id);
+  // const nome = catJogos.map(catjogo => catjogo.categoria_jogo_area_atuacao);
+  // console.log(id +' - '+nome);
 
   return (
       <>
@@ -34,10 +38,13 @@ export default function CategoriaJogos() {
           urlCadastro= "/configuracao/jogos_categoria/cadastrar"
         />
         <div className="">
-          <TabelaPadrao 
+          <Tabela 
             data={catJogos} 
             atributosCabTab={atributosCabTab} 
             atributosDados={atributosDados}
+            modulo='jogoCategoria'
+            // dataId={id}
+            // dataNome={nome}
           />
         </div>
       </>

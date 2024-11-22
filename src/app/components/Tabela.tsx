@@ -7,16 +7,12 @@ import { FaPencilAlt,FaTrashAlt,FaTrash  } from "react-icons/fa";
 import { ModalFormulario } from './ModalFormulario';
 import AlterarJogosCategoria from '../configuracao/jogos_categoria/alterar/page';
 import Alert from './Alert';
-
-// interface TableProps {
-//   data: { categoria_jogo_id: number; categoria_jogo_area_atuacao: string;}[];
-// }
+import AlterarUsuarios from '../configuracao/usuarios/alterar/page';
 
 
-// export default function Tabela({ data,atributosCabTab,atributosDados,modulo}: TableProps) {
 export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
     //  Variáveis Globais
-    const nomeModulo= 'Jogos';
+    let nomeModulo= '';
     const [isLoading, setIsLoading] = useState(false);
     const [modalText, setModalText] = useState("Tem certeza que deseja excluir o Registro abaixo?");
     const [modalAberto,setModalAberto] = useState(false);
@@ -24,7 +20,6 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
     const [selectedItem,setSelectedItem] = useState<TableProps>();
     
     // ============== Métodos de Modais Inicio===================//
- 
 
     const [alertVisible, setAlertVisible] = useState(false);
     const [alertMessage, setAlertMessage] = useState('');
@@ -54,7 +49,6 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
     setSelectedItem(null);
   }
 
-
   
   useEffect(() => {
     if (data.length === 0) {
@@ -69,15 +63,7 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
   }, [data]);
 
 
-
-
   // ********  ******** Variáves da Listagem da Exclusão ********  ******** 
-
-  // const id = selectedItem?.categoria_jogo_id || null;
-  // const nome = selectedItem?.categoria_jogo_area_atuacao || null;
-
-  // const id = selectedItem?.usuario_id || null;
-  // const nome = selectedItem?.usuario_nome || null;
 
   let id = null;
   let nome = null;
@@ -88,23 +74,22 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
       id = selectedItem?.categoria_jogo_id || null;
       nome = selectedItem?.categoria_jogo_area_atuacao || null;
       caminho_api = `/api/categoria_jogos?categoria_jogo_id=${id}`
+      nomeModulo = "Categoria de Jogos"
       break;
   
     case "usuario":
       id = selectedItem?.usuario_id || null;
       nome = selectedItem?.usuario_nome || null;
       caminho_api = `/api/usuarios?usuario_id=${id}`
+      nomeModulo = "Usuário"
       break;
   
     case "jogo":
       id = selectedItem?.jogo_id || null;
       nome = selectedItem?.jogo_nome || null;
       caminho_api = `/api/jogos?jogo_id=${id}`
+      nomeModulo = "Jogo"
       break;
-  
-    // default:
-    //   id = null;
-    //   nome = null; 
   }
   
   // ==============  xxxxxxxxxxxxxxxx Métodos de Modais Final xxxxxxxxxxxxxxxx ===================//
@@ -139,8 +124,7 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
           return false;
       }
     });
-    
-  
+   
     // Calcular os dados para a página atual
     const offset = currentPage * itemsPerPage;
     const paginatedData = filteredData.slice(offset, offset + itemsPerPage);
@@ -152,13 +136,11 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
     };
   
     // =================  xxxxxxxxxxxxxxxx PAGINAÇÃO DAS TABELAS  xxxxxxxxxxxxxxxx ================= //
-   
-    
+     
     return (
       <div className="flex-auto ml-4 mr-4 mt-4 mb-4"> 
       <div className="overflow-x-auto mx-auto mt-8 mb-8 p-8 border border-gray-300 shadow-lg rounded-lg justify-between items-center">
-      
-
+  
         {/* {data.length === 0 ? ( */}
         {data.length === 0 ? (
           <div className="grid grid-cols-1">
@@ -233,87 +215,104 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
                 </tbody>
               </table>
 
-            {/* Modal Editar*/}
-            <ModalFormulario 
-              modalAberto={modalAberto} 
-              fecharModal={handleEditModal} 
-              titulo={modalType === 'editar' ? 'Modo de Alteração' : 'Modo de Exclusão'} 
-              subtitulo={modalType === 'editar' ? `Edição de dados de ${nomeModulo}` : `Exclusão de Item`}
-              modalType = 'editar'
-            >
-      
-            {modalType === 'editar' ? (
-              <div>
-                <AlterarJogosCategoria
-                  dados = {selectedItem}
-                >              
-                </AlterarJogosCategoria>
-              </div>
-            ) : (
-                <>
-                  {/* Conteúdo do Modal para Exclusão */}
+              {/* Modal Editar */}
+              <ModalFormulario 
+                modalAberto={modalAberto} 
+                fecharModal={handleEditModal} 
+                titulo={modalType === 'editar' ? 'Modo de Alteração' : 'Modo de Exclusão'} 
+                subtitulo={modalType === 'editar' ? `Edição de dados de ${nomeModulo}` : `Exclusão de Item`}
+                modalType="editar"
+              >
+                {modalType === 'editar' ? (
+                  (() => {
+                    if (modulo === "jogoCategoria") {
+                      return (
+                        <AlterarJogosCategoria
+                          dados={selectedItem}
+                        />
+                      );
+                    } else if (modulo === "usuario") {
+                      return (
+                        <AlterarUsuarios
+                          dados={selectedItem}
+                        />
+                      );
+                    } else if (modulo === "jogo") {
+                      return (
+                        <AlterarJogos
+                          dados={selectedItem}
+                        />
+                      );
+                    } else {
+                      return <p className="text-center text-red-500">Módulo inválido!</p>;
+                    }
+                  })()
+                ) : (
+                  <>
+                    {/* Conteúdo do Modal para Exclusão */}
                     <div className="flex justify-center">
                       <FaTrash className="flex w-10 h-10 mb-3 mt-3 transition-transform duration-300 hover:scale-125"/>
                     </div>
-                  
+
                     <div className="flex flex-col text-center space-y-2">
-                      <p className=" text-black font-semibold">Este processo é irreversível!</p>
+                      <p className="text-black font-semibold">Este processo é irreversível!</p>
                       <p className="text-black font-semibold">{modalText}</p>
-                      <p className=' p-3 text-2xl font-extrabold'>{id} - {nome}</p>
+                      <p className="p-3 text-2xl font-extrabold">{id} - {nome}</p>
                     </div>
 
-                  {/* Botões de Confirmar Exclusão e Cancelar */}
-                  <div className="flex flex-col mt-6 py-4 rounded-b-lg space-x-4">
-                    <button
-                      type="button"
-                      onClick={async () => {
-                        if (!id) {
-                          console.error("Erro: Selected Item está vazio!");
-                          return;
-                        }
-                    
-                        setModalText("Excluindo registro, por favor aguarde...");
-                        setIsLoading(true);
-                        console.log('dentro do botao'+id)
-                        try {
+                    {/* Botões de Confirmar Exclusão e Cancelar */}
+                    <div className="flex flex-col mt-6 py-4 rounded-b-lg space-x-4">
+                      <button
+                        type="button"
+                        onClick={async () => {
+                          if (!id) {
+                            console.error("Erro: Selected Item está vazio!");
+                            return;
+                          }
+                      
+                          setModalText("Excluindo registro, por favor aguarde...");
+                          setIsLoading(true);
+                          console.log('Dentro do botão: ' + id);
+                          try {
                             const endpoint = caminho_api;
                             const response = await fetch(endpoint, {
-                            method: "DELETE",
-                          });
-                    
-                          if (!response.ok) {
-                            throw new Error(`Erro ao excluir o registro: ${response.status}`);
-                          }
-                    
-                          const data = await response.json();
-                          console.log("Resposta da API:", data);
-                    
-                          setModalText("Registro excluído com sucesso!");
-                          
-                          // Aguarde 2 segundos antes de fechar o modal
-                          setTimeout(() => {
-                            fecharModal();
-                            location.reload();
-                          }, 2000);
+                              method: "DELETE",
+                            });
+                      
+                            if (!response.ok) {
+                              throw new Error(`Erro ao excluir o registro: ${response.status}`);
+                            }
+                      
+                            const data = await response.json();
+                            console.log("Resposta da API:", data);
+                      
+                            setModalText("Registro excluído com sucesso!");
+                            
+                            // Aguarde 2 segundos antes de fechar o modal
+                            setTimeout(() => {
+                              fecharModal();
+                              location.reload();
+                            }, 2000);
 
-                        } catch (error) {
-                          console.error("Erro ao excluir o item:", error.message);
-                          setModalText("Erro ao excluir o registro. Tente novamente.");
-                        } finally {
-                          setIsLoading(false);
-                        }
-                      }}
-                      className={`px-6 py-2 bg-rose-400 text-white font-semibold rounded-lg shadow-md ${
-                        isLoading ? "opacity-50 cursor-not-allowed" : "hover:bg-red-600"
-                      } transition`}
-                      disabled={isLoading}
-                    >
-                      {isLoading ? "Excluindo..." : "Excluir"}
-                    </button>
-                  </div>
-                </>  
+                          } catch (error) {
+                            console.error("Erro ao excluir o item:", error.message);
+                            setModalText("Erro ao excluir o registro. Tente novamente.");
+                          } finally {
+                            setIsLoading(false);
+                          }
+                        }}
+                        className={`px-6 py-2 bg-rose-400 text-white font-semibold rounded-lg shadow-md ${
+                          isLoading ? "opacity-50 cursor-not-allowed" : "hover:bg-red-600"
+                        } transition`}
+                        disabled={isLoading}
+                      >
+                        {isLoading ? "Excluindo..." : "Excluir"}
+                      </button>
+                    </div>
+                  </>
                 )}
               </ModalFormulario>
+
             {/* Componente de Paginação */}
             <ReactPaginate
               previousLabel={<GrCaretPrevious size={20} />}

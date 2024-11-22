@@ -1,9 +1,8 @@
 'use client'
 import axios from "axios";
 import { useEffect, useState } from "react";
-// import Tabela from "@/app/components/Tabela__";
 import Tabela from "../../components/Tabela";
-import { FaUser} from "react-icons/fa";
+import { FaUserCog} from "react-icons/fa";
 import CabecalhoViwer from "../../components/CabecalhoViwer";
 
 
@@ -32,22 +31,16 @@ export default function Usuarios() {
       <>
         <CabecalhoViwer 
           nomeModel={nomeModulo} 
-          Icone={FaUser}
+          Icone={FaUserCog}
           urlCadastro= "/configuracao/usuarios/cadastrar"
         />
-        {/* <div className="">
-          <Tabela data={usuarios}/>
-        </div> */}
-
-        <div className="">
-          <Tabela 
-            data={usuarios} 
-            atributosCabTab={atributosCabTab} 
-            atributosDados={atributosDados}            
-            modulo='usuario'
-          />
-        </div>
-
+        
+        <Tabela 
+          data={usuarios} 
+          atributosCabTab={atributosCabTab} 
+          atributosDados={atributosDados}            
+          modulo='usuario'
+        />
       </>
   );
 }

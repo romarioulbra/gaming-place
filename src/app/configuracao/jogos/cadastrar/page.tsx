@@ -1,5 +1,4 @@
 'use client';
-
 import { useState,useEffect } from "react";
 import Botao from "@/app/components/Botao";
 import InputForm from "@/app/components/InputsForm";
@@ -11,7 +10,9 @@ import InputFile from "../../../components/FileInput";
 import Image from 'next/image';
 import UploadImage from "@/app/components/UploadImage";
 
-export default function Jogos() {
+export default function CadastrarJogos() {
+
+  
   const [formData, setFormData] = useState(
       { jogos_nome: ``, 
         jogos_descricao: ``, 
@@ -28,20 +29,20 @@ export default function Jogos() {
 
 
     // Manipulações no SELECT Buscar categorias para o select
-    const [categoriasJogos, setCategoriasJogos] = useState([]);
+    const [jogos, setJogos] = useState([]);
 
     // Função para buscar as categorias da API
     useEffect(() => {
-      const fetchCategorias = async () => {
+      const fetchJogos = async () => {
         try {
-          const response = await fetch('/api/categoria_jogos');
+          const response = await fetch('/api/jogos');
           const data = await response.json();
-          setCategoriasJogos(data);
+          setJogos(data);
         } catch (error) {
-          console.error('Erro ao buscar categorias:', error);
+          console.error('Erro ao buscar Jogos:', error);
         }
       };
-      fetchCategorias();
+      fetchJogos();
     }, []);
 
    
@@ -194,15 +195,15 @@ export default function Jogos() {
                   metodoSubmit={(e) => setFormData({ ...formData, jogos_link: e.target.value })}
                 />
            
-                <InputForm
+                {/* <InputForm
                   tipoInput="selectDados"
                   label="Categoria do Jogo"
-                  dadosSelect={categoriasJogos}
+                  dadosSelect={jogos}
                   idSelect="categoria_jogo_id" 
-                  nomeSelect="categoria_jogo_area_atuacao" 
+                  nomeSelect="categoria_jogo_id" 
                   valorInput={formData.categoria_jogo_id}
                   metodoSubmit={(e) => setFormData({ ...formData, categoria_jogo_id: e.target.value })}
-                />
+                /> */}
 
                 <InputForm
                   tipoInput="textarea"

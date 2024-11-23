@@ -3,13 +3,14 @@
 import { FaRegEdit } from "react-icons/fa";
 import { useState } from "react";
 import InputForm from "@/app/components/InputsForm";
-
+import Image from "next/image";
 
 export default function AlterarJogosCategoria({ dados }: { dados: any }) {
   const [formData, setFormData] = useState(dados); // Inicializa com os dados recebidos
   const [modalText, setModalText] = useState(""); // Texto do modal
   const [loading, setLoading] = useState(false); // Estado para controlar o loading
-
+  const [file, setFile] = useState<File | null>(null); // Estado para o arquivo
+  
   // Atualiza o estado ao editar os inputs
   const handleInputChange = (field: string, value: string | number) => {
     setFormData((prev) => ({
@@ -18,6 +19,15 @@ export default function AlterarJogosCategoria({ dados }: { dados: any }) {
     }));
   };
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = e.target.files?.[0];
+    if (selectedFile) {
+      setFile(selectedFile); // Salva o arquivo no estado
+    }
+  };
+
+  // console.log(formData.categoria_jogo_icone);
+  
   // Função para salvar os dados com mensagem no modal
   const handleSave = async () => {
     setLoading(true); // Indica que a operação começou
@@ -70,20 +80,7 @@ export default function AlterarJogosCategoria({ dados }: { dados: any }) {
             <p className="text-center text-gray-700">{modalText}</p>
           </div>
         )}
-{/* 
-        <label 
-          htmlFor="categoria_jogo_area_atuacao" 
-          className="block text-sm font-medium text-gray-700">
-            Área de Atuação
-        </label>
-        <input
-          type="text"
-          id="categoria_jogo_area_atuacao"
-          className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          placeholder="Digite a área de atuação"
-          value={formData.categoria_jogo_area_atuacao}
-          onChange={(e) => handleInputChange("categoria_jogo_area_atuacao", e.target.value)}
-        /> */}
+
 
         <InputForm
             tipoInput="text"
@@ -95,15 +92,49 @@ export default function AlterarJogosCategoria({ dados }: { dados: any }) {
             onChange={(e) => handleInputChange("categoria_jogo_area_atuacao", e.target.value)}
         />
 
-      {/* Verificar como fazer */}
+        {/* Verificar como fazer */}
+        <div className="bg-rose-100 pt-2">
+            <Image
+            // src="/img/arquivo_svg.png"
+              src="/img/svg.png"
+              width={35}
+              height={35}
+              alt="Picture of the author"
+              className="mt-1 mb-2 mx-auto"
+            />
+            <p className="font-mono bg-rose-100 pl-3 text-center font-bold">Caminho do Arquivo Atual:</p>
+            <p className="font-mono bg-rose-100 pl-3 text-center ">{formData.categoria_jogo_icone}</p><br />
+        </div>
+
+        {/* <div className="bg-yellow-50 pt-2 flex items-center"> 
+          <Image
+            src="/img/svg.png"
+            width={40}
+            height={40}
+            alt="Picture of the author"
+            className="mt-1 mb-2 mr-3" 
+          />
+          <div>
+            <p className="font-mono bg-yellow-50 pl-3 text-center font-bold">Caminho do Arquivo Atual:</p>
+            <p className="font-mono bg-yellow-50 pl-3 text-left">{formData.categoria_jogo_icone}</p>
+          </div>
+        </div> */}
+
+
         <InputForm
           tipoInput="fileInputSVG"
           label="Ícone da Categoria - (SVG)"
           placeholder="Nome da Categoria"
-          // fileSVG = {handleFileChange}
+          fileSVG = {handleFileChange}
           idFileInput="categoria_jogo_icone"
+          metodoSubmit={(e) =>
+            setFormData({ ...formData, categoria_jogo_icone: e.target.files[0] })
+          }
+          onChange={(e) => handleInputChange("categoria_jogo_icone", e.target.files[0])}
         />
+       
       </div>
+
 
       <div className="flex flex-col mt-6 mb-4 space-x-4 ">
         <button

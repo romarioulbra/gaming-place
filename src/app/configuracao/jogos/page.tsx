@@ -2,7 +2,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-import TabelaJogos from "@/app/components/TabelaJogos";
+import Tabela from "../../components/Tabela";
 import { FaGamepad} from "react-icons/fa";
 import CabecalhoViwer from "../../components/CabecalhoViwer";
 // import Fly from "@/app/components/Flyout";
@@ -41,7 +41,12 @@ export default function Jogos() {
         urlCadastro= "/configuracao/jogos/cadastrar"
       />
       <div className="">
-        <TabelaJogos data={jogos} atributosCabTab={atributosCabTab} atributosDados={atributosDados}/>
+        <Tabela 
+          data={jogos} 
+          atributosCabTab={atributosCabTab} 
+          atributosDados={atributosDados}
+          modulo='jogo'
+        />
       </div>
     </>
   );

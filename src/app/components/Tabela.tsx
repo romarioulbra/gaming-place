@@ -117,8 +117,13 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
     
         case "jogo":
           // Filtra itens com base no nome do jogo
-          return item.jogo_nome.toLowerCase().includes(searchTerm.toLowerCase());
-    
+          return (
+            item.jogos_nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            item.jogos_descricao.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            item.jogos_link.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            item.jogos_url_img.toLowerCase().includes(searchTerm.toLowerCase())
+          );
+
         default:
           // Caso nenhum módulo seja correspondente, retorna false (nada será incluído)
           return false;

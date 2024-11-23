@@ -1,5 +1,6 @@
 import { SlGameController } from "react-icons/sl";
 import Image from "next/image";
+import InputForm from "../components/InputsForm";
 
 export default function Conta() {
   return (
@@ -33,32 +34,23 @@ export default function Conta() {
             <h2 className="text-2xl font-bold text-center mb-6">Criar uma Conta</h2>
             {/* Campo de E-mail */}
             <div className="mb-4">
-              <label
-                className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="email"
-              >
-                Email
-              </label>
-              <input
-                id="email"
-                type="email"
-                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
+              <InputForm
+                tipoInput="email"
+                label="Email"
                 placeholder="Digite seu email"
+                // valorInput={formData.usuario_nome}
+                // metodoSubmit={(e) => setFormData({ ...formData, usuario_nome: e.target.value })}
               />
             </div>
+        
             {/* Campo de Senha */}
             <div className="mb-6">
-              <label
-                className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="password"
-              >
-                Senha
-              </label>
-              <input
-                id="password"
-                type="password"
-                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
+              <InputForm
+                tipoInput="password"
+                label="Senha"
                 placeholder="Digite sua senha"
+                // valorInput={formData.usuario_nome}
+                // metodoSubmit={(e) => setFormData({ ...formData, usuario_nome: e.target.value })}
               />
             </div>
             {/* Botão de Cadastro */}

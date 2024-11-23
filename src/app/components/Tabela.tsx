@@ -272,7 +272,7 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
                       
                           setModalText("Excluindo registro, por favor aguarde...");
                           setIsLoading(true);
-                          console.log('Dentro do botão: ' + id);
+                          
                           try {
                             const endpoint = caminho_api;
                             const response = await fetch(endpoint, {

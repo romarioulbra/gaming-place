@@ -1,7 +1,5 @@
 'use client'
 import { useState } from 'react';
-import Image from 'next/image';
-
 interface FormularioProps {
   tipoInput: 'text' | 'select' |'selectDados' | 'textarea' | 'date' | 'email' | 'number' | 'radio' | 'password' | 'fileInput' | 'fileInputSVG'; // Novos tipos adicionados
   label: string;
@@ -24,14 +22,13 @@ export default function InputForm({
   label,
   placeholder = '',
   fileSVG,
+  fileImage,
   idFileInput
 }: FormularioProps) {
  
   const [formData, setFormData] = useState('');
-
-
-
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+
 
   const FileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -114,6 +111,19 @@ export default function InputForm({
             />
           )}
 
+          {tipoInput === 'password' && (
+            <input
+              type="password"
+              id={label.toLowerCase()}
+              name={label.toLowerCase()}
+              value={valorInput}
+              onChange={metodoSubmit}
+              className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
+              placeholder={placeholder}
+              required
+            />
+          )}
+
           {tipoInput === 'date' && (
             <input
               type="date"
@@ -169,42 +179,14 @@ export default function InputForm({
             </div>
           )}
 
-          {tipoInput === 'password' && (
-            <input
-              type="password"
-              id={label.toLowerCase()}
-              name={label.toLowerCase()}
-              value={valorInput}
-              onChange={metodoSubmit}
-              className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
-              placeholder={placeholder}
-              required
-            />
-          )}
-
-        {/* Exibir pré-visualização da imagem se estiver disponível */}
-        {previewUrl && (
-          <div className="flex justify-center mb-4">
-            <div className="relative w-32 h-32">
-              <Image
-                src={previewUrl}
-                alt="Pré-visualização"
-                layout="fill"
-                objectFit="cover"
-                className="rounded-md"
-              />
-            </div>
-          </div>
-        )} 
-
         {tipoInput === 'fileInput' && (
           <input
             type="file"
             value={valorInput}
             // onChange={metodoSubmit}
             accept='image/*'
-            onChange={metodoSubmit}
-            className="block w-full text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-500 file:text-white hover:file:bg-blue-600"
+            onChange={fileImage}
+            className="block w-full border rounded text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-rose-500 file:text-white hover:file:bg-rose-600"
             required
           />
         )}
@@ -219,14 +201,6 @@ export default function InputForm({
             required
           />
         )}
-
-{/* <input
-                type="file"
-                id="categoria_jogo_icone"
-                accept=".svg" // Apenas arquivos SVG
-                className="w-full p-2 border mb-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                onChange={handleFileChange}
-              /> */}
       </div>
     </div>
   );

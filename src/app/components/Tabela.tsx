@@ -5,9 +5,10 @@ import ReactPaginate from 'react-paginate';
 import { GrCaretPrevious,GrCaretNext  } from "react-icons/gr";
 import { FaPencilAlt,FaTrashAlt,FaTrash  } from "react-icons/fa";
 import { ModalFormulario } from './ModalFormulario';
-import AlterarJogosCategoria from '../configuracao/jogos_categoria/alterar/page';
 import Alert from './Alert';
+import AlterarJogosCategoria from '../configuracao/jogos_categoria/alterar/page';
 import AlterarUsuarios from '../configuracao/usuarios/alterar/page';
+import AlterarJogos from '../configuracao/jogos/alterar/page';
 
 
 export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
@@ -17,7 +18,7 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
     const [modalText, setModalText] = useState("Tem certeza que deseja excluir o Registro abaixo?");
     const [modalAberto,setModalAberto] = useState(false);
     const [modalType, setModalType] = useState<'editar' | 'excluir' | null>(null);
-    const [selectedItem,setSelectedItem] = useState<TableProps>();
+    const [selectedItem,setSelectedItem] = useState(null);
     
     // ============== Métodos de Modais Inicio===================//
 
@@ -27,15 +28,20 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
   
     
   // ********  ******** Modal Abrir Editar ********  ********   
-    function handleEditModal(item: TableProps){
+    function handleEditModal(item){
       setSelectedItem(item);    
       setModalType('editar');
       setModalAberto(!modalAberto)
     }
+
+    const abrirModal = (item) => {
+      setSelectedItem(item); // Define o item selecionado
+      setShowModal(true);    // Mostra o modal
+    };
   // ********  ******** ============== ******** ********
 
   // ********  ******** Modal Abrir Excluir ********  ******** 
-  function handleDeletarModal(item: TableProps){
+  function handleDeletarModal(item){
     setSelectedItem(item);
     setModalType('excluir');
     setModalAberto(!modalAberto)
@@ -85,13 +91,16 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
       break;
   
     case "jogo":
-      id = selectedItem?.jogo_id || null;
-      nome = selectedItem?.jogo_nome || null;
-      caminho_api = `/api/jogos?jogo_id=${id}`
-      nomeModulo = "Jogo"
+      id = selectedItem?.jogos_id || null;
+      nome = selectedItem?.jogos_nome || null;
+      caminho_api = `/api/jogos?jogos_id=${id}`
+      nomeModulo = "Jogos"
       break;
   }
-  
+
+  // console.log("Selected Item:", selectedItem);
+
+ 
   // ==============  xxxxxxxxxxxxxxxx Métodos de Modais Final xxxxxxxxxxxxxxxx ===================//
 
     
@@ -211,6 +220,7 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
                       <button 
                         className="flex items-center px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700 transition-colors border border-white shadow-md shadow-red-500/50"
                         onClick={() => handleDeletarModal(item)}
+                        // onClick={() => abrirModal(item)}
                       >  
                         <FaTrashAlt className="w-5 h-5 mr-2" />
                       </button>
@@ -262,7 +272,7 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
                     <div className="flex flex-col text-center space-y-2">
                       <p className="text-black font-semibold">Este processo é irreversível!</p>
                       <p className="text-black font-semibold">{modalText}</p>
-                      <p className="p-3 text-2xl font-extrabold">{id} - {nome}</p>
+                      <p className="p-3 text-2xl font-extrabold">{id || "ID não disponível"} - {nome || "Nome não disponível"}</p>
                     </div>
 
                     {/* Botões de Confirmar Exclusão e Cancelar */}
@@ -283,7 +293,7 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
                             const response = await fetch(endpoint, {
                               method: "DELETE",
                             });
-                      
+                      console.log(endpoint);
                             if (!response.ok) {
                               throw new Error(`Erro ao excluir o registro: ${response.status}`);
                             }

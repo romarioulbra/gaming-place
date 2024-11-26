@@ -26,32 +26,70 @@ export default function AlterarJogosCategoria({ dados }: { dados: any }) {
     }
   };
 
-  // console.log(formData.categoria_jogo_icone);
-  
-  // Função para salvar os dados com mensagem no modal
-  const handleSave = async () => {
-    setLoading(true); // Indica que a operação começou
-    setModalText("Salvando alterações, por favor aguarde...");
 
+
+  // Função para salvar os dados com mensagem no modal
+  // const handleSave = async () => {
+  //   setLoading(true); // Indica que a operação começou
+  //   setModalText("Salvando alterações, por favor aguarde...");
+
+  //   try {
+  //     const response = await fetch(`/api/categoria_jogos/${formData.categoria_jogo_id}`, {
+  //       method: "PUT",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(formData),
+  //     });
+
+  //     if (response.ok) {
+  //       const data = await response.json();
+  //       console.log("Atualização bem-sucedida:", data);
+
+  //       setModalText("Dados atualizados com sucesso!"); // Exibe mensagem de sucesso
+
+  //       // Aguarde 2 segundos antes de fechar o modal e recarregar a tabela
+  //       setTimeout(() => {
+  //         setModalText(""); // Limpa o texto do modal
+  //         location.reload(); // Recarrega a página/tabela
+  //       }, 2000);
+  //     } else {
+  //       const errorData = await response.json();
+  //       console.error("Erro do servidor:", errorData);
+  //       setModalText(`Erro ao atualizar: ${errorData.error || "Erro desconhecido"}`);
+  //     }
+  //   } catch (error) {
+  //     console.error("Erro na requisição:", error);
+  //     setModalText("Erro ao atualizar os dados. Verifique a conexão.");
+  //   } finally {
+  //     setLoading(false); // Finaliza o estado de loading
+  //   }
+  // };
+
+
+  const handleSave = async () => {
+    setLoading(true);
+    setModalText("Salvando alterações, por favor aguarde...");
+  
     try {
+      // Criando o FormData corretamente
+      const formDados = new FormData();
+      formDados.append("categoria_jogo_area_atuacao", formData.categoria_jogo_area_atuacao);
+      if (file) {
+        formDados.append("categoria_jogo_icone", file);
+      }
+  
       const response = await fetch(`/api/categoria_jogos/${formData.categoria_jogo_id}`, {
         method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
+        body: formDados, // Envia o FormData (correto agora)
       });
-
+  
       if (response.ok) {
         const data = await response.json();
-        console.log("Atualização bem-sucedida:", data);
-
-        setModalText("Dados atualizados com sucesso!"); // Exibe mensagem de sucesso
-
-        // Aguarde 2 segundos antes de fechar o modal e recarregar a tabela
+        setModalText("Dados atualizados com sucesso!");
         setTimeout(() => {
-          setModalText(""); // Limpa o texto do modal
-          location.reload(); // Recarrega a página/tabela
+          setModalText("");
+          location.reload();
         }, 2000);
       } else {
         const errorData = await response.json();
@@ -62,9 +100,11 @@ export default function AlterarJogosCategoria({ dados }: { dados: any }) {
       console.error("Erro na requisição:", error);
       setModalText("Erro ao atualizar os dados. Verifique a conexão.");
     } finally {
-      setLoading(false); // Finaliza o estado de loading
+      setLoading(false);
     }
   };
+  
+
 
   return (
     <div className="flex flex-col">
@@ -93,7 +133,7 @@ export default function AlterarJogosCategoria({ dados }: { dados: any }) {
         />
 
         {/* Verificar como fazer */}
-        <div className="bg-rose-100 pt-2">
+        <div className="bg-indigo-300 pt-2">
             <Image
             // src="/img/arquivo_svg.png"
               src="/img/svg.png"
@@ -102,23 +142,9 @@ export default function AlterarJogosCategoria({ dados }: { dados: any }) {
               alt="Picture of the author"
               className="mt-1 mb-2 mx-auto"
             />
-            <p className="font-mono bg-rose-100 pl-3 text-center font-bold">Caminho do Arquivo Atual:</p>
-            <p className="font-mono bg-rose-100 pl-3 text-center ">{formData.categoria_jogo_icone}</p><br />
+            <p className="font-mono  pl-3 text-center font-bold">Caminho do Arquivo Atual:</p>
+            <p className="font-mono  pl-3 text-center ">{formData.categoria_jogo_icone}</p><br />
         </div>
-
-        {/* <div className="bg-yellow-50 pt-2 flex items-center"> 
-          <Image
-            src="/img/svg.png"
-            width={40}
-            height={40}
-            alt="Picture of the author"
-            className="mt-1 mb-2 mr-3" 
-          />
-          <div>
-            <p className="font-mono bg-yellow-50 pl-3 text-center font-bold">Caminho do Arquivo Atual:</p>
-            <p className="font-mono bg-yellow-50 pl-3 text-left">{formData.categoria_jogo_icone}</p>
-          </div>
-        </div> */}
 
 
         <InputForm
@@ -134,7 +160,6 @@ export default function AlterarJogosCategoria({ dados }: { dados: any }) {
         />
        
       </div>
-
 
       <div className="flex flex-col mt-6 mb-4 space-x-4 ">
         <button

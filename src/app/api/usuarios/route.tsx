@@ -2,6 +2,9 @@
 import { PrismaClient } from '@prisma/client';
 import { NextResponse } from 'next/server';
 
+import bcrypt from "bcrypt"; // Para verificar senhas criptografadas
+import jwt from "jsonwebtoken"; // Para autenticação com tokens (opcional)
+
 const prisma = new PrismaClient();
 
 // Função de Listagem de Dados
@@ -29,6 +32,9 @@ export async function GET() {
 }
 
 
+
+
+
 // Função de Inserção de Dados
 export async function POST(req: Request) {
   const { usuario_nome, usuario_email, usuario_senha,usuario_nivel } = await req.json();
@@ -49,6 +55,70 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Erro ao criar Usuario.' }, { status: 500 });
   }
 }
+
+// Inserção com token
+
+// export async function POST(req: Request) {
+//   try {
+//     const { email, senha } = await req.json();
+
+//     // Verifica se o email foi enviado
+//     if (!email || !senha) {
+//       return NextResponse.json(
+//         { error: "Email e senha são obrigatórios." },
+//         { status: 400 }
+//       );
+//     }
+
+//     // Busca o usuário no banco de dados pelo email
+//     const usuario = await prisma.usuarios.findUnique({
+//       where: { usuario_email: email },
+//     });
+
+//     if (!usuario) {
+//       return NextResponse.json(
+//         { error: "Email não cadastrado." },
+//         { status: 404 }
+//       );
+//     }
+
+//     // Verifica a senha utilizando bcrypt
+//     const senhaCorreta = await bcrypt.compare(senha, usuario.usuario_senha);
+
+//     if (!senhaCorreta) {
+//       return NextResponse.json(
+//         { error: "Senha incorreta." },
+//         { status: 401 }
+//       );
+//     }
+
+//     // Se necessário, gere um token JWT (opcional)
+//     const token = jwt.sign(
+//       { id: usuario.usuario_id, nivel: usuario.usuario_nivel },
+//       process.env.JWT_SECRET || "secreta",
+//       { expiresIn: "1h" }
+//     );
+
+//     return NextResponse.json({
+//       message: "Login bem-sucedido!",
+//       token, // Inclua o token se necessário
+//       usuario: {
+//         id: usuario.usuario_id,
+//         nome: usuario.usuario_nome,
+//         email: usuario.usuario_email,
+//         nivel: usuario.usuario_nivel,
+//       },
+//     });
+//   } catch (error) {
+//     console.error("Erro ao processar o login:", error);
+//     return NextResponse.json(
+//       { error: "Erro ao processar o login." },
+//       { status: 500 }
+//     );
+//   }
+// }
+
+
 
 
 
@@ -75,6 +145,8 @@ export async function PUT(req: Request) {
     await prisma.$disconnect();
   }
 }
+
+
 
 
 // Função de Exclusão de Dados

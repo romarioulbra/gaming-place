@@ -23,11 +23,37 @@ body {
   font-optical-sizing: auto;
   font-weight: weight;
   font-style: normal;
-
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+.scrollbar-custom {
+  scrollbar-width: thick;
+  scrollbar-color: #7c3aed #f3f4f6; /* Roxo e cinza claro */
+}
+
+.scrollbar-custom::-webkit-scrollbar {
+  width: 12px; /* Largura da barra */
+}
+
+.scrollbar-custom::-webkit-scrollbar-track {
+  background: #f3f4f6; /* Fundo da trilha */
+  border-radius: 10px;
+}
+
+.scrollbar-custom::-webkit-scrollbar-thumb {
+  background-color: #7c3aed; /* Cor da barra */
+  border-radius: 10px;
+  border: 3px solid #f3f4f6; /* Borda ao redor da barra */
+}
+
+.scrollbar-custom::-webkit-scrollbar-button {
+  display: block;
+  height: 16px;
+  background: #7c3aed; /* Cor dos botões (opcional) */
+  border-radius: 50%;
 }

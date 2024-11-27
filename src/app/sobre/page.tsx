@@ -28,7 +28,7 @@ export default function Sobre() {
         </p>
       </header>
 
-      <main className="container mx-auto px-6 lg:px-20 py-12 text-center">
+      <main className="container mx-auto px-6 lg:px-20 py-12 text-center ">
         {/* Seção 1: Sobre a Plataforma */}
         <section className="flex flex-col lg:flex-row items-center gap-12 mb-20">
           <CardJogo
@@ -73,7 +73,7 @@ export default function Sobre() {
       </main>
 
       {/* Footer */}
-      <div className="mb-20 lg:mb-36">
+      <div className="">
       <footer className="bg-indigo-800 py-10 text-center border-t-2 border-white">
         <h2 className="text-2xl font-bold text-white">Acompanhe seu Progresso</h2>
         <p className="text-indigo-300 mt-4">

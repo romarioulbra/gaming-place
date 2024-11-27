@@ -69,7 +69,7 @@ export default function Conta() {
         {/* Coluna direita */}
         <div className="bg-purple-950 flex items-center justify-center w-full lg:w-1/2 p-8">
           <form
-            className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md mt-4 mb-4"
+            className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md mt-4 lg:mb-5 md:mb-24 "
             onSubmit={handleLogin}
           >
             <h2 className="text-2xl font-bold text-center mb-6">Logar</h2>

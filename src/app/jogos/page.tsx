@@ -1,9 +1,7 @@
 'use client'
-// import { useEffect,useState } from 'react';
-// import axios from "axios";
-// import CardCircular from '../components/CardCircular';
-import JogosCategorias from './categorias/page'
+
 import Image from "next/image";
+import Link from 'next/link';
 export default function Jogos() {
     // //Buscando Dados do BD para Recarregar na página
     // const [catJogos, setcatJogos] = useState([]);
@@ -56,7 +54,7 @@ export default function Jogos() {
 
    
 
-      <div className="flex flex-col md:flex-row items-center bg-gray-500 text-white rounded-lg overflow-hidden shadow-lg max-w-3xl mx-auto">
+      <div className="flex flex-col md:flex-row items-center bg-gray-500 text-white rounded-lg overflow-hidden shadow-lg shadow-stone-700 max-w-3xl mx-auto border-white border-4">
       {/* Texto */}
       <div className="p-6 flex-1">
         <h2 className="text-3xl font-bold mb-4 text-indigo-800 text-center">VitalQuest</h2>
@@ -71,19 +69,37 @@ export default function Jogos() {
       </div>
 
       {/* Imagem */}
-      <div className="flex items-center justify-center w-full md:w-1/2 h-64 md:h-auto md:mb-10">
-        <div className="relative w-3/4 h-3/4">
+      {/* <div className="flex items-center justify-center w-full md:w-1/2 h-64 md:h-auto md:mb-10">
+        <div className="relative ">
           <Image
-            src="/img/montanha.png" // Substitua pelo caminho da sua imagem
+            src="/img/montanha.jpg" // Substitua pelo caminho da sua imagem
             alt="VitalQuest Image"
-            // layout="fill"
+            layout="fill"
             objectFit="contain"
             className="rounded-lg"
-            width={250}
-            height={250}
+            // width={250}
+            // height={250}
+          />
+        </div>
+      </div> */}
+
+      {/* Imagem */}
+      <div className="flex items-center justify-center w-full md:w-1/2 h-64 md:h-auto md:mb-10">
+        
+         <div className="relative  mt-3 mr-3   w-52 h-52 lg:w-full lg:h-full md:w-full md:h-full sm:w-52 sm:h-52 ">
+          <Image
+            src="/img/montanha.jpg" // Substitua pelo caminho da sua imagem
+            alt="VitalQuest Image"
+            // layout="fill" // A imagem vai preencher a div
+            objectFit="cover" // A imagem vai cobrir a área sem distorcer
+            className="rounded-lg"
+            width={400}
+            height={400}
           />
         </div>
       </div>
+
+
     </div>
 
     {/* Seção de Cards Menores */}
@@ -93,7 +109,7 @@ export default function Jogos() {
         </h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 p-4">
   {/* Card 1 */}
-  <div className="relative w-full h-40 overflow-hidden group rounded-lg shadow-md">
+  <div className="relative w-full h-40 overflow-hidden group rounded-lg shadow-md shadow-stone-700 border-2 border-white">
     <Image
       src="/img/carro.jpg" // Substitua pelo caminho da sua imagem
       alt="Card 1"
@@ -155,6 +171,13 @@ export default function Jogos() {
       </p>
     </div>
   </div>
+</div>
+<div className="flex items-center justify-center mt-3">
+  <Link href="/jogos/todosJogos">
+    <button className="bg-pink-500 hover:bg-pink-600 transition-colors py-2 px-4 rounded font-semibold text-white">
+      Mais Jogos
+    </button>
+  </Link>
 </div>
 
         </div>

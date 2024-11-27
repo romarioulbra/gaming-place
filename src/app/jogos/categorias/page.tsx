@@ -27,7 +27,7 @@ export default function JogosCategorias() {
   return (
     <>
       {/* <div className="min-h-screen bg-gradient-to-tr from-purple-100 to-white flex flex-col items-center justify-center px-6"> */}
-      <div className="min-h-screen bg-gray-200 text-gray-900 flex flex-col items-center justify-center px-6">
+      <div className="min-h-screen bg-gray-200 text-gray-900 flex flex-col items-center justify-center px-6 -mb-36">
         {/* Texto do Cabeçalho */}
         <div className="text-center max-w-3xl mb-12">
           <h2 className="text-4xl font-bold text-black mb-4">Explore novos jogos</h2>
@@ -37,7 +37,7 @@ export default function JogosCategorias() {
         </div>
 
         {/* Grid de Cartões com Imagens SVG */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-6 mb-12">
           {catJogos.map((jogo) => (
             <CardCircular
               key={jogo.categoria_jogo_id} // Garanta que cada elemento tenha uma chave única

@@ -8,7 +8,7 @@ export default function Dashboard() {
         <div className="container mx-auto flex justify-between items-center px-4">
           <div className="text-2xl font-bold">Meu Dashboard</div>
           <div className="flex space-x-4 ">
-            <a href="/profile" className="hover:text-secondary">
+            <a href="/usuarios/perfil" className="hover:text-secondary">
               Perfil
             </a>
             <a href="/logout" className="hover:text-secondary">

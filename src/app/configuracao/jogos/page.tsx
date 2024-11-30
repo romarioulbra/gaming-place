@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import Tabela from "../../components/Tabela";
 import { FaGamepad} from "react-icons/fa";
 import CabecalhoViwer from "../../components/CabecalhoViwer";
+import Footer from "@/app/components/Rodape";
 // import Fly from "@/app/components/Flyout";
 
 export default function Jogos() {

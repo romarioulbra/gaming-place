@@ -1,189 +1,125 @@
 'use client'
-
+import { useEffect,useState } from "react";
+import axios from "axios";
 import Image from "next/image";
 import Link from 'next/link';
+import { MdVideogameAssetOff } from "react-icons/md";
+
+
 export default function Jogos() {
     // //Buscando Dados do BD para Recarregar na página
-    // const [catJogos, setcatJogos] = useState([]);
-    // useEffect(() => {
-    //   async function fetchCatJogos() {
-    //     try {
-    //       const response = await axios.get('/api/categoria_jogos');
-    //       setcatJogos(response.data);
-    //       // console.log(catJogos); 
-    //     } catch (error) {
-    //       console.error('Erro ao buscar Categoria de Jogos:', error);
-    //     }
-    //   }
-    //   fetchCatJogos();
-    // }, []);
+    const [jogos, setJogos] = useState([]);
+    const [telaSemJogo, setTelaSemJogo] = useState(false);
 
-    //  console.log(catJogos);
+    useEffect(() => {
+      async function fetchJogos() {
+        try {
+          const response = await axios.get('/api/jogos');
+          setJogos(response.data);
+        } catch (error) {
+          console.error('Erro ao buscar Todos os Jogos:', error);
+        }
+      }
+      fetchJogos();
+    }, []);
 
-    //  const link = 'www.google.com'
-
-  return (
-    <>
-       <div className='bg-gray-200 pt-5 pb-10'>
-      {/* <div className="min-h-screen bg-gradient-to-tr from-purple-100 to-white flex flex-col items-center justify-center px-6">
-        <div className="text-center max-w-3xl mb-12">
-          <h2 className="text-4xl font-bold text-black mb-4">Explore novos jogos</h2>
-          <p className="text-gray-600 text-md leading-relaxed">
-            A plataforma oferece uma visibilidade sem precedentes aos desenvolvedores de jogos educacionais. Professores, pesquisadores e estudantes talentosos têm a oportunidade de compartilhar suas criações com o público, promovendo não apenas seus jogos, mas também a excelência na educação por meio da tecnologia. 
-          </p>
-        </div>
-
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 mb-12">
-          {catJogos.map((jogo) => (
-            <CardCircular
-              key={jogo.categoria_jogo_id} // Garanta que cada elemento tenha uma chave única
-              image={`${jogo.categoria_jogo_icone}`} // Caminho dinâmico da imagem
-              text={jogo.categoria_jogo_area_atuacao} // Texto dinâmico
-              href={jogo.link || "#"} // Define o link, se existir, ou usa um valor padrão
-            />
-          ))}
-        </div>
-
-        <button 
-          className="px-8 py-3 bg-fuchsia-600 text-white font-bold rounded hover:bg-fuchsia-700 transition duration-300">
-          Conheça os jogos
-        </button>
-      </div> */}
-      <h1 className='mt-20 text-center font-bold text-2xl mb-10'>Jogos Disponíveis</h1>
-      {/* <JogosCategorias></JogosCategorias> */}
+     console.log(jogos);
 
    
 
-      <div className="flex flex-col md:flex-row items-center bg-gray-500 text-white rounded-lg overflow-hidden shadow-lg shadow-stone-700 max-w-3xl mx-auto border-white border-4">
-      {/* Texto */}
-      <div className="p-6 flex-1">
-        <h2 className="text-3xl font-bold mb-4 text-indigo-800 text-center">VitalQuest</h2>
-        <p className="text-gray-200 mb-6 leading-relaxed text-justify">
-          VitalQuest é um jogo inovador centrado na saúde, projetado para promover hábitos saudáveis e conscientização.
-          Desenvolvido para diversas plataformas, o jogo utiliza tecnologia de realidade virtual e elementos de
-          gamificação para envolver os jogadores em desafios relacionados à saúde.
-        </p>
-        <button className="bg-pink-500 hover:bg-pink-600 transition-colors py-2 px-4 rounded font-semibold text-white w-full">
-          Conhecer jogo
-        </button>
-      </div>
+    // const games = [
+    //   {
+    //     image: "/img/carro.jpg",
+    //     title: "Exploring the New World",
+    //     description: "Descubra os segredos do universo neste incrível RPG.",
+    //     category: "Game Reviews",
+    //   },
+    //   {
+    //     image: "/img/carro.jpg",
+    //     title: "Mastering eSports",
+    //     description: "Guia completo para brilhar nas competições online.",
+    //     category: "eSports",
+    //   },
+    //   {
+    //     image: "/img/homem_ferro.jpg",
+    //     title: "Tips & Tricks for Gamers",
+    //     description: "Melhore suas habilidades com essas dicas essenciais.",
+    //     category: "Tips & Tricks",
+    //   },
+    //   {
+    //     image: "/img/homem_ferro.jpg",
+    //     title: "Retro Gaming Revival",
+    //     description: "Uma viagem nostálgica pelos clássicos dos games.",
+    //     category: "Retro Gaming",
+    //   },
+    // ];
 
-      {/* Imagem */}
-      {/* <div className="flex items-center justify-center w-full md:w-1/2 h-64 md:h-auto md:mb-10">
-        <div className="relative ">
-          <Image
-            src="/img/montanha.jpg" // Substitua pelo caminho da sua imagem
-            alt="VitalQuest Image"
-            layout="fill"
-            objectFit="contain"
-            className="rounded-lg"
-            // width={250}
-            // height={250}
-          />
+  return (
+
+     <>
+      <header className="text-center py-8 bg-indigo-800 shadow-lg mt-12">
+        <h1 className="text-4xl font-extrabold text-white">Jogos Disponíveis</h1>
+      </header>
+
+      {telaSemJogo ? (
+        <div className="h-screen bg-gray-200 flex flex-col items-center justify-center">
+          <div className="text-center">
+            <h1 className="text-4xl font-bold text-black">
+              Nenhum Jogo foi Lançado no Sistema!
+            </h1>
+            <p className="text-lg mt-2 text-gray-600 font-bold">
+              Por favor, informe ao Desenvolvedor
+            </p>
+          </div>
+          <MdVideogameAssetOff className="w-40 h-40 text-purple-700 hover:scale-110 transition-transform duration-300 mt-5" />
         </div>
-      </div> */}
-
-      {/* Imagem */}
-      <div className="flex items-center justify-center w-full md:w-1/2 h-64 md:h-auto md:mb-10">
+      ) : (
         
-         <div className="relative  mt-3 mr-3   w-52 h-52 lg:w-full lg:h-full md:w-full md:h-full sm:w-52 sm:h-52 ">
-          <Image
-            src="/img/montanha.jpg" // Substitua pelo caminho da sua imagem
-            alt="VitalQuest Image"
-            // layout="fill" // A imagem vai preencher a div
-            objectFit="cover" // A imagem vai cobrir a área sem distorcer
-            className="rounded-lg"
-            width={400}
-            height={400}
-          />
+        <div className="min-h-screen bg-gray-200 py-8">
+          <div className="max-w-5xl mx-auto grid grid-cols-1 gap-6">
+            {jogos.slice(0, 4).map((game, index) => (
+              <div
+                key={index}
+                className="flex bg-gray-800 rounded-lg shadow-lg overflow-hidden"
+              >
+                <div className="relative w-1/3 h-auto">
+                  <Image
+                    src={game.jogos_url_img || "/default-image.jpg"} // Use uma imagem padrão caso não exista
+                    alt={game.jogos_nome || "Jogo"}
+                    layout="responsive"
+                    width={250}
+                    height={250}
+                    objectFit="cover"
+                    className="rounded-l-lg"
+                  />
+                </div>
+                <div className="p-4 flex flex-col justify-between">
+                  <div>
+                    <span className="text-sm text-green-500 font-semibold uppercase">
+                      {game.categoria_jogos?.categoria_jogo_area_atuacao || "Sem Categoria"}
+                    </span>
+                    <h2 className="text-white text-xl font-bold mt-2">
+                      {game.jogos_nome || "Nome do Jogo"}
+                    </h2>
+                    <p className="text-gray-400 text-sm mt-2">
+                      {game.jogos_descricao || "Descrição indisponível."}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="flex items-center justify-center mt-4">
+            <Link href="/jogos/todosJogos">
+              <button className="bg-pink-500 hover:bg-pink-600 transition-colors py-2 px-4 rounded font-semibold  text-white ">
+                Mais Jogos
+              </button>
+            </Link>
+          </div>
         </div>
-      </div>
-
-
-    </div>
-
-    {/* Seção de Cards Menores */}
-    <div className='mt-8 pb-8'>
-        <h3 className="text-center text-2xl font-semibold text-black mb-6">
-          Mais Jogos desse Segmento
-        </h3>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 p-4">
-  {/* Card 1 */}
-  <div className="relative w-full h-40 overflow-hidden group rounded-lg shadow-md shadow-stone-700 border-2 border-white">
-    <Image
-      src="/img/carro.jpg" // Substitua pelo caminho da sua imagem
-      alt="Card 1"
-      layout="fill"
-      objectFit="cover"
-      className="w-full h-full transition-transform duration-500 ease-in-out transform group-hover:scale-110 group-hover:rotate-2 group-hover:brightness-75"
-    />
-    <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-500 flex items-center justify-center">
-      <p className="text-white text-lg font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-        Homem de Ferro
-      </p>
-    </div>
-  </div>
-
-  {/* Card 2 */}
-  <div className="relative w-full h-40 overflow-hidden group rounded-lg shadow-md">
-    <Image
-      src="/img/homem_ferro.jpg" // Substitua pelo caminho da sua imagem
-      alt="Card 2"
-      layout="fill"
-      objectFit="cover"
-      className="w-full h-full transition-transform duration-500 ease-in-out transform group-hover:scale-110 group-hover:rotate-2 group-hover:brightness-75"
-    />
-    <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-500 flex items-center justify-center">
-      <p className="text-white text-lg font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-        Capitão América
-      </p>
-    </div>
-  </div>
-
-  {/* Card 3 */}
-  <div className="relative w-full h-40 overflow-hidden group rounded-lg shadow-md">
-    <Image
-      src="/img/aranha.jpeg" // Substitua pelo caminho da sua imagem
-      alt="Card 3"
-      layout="fill"
-      objectFit="cover"
-      className="w-full h-full transition-transform duration-500 ease-in-out transform group-hover:scale-110 group-hover:rotate-2 group-hover:brightness-75"
-    />
-    <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-500 flex items-center justify-center">
-      <p className="text-white text-lg font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-        Homem-Aranha
-      </p>
-    </div>
-  </div>
-
-  {/* Card 4 */}
-  <div className="relative w-full h-40 overflow-hidden group rounded-lg shadow-md">
-    <Image
-      src="/img/fant.jpg" // Substitua pelo caminho da sua imagem
-      alt="Card 4"
-      layout="fill"
-      objectFit="cover"
-      className="w-full h-full transition-transform duration-500 ease-in-out transform group-hover:scale-110 group-hover:rotate-2 group-hover:brightness-75"
-    />
-    <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-500 flex items-center justify-center">
-      <p className="text-white text-lg font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-        Thor
-      </p>
-    </div>
-  </div>
-</div>
-<div className="flex items-center justify-center mt-3">
-  <Link href="/jogos/todosJogos">
-    <button className="bg-pink-500 hover:bg-pink-600 transition-colors py-2 px-4 rounded font-semibold text-white">
-      Mais Jogos
-    </button>
-  </Link>
-</div>
-
-        </div>
-        </div>
-
+      )}
     </>
+ 
   );
 }
 

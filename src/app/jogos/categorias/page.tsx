@@ -26,8 +26,8 @@ export default function JogosCategorias() {
 
   return (
     <>
-      {/* <div className="min-h-screen bg-gradient-to-tr from-purple-100 to-white flex flex-col items-center justify-center px-6"> */}
-      <div className="min-h-screen bg-gray-200 text-gray-900 flex flex-col items-center justify-center px-6 -mb-36">
+      <div className="h-screen bg-gradient-to-tr from-purple-100 to-white flex flex-col items-center justify-center px-6">
+      {/* <div className="min-h-screen bg-gray-200 text-gray-900 flex flex-col items-center justify-center px-6 -mb-36"> */}
         {/* Texto do Cabeçalho */}
         <div className="text-center max-w-3xl mb-12">
           <h2 className="text-4xl font-bold text-black mb-4">Explore novos jogos</h2>

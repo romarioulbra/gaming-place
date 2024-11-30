@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { ModalFormulario } from "../components/ModalFormulario";
 import Botao from "../components/Botao";
 import Alert from "../components/Alert";
+import { signIn } from "next-auth/react";
 
 export default function Conta() {
   const [email, setEmail] = useState("");
@@ -14,34 +15,58 @@ export default function Conta() {
   const [erro, setErro] = useState("");
   const router = useRouter();
 
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setErro("");
+  // const handleLogin = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   setErro("");
 
-    try {
-      const res = await fetch("/api/usuarios", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, senha }),
-      });
+  //   try {
+  //     const res = await fetch("/api/usuarios", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({ email, senha }),
+  //     });
 
-      const data = await res.json();
+  //     const data = await res.json();
 
-      if (!res.ok) {
-        throw new Error(data.error || "Erro ao realizar login.");
-      }
+  //     if (!res.ok) {
+  //       throw new Error(data.error || "Erro ao realizar login.");
+  //     }
 
-      // Armazene o token (se utilizado)
-      localStorage.setItem("token", data.token);
+  //     // Armazene o token (se utilizado)
+  //     localStorage.setItem("token", data.token);
 
-      // Redirecione o usuário para outra página (ex.: dashboard)
-      router.push("/dashboard");
-    } catch (err: any) {
-      setErro(err.message);
-    }
-  };
+  //     // Redirecione o usuário para outra página (ex.: dashboard)
+  //     router.push("/dashboard");
+  //   } catch (err: any) {
+  //     setErro(err.message);
+  //   }
+  // };
+
+
+//   const [email, setEmail] = useState("");
+// const [senha, setSenha] = useState("");
+
+
+const handleLogin = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  const res = await signIn("credentials", {
+    redirect: false, // Evita redirecionamento automático
+    email, // Email fornecido pelo usuário
+    senha, // Senha fornecida pelo usuário
+  });
+
+  if (!res || res.error) {
+    setErro(res?.error || "Erro ao realizar login.");
+  } else {
+    // Redirecionar após login bem-sucedido
+    router.push("/dashboard");
+  }
+};
+
+
 
 
   // Variáveis do Modal
@@ -140,8 +165,8 @@ export default function Conta() {
           >
             <h2 className="text-2xl font-bold text-center mb-6">Logar</h2>
 
-            {/* Campo de E-mail */}
-            <div className="mb-4">
+
+            {/* <div className="mb-4">
               <InputForm
                 tipoInput="email"
                 label="Email"
@@ -150,7 +175,7 @@ export default function Conta() {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-            {/* Campo de Senha */}
+
             <div className="mb-6">
               <InputForm
                 tipoInput="password"
@@ -159,7 +184,31 @@ export default function Conta() {
                 valorInput={senha}
                 onChange={(e) => setSenha(e.target.value)}
               />
+            </div> */}
+
+
+
+            <div className="mb-4">
+              <InputForm
+                tipoInput="email"
+                label="Email"
+                placeholder="Digite seu email"
+                valorInput={email}
+                metodoSubmit={(e) => setEmail(e.target.value)}
+              />
             </div>
+
+            <div className="mb-6">
+              <InputForm
+                tipoInput="password"
+                label="Senha"
+                placeholder="Digite sua senha"
+                valorInput={senha}
+                metodoSubmit={(e) => setSenha(e.target.value)}
+              />
+            </div>
+
+
             {/* Exibir erro, se houver */}
             {erro && (
               <div className="text-red-600 text-sm text-center mb-4">

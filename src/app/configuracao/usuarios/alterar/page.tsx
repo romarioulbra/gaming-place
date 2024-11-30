@@ -132,7 +132,7 @@ export default function AlterarUsuarios({ dados }) {
           <InputForm
             tipoInput="select"
             label="Nível"
-            options={["Administrador", "Comum"]}
+            options={["Administrador", "Normal", "Logado"]}
             valorInput={formData.usuario_nivel}
             metodoSubmit={(e) => handleInputChange("usuario_nivel", e.target.value)}
           />

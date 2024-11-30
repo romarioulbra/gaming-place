@@ -101,7 +101,7 @@ export default function CadastroUsuario() {
               <InputForm
                 tipoInput="select"
                 label="Nível"
-                options={['Administrador', 'Comum']}
+                options={['Administrador', 'Normal','Logado']}
                 valorInput={formData.usuario_nivel}
                 metodoSubmit={(e) => setFormData({ ...formData, usuario_nivel: e.target.value })}
               />

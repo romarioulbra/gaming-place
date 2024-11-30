@@ -1,20 +1,50 @@
+'use client';
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+// import { getSession } from "next-auth/react";
+// import { useSession } from "next-auth/react";
 
-// import { CgProfile } from "react-icons/cg";
-// import { MdLogout } from "react-icons/md";
 import { SlLogout,SlUser  } from "react-icons/sl";
 export default function Dashboard() {
+
+
+//   const session = await getSession(context);
+
+//   if (!session) {
+//     return {
+//       redirect: {
+//         destination: "/login",
+//         permanent: false,
+//       },
+//     };
+//   }
+
+//   return {
+//     props: { session },
+//   };
+// }
+
+// const { data: session, status } = useSession();
+
+// Verifique o status da sessão
+// if (status === "loading") {
+//   return <p>Carregando...</p>;
+// }
+
+
+// if (!session) {
+//   return <p>Você precisa estar logado para acessar o Dashboard.</p>;
+// }
+
+// const nome = session.user?.nome;
+//   const nivel = session.user?.nivel;
+
   return (
 
 // tema escolhido
     <div className="min-h-screen bg-gradient-to-b from-gray-300 to-indigo-200 -mt-5">
-      <head>
-        <title>Meu Dashboard</title>
-        <meta name="description" content="Dashboard de usuário com gamificação" />
-      </head>
-
+ 
       {/* Navbar */}
       <nav className="bg-gradient-to-r from-primary to-secondary text-black py-4 mt-20 shadow-md">
         <div className="container mx-auto flex justify-between items-center px-4">
@@ -56,7 +86,7 @@ export default function Dashboard() {
         </div>
         </div> */}
 
-        <h1 className="text-4xl font-extrabold text-text mt-6">Bem-vindo, <span className="text-pink-600">[Nome do Usuário]</span>!</h1>
+        <h1 className="text-4xl font-extrabold text-text mt-6">Bem-vindo, <span className="text-pink-600">[Nome Usuário]</span>!</h1>
         <p className="mt-4 text-lg text-text">Estamos felizes em ter você por aqui!</p>
         
         

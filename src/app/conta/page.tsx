@@ -2,9 +2,11 @@
 import { SlGameController } from "react-icons/sl";
 import Image from "next/image";
 import InputForm from "../components/InputsForm";
-import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { ModalFormulario } from "../components/ModalFormulario";
+import Botao from "../components/Botao";
+import Alert from "../components/Alert";
 
 export default function Conta() {
   const [email, setEmail] = useState("");
@@ -41,6 +43,70 @@ export default function Conta() {
     }
   };
 
+
+  // Variáveis do Modal
+  const [modalAberto, setModalAberto] = useState(false);
+  const abrirModal = () => setModalAberto(true);
+  const fecharModal = () => setModalAberto(false);
+
+
+  // Criação de Usuário
+
+  const [alertVisible, setAlertVisible] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+  const [alertType, setAlertType] = useState<"sucesso" | "erro">("sucesso"); 
+
+  const [formData, setFormData] = useState(
+    { usuario_nome: ``, 
+      usuario_email: ``, 
+      usuario_senha: ``,
+      usuario_nivel: "Normal"
+     }
+  );
+
+
+  const handleCadastro = async (event: React.FormEvent) => {
+    event.preventDefault();
+  
+    try {
+      const res = await fetch("/api/usuarios", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+  
+      const data = await res.json();
+  
+      if (!res.ok) {
+        throw new Error(data.error || "Erro ao cadastrar o usuário.");
+      }
+      
+      
+      
+      // Exibe mensagem de sucesso
+      setAlertMessage("Usuário cadastrado com sucesso!");
+      setAlertType("sucesso");
+      setAlertVisible(true);
+      setTimeout(() => {
+        setAlertVisible(false);
+      }, 3000); // O alerta desaparecerá após 3 segundos
+  
+      // Limpa o formulário e fecha o modal
+      setFormData({ usuario_nome: "", usuario_email: "", usuario_senha: "", usuario_nivel: "Normal" });
+      // fecharModal();
+    } catch (err: any) {
+      // Exibe mensagem de erro
+      setAlertMessage(err.message || "Erro ao cadastrar o usuário.");
+      setAlertType("erro");
+      setAlertVisible(true);
+    }
+    // fecharModal();
+  };
+  
+
+
   return (
     <>
       <div className="flex flex-col lg:flex-row min-h-screen">
@@ -65,11 +131,11 @@ export default function Conta() {
             </div>
           </div>
         </div>
-
         {/* Coluna direita */}
         <div className="bg-purple-950 flex items-center justify-center w-full lg:w-1/2 p-8">
           <form
-            className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md mt-4 lg:mb-5 md:mb-24 "
+            name="loginForm"
+            className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md mt-4 "
             onSubmit={handleLogin}
           >
             <h2 className="text-2xl font-bold text-center mb-6">Logar</h2>
@@ -84,7 +150,6 @@ export default function Conta() {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-
             {/* Campo de Senha */}
             <div className="mb-6">
               <InputForm
@@ -95,14 +160,12 @@ export default function Conta() {
                 onChange={(e) => setSenha(e.target.value)}
               />
             </div>
-
             {/* Exibir erro, se houver */}
             {erro && (
               <div className="text-red-600 text-sm text-center mb-4">
                 {erro}
               </div>
             )}
-
             {/* Botão de Cadastro */}
             <button
               type="submit"
@@ -111,16 +174,84 @@ export default function Conta() {
               Entrar
             </button>
             <div className="mt-4 text-center text-sm">
-              <Link
-                href="/"
-                className="text-pink-500 hover:underline font-bold"
+              <button
+                onClick={abrirModal} // Substitua pela sua função
+                className="px-6 py-3 w-full border border-indigo-500 text-indigo-500 rounded-lg hover:bg-indigo-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2 transition"
               >
                 Não possui cadastro?
-              </Link>
+              </button>
             </div>
           </form>
         </div>
       </div>
+
+      {/* Configurações do Modal */}
+      {alertVisible && (
+        <Alert
+          message={alertMessage}
+          tipoAlert={alertType} // Define o tipo de alerta dinamicamente
+          texto={alertMessage} // Mostra a mensagem apropriada
+          cor={alertType === "sucesso" ? "verde" : "vermelho"} // Escolhe a cor com base no tipo
+        />
+      )}
+      {/* Modal */}
+      <ModalFormulario
+        modalAberto={modalAberto}
+        fecharModal={fecharModal}
+        titulo="Cadastro de Usuário"
+        subtitulo="Insira suas informações para criar sua conta."
+        modalType="editar"
+      >
+        <div className="p-8 border border-gray-300 shadow-lg bg-white rounded-lg mr-2 ml-2"> 
+          {alertVisible && (
+            <Alert
+              message={alertMessage}
+              tipoAlert={alertType} // Define o tipo de alerta dinamicamente
+              texto={alertMessage} // Mostra a mensagem apropriada
+              cor={alertType === "sucesso" ? "verde" : "vermelho"} // Escolhe a cor com base no tipo
+            />
+          )}
+          
+          <form 
+            name="loginFormModal"
+            onSubmit={handleCadastro}  
+            className="bg-white p-8 rounded-lg mt-2 "
+          >
+            <div className="p-6">
+              
+              <InputForm
+                tipoInput="text"
+                label="Usuário"
+                placeholder="Nome do Usuário"
+                valorInput={formData.usuario_nome}
+                metodoSubmit={(e) => setFormData({ ...formData, usuario_nome: e.target.value })}
+              />
+              <InputForm
+                tipoInput="email"
+                label="Email"
+                placeholder="exemplo@exemplo.com.br"
+                valorInput={formData.usuario_email}
+                metodoSubmit={(e) => setFormData({ ...formData, usuario_email: e.target.value })}
+              />
+
+              <InputForm
+                tipoInput="password"
+                label="Senha"
+                placeholder="Exemplo_123"
+                valorInput={formData.usuario_senha}
+                metodoSubmit={(e) => setFormData({ ...formData, usuario_senha: e.target.value })}
+              />
+            </div>
+            <div className="flex justify-center">
+              <Botao
+                texto='Cadastrar'
+                tipo='submit'
+                cor = 'verde'
+              />
+            </div>  
+          </form>
+        </div>
+      </ModalFormulario> 
     </>
   );
 }

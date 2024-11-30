@@ -10,7 +10,7 @@ datasource db {
 model usuarios {
   usuario_id        Int      @id @default(autoincrement())
   usuario_nome      String
-  usuario_email     String
+  usuario_email     String   @unique
   usuario_senha     String
   usuario_nivel     String
   usuario_criacao   DateTime @default(now())

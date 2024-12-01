@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { SlGameController } from "react-icons/sl";
 export default function Home() {
   return (
@@ -12,10 +13,12 @@ export default function Home() {
             <div className="ml-4 flex justify-end mt-8">
               <SlGameController className="w-40 h-40 text-fuchsia-500 hover:scale-110 transition-transform duration-300" />
             </div>
-            <button 
-              className="bg-fuchsia-500 hover:bg-fuchsia-600 text-white font-bold py-2 px-4 rounded shadow-lg shadow-violet-600 border-2 border-white transition duration-300 ease-in-out w-60">
-              Começar Agora
-            </button>
+            <Link href='/conta'>
+              <button 
+                className="bg-fuchsia-500 hover:bg-fuchsia-600 text-white font-bold py-2 px-4 rounded shadow-lg shadow-violet-600 border-2 border-white transition duration-300 ease-in-out w-60">
+                Começar Agora
+              </button>
+            </Link>
         </header>
       </div>
     </>

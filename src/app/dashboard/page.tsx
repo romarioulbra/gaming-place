@@ -3,45 +3,29 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 // import { getSession } from "next-auth/react";
-// import { useSession } from "next-auth/react";
-
 import { SlLogout,SlUser  } from "react-icons/sl";
+import { useSession,signOut } from "next-auth/react";
+
 export default function Dashboard() {
 
 
-//   const session = await getSession(context);
-
-//   if (!session) {
-//     return {
-//       redirect: {
-//         destination: "/login",
-//         permanent: false,
-//       },
-//     };
-//   }
-
-//   return {
-//     props: { session },
-//   };
-// }
-
-// const { data: session, status } = useSession();
+const { data: session, status } = useSession();
+console.log(session);
 
 // Verifique o status da sessão
-// if (status === "loading") {
-//   return <p>Carregando...</p>;
-// }
+if (!session) {
+  return <p>Carregando...</p>; // Exibe carregamento ou redireciona
+}
 
 
-// if (!session) {
-//   return <p>Você precisa estar logado para acessar o Dashboard.</p>;
-// }
+if (!session) {
+  return <p>Você precisa estar logado para acessar o Dashboard.</p>;
+}
 
-// const nome = session.user?.nome;
-//   const nivel = session.user?.nivel;
+ // Acessa os dados do usuário na sessão
+ const { nome, nivel } = session.usuario;
 
   return (
-
 // tema escolhido
     <div className="min-h-screen bg-gradient-to-b from-gray-300 to-indigo-200 -mt-5">
  
@@ -56,12 +40,13 @@ export default function Dashboard() {
               <SlUser className="text-indigo-700"/>
               <span>Perfil</span>
             </Link>
-            <a href="/logout" className="hover:text-secondary flex items-center space-x-2">
-              {/* <span className="material-icons">logout</span> */}
-              {/* <MdLogout /> */}
+            <button 
+              onClick={() => signOut({ callbackUrl: "/conta" })} // Redireciona para a página de login após o logout
+              className="hover:text-secondary flex items-center space-x-2"
+            >
               <SlLogout />
               <span>Logout</span>
-            </a>
+            </button>
           </div>
         </div>
       </nav>
@@ -86,7 +71,7 @@ export default function Dashboard() {
         </div>
         </div> */}
 
-        <h1 className="text-4xl font-extrabold text-text mt-6">Bem-vindo, <span className="text-pink-600">[Nome Usuário]</span>!</h1>
+        <h1 className="text-4xl font-extrabold text-text mt-6">Bem-vindo, <span className="text-pink-600">{nome}</span>!</h1>
         <p className="mt-4 text-lg text-text">Estamos felizes em ter você por aqui!</p>
         
         

@@ -1,8 +1,7 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
- // Para verificar a senha
-import { PrismaClient } from "@prisma/client"; // Usando Prisma como exemplo para banco
+ import { PrismaClient } from "@prisma/client"; // Usando Prisma como exemplo para banco
 
 const prisma = new PrismaClient();
 
@@ -42,17 +41,35 @@ const authOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, usuario }) {
-      if (usuario) {
-        token.id = usuario.id;
-        token.email = usuario.email;
-        token.nome = usuario.nome;
-        token.nivel = usuario.nivel;
+    // async jwt({ token, usuario }) {
+    //   if (usuario) {
+    //     token.id = usuario.id;
+    //     token.email = usuario.email;
+    //     token.nome = usuario.nome;
+    //     token.nivel = usuario.nivel;
+    //   }
+    //   return token;
+    // },
+
+    async jwt({ token, user }) {
+      // Adiciona dados extras ao token durante o login
+      if (user) {
+        token.id = user.id;
+        token.email = user.email;
+        token.nome = user.nome;
+        token.nivel = user.nivel;
       }
       return token;
     },
+
+    
     async session({ session, token }) {
-      session.usuario = token;
+      session.usuario = {
+        id: token.id,
+        email: token.email,
+        nome: token.nome,
+        nivel: token.nivel,
+      };
       return session;
     },
   },

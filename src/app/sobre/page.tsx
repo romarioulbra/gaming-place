@@ -7,14 +7,11 @@ export default function Sobre() {
     '/img/homem.png',
     '/img/img3.png',
     '/img/menina.png',
-    // '/img/menin.png',
   ];
   const recompensa = [
     '/img/trofeu.png',
     '/img/lancamento__foguete.png',
-    // '/img/foguete.png',
     '/img/dist.png',
-    // '/img/taça.png',
     '/img/montanha.png',
   ];
 

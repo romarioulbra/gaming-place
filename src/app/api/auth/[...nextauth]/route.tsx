@@ -5,7 +5,6 @@ import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
 
-
 const authOptions = {
   session: {
     strategy: "jwt",
@@ -17,7 +16,6 @@ const authOptions = {
         email: { label: "Email", type: "text" },
         senha: { label: "Senha", type: "password" },
       },
-
       
       async authorize(credentials) {
         // Verifique o email no banco de dados
@@ -41,18 +39,8 @@ const authOptions = {
     }),
   ],
   callbacks: {
-    // async jwt({ token, usuario }) {
-    //   if (usuario) {
-    //     token.id = usuario.id;
-    //     token.email = usuario.email;
-    //     token.nome = usuario.nome;
-    //     token.nivel = usuario.nivel;
-    //   }
-    //   return token;
-    // },
-
     async jwt({ token, user }) {
-      // Adiciona dados extras ao token durante o login
+
       if (user) {
         token.id = user.id;
         token.email = user.email;
@@ -61,7 +49,6 @@ const authOptions = {
       }
       return token;
     },
-
     
     async session({ session, token }) {
       session.usuario = {

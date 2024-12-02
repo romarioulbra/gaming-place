@@ -24,7 +24,7 @@ export default function Sobre() {
       <header className="text-center py-10 bg-indigo-800 shadow-lg mt-12">
         <h1 className="text-4xl font-extrabold text-white">Sobre</h1>
         <p className="mt-2 text-lg font-light text-indigo-300">
-          Explore a nossa plataforma e descubra seus benefícios.
+          Explore a nossa plataforma e descubra seus benefícios!
         </p>
       </header>
 
@@ -41,7 +41,7 @@ export default function Sobre() {
             <div className="max-w-lg text-center lg:text-justify">
               <h2 className="text-3xl font-bold text-green-700 mb-4">Gaming Place</h2>
               <p className="text-gray-700 leading-relaxed">
-                A Gaming Place é uma plataforma gamificada que concentra todos os jogos desenvolvidos na ULBRA Palmas. 
+                O Gaming Place é uma plataforma gamificada que concentra todos os jogos desenvolvidos na ULBRA Palmas. 
                 Organizamos jogos em categorias como saúde, social, educação e acessibilidade, facilitando o acesso e a divulgação 
                 dos desenvolvedores. Um ambiente único, pensado para unir diversão e aprendizado.
               </p>

@@ -20,6 +20,7 @@ export default function CadastrarJogos() {
     jogos_link: "",
     jogos_url_img: "",
     categoria_jogo_id: "",
+    jogos_autor: "",
   });
 
   // Atualiza a pré-visualização da imagem ao selecionar um arquivo
@@ -52,6 +53,7 @@ export default function CadastrarJogos() {
     formDataToSend.append("jogos_nome", formData.jogos_nome);
     formDataToSend.append("jogos_descricao", formData.jogos_descricao);
     formDataToSend.append("jogos_link", formData.jogos_link);
+    formDataToSend.append("jogos_autor", formData.jogos_autor);
     formDataToSend.append("categoria_jogo_id", formData.categoria_jogo_id);
 
     if (file) {
@@ -83,6 +85,7 @@ export default function CadastrarJogos() {
         jogos_link: "",
         jogos_url_img: "",
         categoria_jogo_id: "",
+        jogos_autor: "",
       });
       setFile(null);
       setPreviewImage(null);
@@ -132,6 +135,7 @@ export default function CadastrarJogos() {
                 valorInput={formData.jogos_link}
                 metodoSubmit={(e) => setFormData({ ...formData, jogos_link: e.target.value })}
               />
+              
 
               <InputForm
                 tipoInput="selectDados"
@@ -143,6 +147,13 @@ export default function CadastrarJogos() {
                 metodoSubmit={(e) => setFormData({ ...formData, categoria_jogo_id: e.target.value })}
               />
 
+              <InputForm
+                tipoInput="text"
+                label="Desenvolvedor(es) do Jogo"
+                placeholder="Fulano e Beltrano"
+                valorInput={formData.jogos_autor}
+                metodoSubmit={(e) => setFormData({ ...formData, jogos_autor: e.target.value })}
+              />
               <InputForm
                 tipoInput="textarea"
                 label="Descrição"

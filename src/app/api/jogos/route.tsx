@@ -5,29 +5,6 @@ import { promises as fs } from 'fs';
 import path from 'path';
 
 const prisma = new PrismaClient();
-// Função de Listagem de Dados apenas de Jogos
-// export async function GET() {
-//   try {
-//     const jogos = await prisma.jogos.findMany({
-//       select: {
-//         jogos_id: true,
-//         jogos_nome: true,
-//         jogos_descricao: true,
-//         jogos_link: true,
-//         jogos_url_img: true,
-//       },
-//     });
-//     return NextResponse.json(jogos, { status: 200 });
-//   } catch (error) {
-//     console.error('Erro ao buscar Jogos:', error.message);
-//     return NextResponse.json(
-//       { error: 'Erro ao buscar Jogos', details: error.message },
-//       { status: 500 }
-//     );
-//   }
-// }
-
-
 // Função de Listagem de Dados de Jogos com Categorias de Jogos
 export async function GET() {
   try {
@@ -38,6 +15,7 @@ export async function GET() {
         jogos_descricao: true,
         jogos_link: true,
         jogos_url_img: true,
+        jogos_autor: true,
         categoria_jogo_id: true, // Inclui o ID da categoria
         categoria_jogos: { // Inclui a tabela relacionada (assumindo que o relacionamento é definido no Prisma)
           select: {
@@ -69,6 +47,7 @@ export async function POST(req: Request) {
     const jogos_nome = formData.get("jogos_nome");
     const jogos_descricao = formData.get("jogos_descricao");
     const jogos_link = formData.get("jogos_link");
+    const jogos_autor = formData.get("jogos_autor");
     const categoria_jogo_id = parseInt(String(formData.get("categoria_jogo_id")), 10);
     const file = formData.get("jogos_url_img") as File;
 
@@ -107,6 +86,7 @@ export async function POST(req: Request) {
         jogos_nome: String(jogos_nome),
         jogos_descricao: String(jogos_descricao),
         jogos_link: String(jogos_link),
+        jogos_autor: String(jogos_autor),
         categoria_jogo_id,
         jogos_url_img: `/upload/jogos/${uniqueFileName}`,
       },

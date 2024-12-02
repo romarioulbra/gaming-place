@@ -13,10 +13,10 @@ export default function Jogos() {
   // variáveis globais
   const nomeModulo = 'Jogos';
 
-  const atributosCabTab = ["ID", "Nome", "Descrição", "Link", "Imagem"];
+  const atributosCabTab = ["ID", "Nome", "Descrição", "Link", "Imagem","Autor(es)"];
 
-  const atributosDados = ["jogos_id", "jogos_nome", "jogos_descricao", "jogos_link", "jogos_url_img"];
-
+  const atributosDados = ["jogos_id", "jogos_nome", "jogos_descricao", "jogos_link", "jogos_url_img","jogos_autor"];
+console.log(atributosDados)
 
   const [jogos, setJogos] = useState([]);
 

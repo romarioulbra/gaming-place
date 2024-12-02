@@ -130,6 +130,7 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
             item.jogos_nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
             item.jogos_descricao.toLowerCase().includes(searchTerm.toLowerCase()) ||
             item.jogos_link.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            item.jogos_autor.toLowerCase().includes(searchTerm.toLowerCase()) ||
             item.jogos_url_img.toLowerCase().includes(searchTerm.toLowerCase())
           );
 

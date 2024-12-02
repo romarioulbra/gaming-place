@@ -14,6 +14,7 @@ export async function PUT(req: NextRequest, { params }: { params: { jogos_id: st
     const jogos_nome = formData.get("jogos_nome");
     const jogos_descricao = formData.get("jogos_descricao");
     const jogos_link = formData.get("jogos_link");
+    const jogos_autor = formData.get("jogos_autor");
     const categoria_jogo_id = formData.get("categoria_jogo_id");
     
     const file = formData.get("jogos_url_img") as File;
@@ -30,6 +31,7 @@ export async function PUT(req: NextRequest, { params }: { params: { jogos_id: st
       updateData.jogos_nome = jogos_nome.toString();
       updateData.jogos_descricao = jogos_descricao.toString();
       updateData.jogos_link = jogos_link.toString();
+      updateData.jogos_autor = jogos_autor.toString();
       updateData.categoria_jogo_id = categoria_jogo_id;
     }
 

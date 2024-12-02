@@ -1,68 +1,57 @@
 "use client";
 import Link from "next/link";
-import { useState,useEffect } from "react";
+import { useState} from "react";
 import { FaBars, FaTimes } from "react-icons/fa"; // Ícones para abrir/fechar o menu
 import { SlGameController } from "react-icons/sl";
 import { usePathname } from "next/navigation";
 
-export default function Navbar() {
+export default function Navbar({nivelUsuario}) {
   const [isOpen, setIsOpen] = useState(false);
-
+  const pathname = usePathname(); // Obter a rota atual
+ 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
-  const pathname = usePathname(); // Obter a rota atual
 
-  // const [nivelUsuario, setNivelUsuario] = useState("Comum");
-  // const [links, setLinks] = useState([]);
+// Links baseados no nível do usuário
+const getLinksNivelUsuario = () => {
+  switch (nivelUsuario) {
+    case "Normal":
+      return [
+        { label: "Ínicio", path: "/" },
+        { label: "Sobre", path: "/sobre" },
+        { label: "Jogos", path: "/jogos/categorias" },
+        { label: "Conta", path: "/conta" },
+      ];
+      
+    case "Administrador":
+      return [
+        { label: "Ínicio", path: "/" },
+        { label: "Sobre", path: "/sobre" },
+        { label: "Jogos", path: "/jogos/categorias" },
+        { label: "Conta", path: "/conta" },
+        { label: "Configuração", path: "/configuracao" },
+      ];
+    case "Logado":
+      return [
+        { label: "Ínicio", path: "/" },
+        { label: "Sobre", path: "/sobre" },
+        { label: "Jogos", path: "/jogos/categorias" },
+        { label: "Conta", path: "/conta" },
+      ];
+    default:
+      return [
+        { label: "Ínicio", path: "/" },
+        { label: "Sobre", path: "/sobre" },
+        { label: "Jogos", path: "/jogos/categorias" },
+        { label: "Conta", path: "/conta" },
+      ];
+  }
+};
 
-  // useEffect(() => {
-  //   let novosLinks = [];
-  //   switch (nivelUsuario) {
-  //     case "Admin":
-  //       novosLinks = [
-  //         { label: "Ínicio", path: "/" },
-  //         { label: "Sobre", path: "/sobre" },
-  //         { label: "Jogos", path: "/jogos/categorias" },
-  //         { label: "Conta", path: "/conta" },
-  //         { label: "Configuração", path: "/configuracao" },
-  //       ];
-  //       break;
+const links = getLinksNivelUsuario();
 
-  //     case "Normal":
-  //       novosLinks = [
-  //         { label: "Ínicio", path: "/" },
-  //         { label: "Sobre", path: "/sobre" },
-  //         { label: "Jogos", path: "/jogos/categorias" },
-  //         { label: "Conta", path: "/conta" },
-  //       ];
-  //       break;
-
-  //     case "Logado":
-  //       novosLinks = [
-  //         { label: "Ínicio", path: "/" },
-  //         { label: "Sobre", path: "/sobre" },
-  //         { label: "Jogos", path: "/jogos/categorias" },
-  //         { label: "Conta", path: "/conta" },
-  //       ];
-  //       break;
-
-  //     default:
-  //       novosLinks = [];
-  //   }
-  //   setLinks(novosLinks);
-  // }, [nivelUsuario]); // Atualiza links sempre que o nível do usuário muda
-
-
-
-  const links = [
-    { label: "Ínicio", path: "/" },
-    { label: "Sobre", path: "/sobre" },
-    { label: "Jogos", path: "/jogos/categorias" },
-    { label: "Conta", path: "/conta" },
-    { label: "Configuração", path: "/configuracao" },
-  ];
 
   return (
     <nav className="bg-purple-800 text-white fixed w-full top-0 z-50 border-b-2 border-white">

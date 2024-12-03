@@ -35,3 +35,12 @@ model categoria_jogos {
   jogos                       jogos[]
   categoria_jogo_icone        String
 }
+
+model emblemas {
+  emblema_id       Int    @id @default(autoincrement())
+  emblema_nome     String
+  emblema_criterio String
+  emblema_imagem   String
+  emblemas_pontos  String
+  emblemas_status  String
+}

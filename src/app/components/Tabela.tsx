@@ -9,7 +9,7 @@ import Alert from './Alert';
 import AlterarJogosCategoria from '../configuracao/jogos_categoria/alterar/page';
 import AlterarUsuarios from '../configuracao/usuarios/alterar/page';
 import AlterarJogos from '../configuracao/jogos/alterar/page';
-
+import Image from 'next/image';
 
 export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
     //  Variáveis Globais
@@ -25,8 +25,7 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
     const [alertVisible, setAlertVisible] = useState(false);
     const [alertMessage, setAlertMessage] = useState('');
     const [alertType, setAlertType] = useState<"sucesso" | "erro">("sucesso"); 
-  
-    
+ 
   // ********  ******** Modal Abrir Editar ********  ********   
     function handleEditModal(item){
       setSelectedItem(item);    
@@ -120,7 +119,6 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
           return (
             item.usuario_nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
             item.usuario_email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            item.usuario_senha.toLowerCase().includes(searchTerm.toLowerCase()) ||
             item.usuario_nivel.toLowerCase().includes(searchTerm.toLowerCase())
           );
     
@@ -151,7 +149,7 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
     };
   
     // =================  xxxxxxxxxxxxxxxx PAGINAÇÃO DAS TABELAS  xxxxxxxxxxxxxxxx ================= //
-     
+
     return (
       <div className="flex-auto ml-4 mr-4 mt-4 mb-4"> 
       <div className="overflow-x-auto mx-auto mt-8 mb-8 p-8 border border-gray-300 shadow-lg rounded-lg justify-between items-center">
@@ -183,19 +181,20 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
                 }}
               /> 
             
-            <table className="min-w-full bg-white text-black rounded-lg table-auto border-collapse border border-black">
-              <thead>
-                <tr className="bg-neutral-900 text-gray-300 ">
-                  {atributosCabTab.map((atributo, index) => (
-                    <th
-                      key={index}
-                      className="py-3 px-6 text-left border border-white">
-                        {atributo}
-                      </th>
-                    ))}
-                    <th className="py-3 px-6 text-left ">Ação</th>
-                </tr>
-              </thead>
+         {/* Scroll horizontal em telas pequenas */}
+            <table className="table-auto min-w-full bg-white text-black rounded-lg border-collapse border border-black">
+                <thead>
+                  <tr className="bg-neutral-900 text-gray-300 ">
+                    {atributosCabTab.map((atributo, index) => (
+                      <th
+                        key={index}
+                        className="py-3 px-6 text-left border border-white">
+                          {atributo}
+                        </th>
+                      ))}
+                      <th className="py-3 px-6 text-left ">Ação</th>
+                  </tr>
+                </thead>
                 <tbody className='border border-black'>
                 {paginatedData.map((item,index) => (
                   <tr
@@ -203,11 +202,63 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
                       className="border-b border-black hover:bg-gray-200 hover:border  hover:border-fuchsia-300 transition-colors"
                     > 
                   
-                    {atributosDados.map((atributoArray, idx) => (
-                      <td key={idx} className="py-3 px-6 border border-black">
-                        {item[atributoArray]}
-                      </td>
-                    ))}
+
+                  {atributosDados.map((atributoArray, idx) => {
+                    if (atributoArray === "usuario_senha") {
+                      // Condição para ocultar a senha
+                      return (
+                        <td key={idx} className="py-3 px-6 border border-black">
+                          ****** {/* Valor oculto para o campo de senha */}
+                        </td>
+                      );
+                    } else if (atributoArray === "jogos_url_img") {
+                      // Condição para exibir a imagem
+                      return (
+                        <td key={idx} className="py-3 px-6 border border-black">
+                          <Image
+                            src={item[atributoArray]} // URL da imagem
+                            alt="Imagem do jogo"
+                            className="w-16 h-16 object-cover rounded"
+                            width={50}
+                            height={50}
+                          />
+                        </td>
+                      );
+                    } else if (atributoArray === "jogos_descricao") {
+                      // Limitar o texto a 15 caracteres
+                      return (
+                        <td key={idx} className="py-3 px-6 border border-black">
+                          {item[atributoArray].length > 15
+                            ? item[atributoArray].substring(0, 15) + "..."
+                            : item[atributoArray]}
+                        </td>
+                      );
+                    } else if (atributoArray === "jogos_link") {
+                      // Transformar em link clicável e ajustar a fonte
+                      return (
+                        <td key={idx} className="py-3 px-6 border border-black">
+                          <a
+                            href={item[atributoArray]} // URL do link
+                            target="_blank" // Abrir em nova aba
+                            rel="noopener noreferrer" // Segurança
+                            className="text-sm text-blue-500 underline hover:text-blue-700" // Estilos para fonte e cor
+                          >
+                            {item[atributoArray]}
+                          </a>
+                        </td>
+                      );
+                    } else {
+                      // Caso padrão: exibe o valor do campo normalmente
+                      return (
+                        <td key={idx} className="py-3 px-6 border border-black">
+                          {item[atributoArray]} {/* Exibe o valor normal */}
+                        </td>
+                      );
+                    }
+                  })}
+
+
+
                     <td className="py-4 px-6  flex space-x-4"> 
                         
                       {/* Botão Editar */}
@@ -230,6 +281,7 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
                   ))}
                 </tbody>
               </table>
+  
 
               {/* Modal Editar */}
               <ModalFormulario 

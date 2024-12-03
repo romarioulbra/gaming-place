@@ -2,7 +2,7 @@ import { FaUser, FaGamepad, FaLayerGroup } from "react-icons/fa";
 
 export default function AdminDashboard() {
   return (
-    <div className="min-h-screen mt-16 flex flex-col bg-gradient-to-br from-indigo-600 via-purple-500 to-pink-500">
+    <div className="min-h-screen flex flex-col bg-gradient-to-br from-indigo-600 via-purple-500 to-pink-500">
       {/* Navbar */}
       <header className="bg-indigo-700 text-white shadow-lg">
         <div className="container mx-auto px-6 py-4 flex justify-between items-center">
@@ -18,7 +18,7 @@ export default function AdminDashboard() {
       {/* Main Content */}
       <div className="flex flex-1">
         {/* Sidebar */}
-        <aside className="w-64 bg-indigo-800 text-white">
+        {/* <aside className="w-64 bg-indigo-800 text-white">
           <nav className="mt-10 space-y-4 px-4">
             <a
               href="#usuarios"
@@ -42,7 +42,49 @@ export default function AdminDashboard() {
               <span>Categorias</span>
             </a>
           </nav>
-        </aside>
+        </aside> */}
+
+        <aside className="w-64 bg-indigo-800 text-white">
+            <nav className="mt-10 space-y-4 px-4">
+              {/* Item com Badge */}
+              <a
+                href="#usuarios"
+                className="relative flex items-center px-4 py-3 bg-indigo-700 rounded-lg hover:bg-indigo-600 transition"
+              >
+                <FaUser className="mr-2" />
+                <span>Usuários</span>
+                {/* Badge Circular */}
+                <div className="absolute right-3 top-2 bg-red-500 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center">
+                  5 {/* Substitua pelo valor dinâmico */}
+                </div>
+              </a>
+
+              <a
+                href="#jogos"
+                className="relative flex items-center px-4 py-3 bg-indigo-700 rounded-lg hover:bg-indigo-600 transition"
+              >
+                <FaGamepad className="mr-2" />
+                <span>Jogos</span>
+                {/* Badge Circular */}
+                <div className="absolute right-3 top-2 bg-red-500 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center">
+                  10 {/* Substitua pelo valor dinâmico */}
+                </div>
+              </a>
+
+              <a
+                href="#categorias"
+                className="relative flex items-center px-4 py-3 bg-indigo-700 rounded-lg hover:bg-indigo-600 transition"
+              >
+                <FaLayerGroup className="mr-2" />
+                <span>Categorias</span>
+                {/* Badge Circular */}
+                <div className="absolute right-3 top-2 bg-red-500 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center">
+                  2 {/* Substitua pelo valor dinâmico */}
+                </div>
+              </a>
+            </nav>
+          </aside>
+
 
         {/* Dashboard Content */}
         <main className="flex-1 bg-white shadow-2xl">
@@ -81,6 +123,49 @@ export default function AdminDashboard() {
                 </div>
               </div>
             </div>
+
+            
+            
+            {/* <div className="grid grid-cols-1 mt-2 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              
+              <div className="relative bg-indigo-600 text-white p-6 rounded-lg shadow-md flex items-center">
+                <FaUser className="w-10 h-10 mr-4" />
+                <div>
+                  <h3 className="text-xl font-semibold">Usuários</h3>
+                  <p className="text-sm">Gerencie todos os usuários do sistema.</p>
+                </div>
+                
+                <div className="absolute right-3 top-3 bg-red-500 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center">
+                  5 
+                </div>
+              </div>
+
+              <div className="relative bg-pink-600 text-white p-6 rounded-lg shadow-md flex items-center">
+                <FaGamepad className="w-10 h-10 mr-4" />
+                <div>
+                  <h3 className="text-xl font-semibold">Jogos</h3>
+                  <p className="text-sm">Adicione, edite ou exclua jogos.</p>
+                </div>
+                
+                <div className="absolute right-3 top-3 bg-red-500 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center">
+                  10 
+                </div>
+              </div>
+
+            
+              <div className="relative bg-purple-600 text-white p-6 rounded-lg shadow-md flex items-center">
+                <FaLayerGroup className="w-10 h-10 mr-4" />
+                <div>
+                  <h3 className="text-xl font-semibold">Categorias</h3>
+                  <p className="text-sm">Organize os jogos em categorias.</p>
+                </div>
+                
+                <div className="absolute right-3 top-3 bg-red-500 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center">
+                  2 
+                </div>
+              </div>
+            </div> */}
+
 
             {/* Detalhes */}
             <div className="mt-12">

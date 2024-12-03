@@ -2,15 +2,16 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-// import { getSession } from "next-auth/react";
 import { SlLogout,SlUser  } from "react-icons/sl";
 import { useSession,signOut } from "next-auth/react";
 import Navbar from "../components/MenuNavbar";
+import NavBarPerfil from "../components/NavBarPerfil";
+
+
 export default function Dashboard() {
 
-
 const { data: session, status } = useSession();
-console.log(session);
+// console.log(session);
 
 // Verifique o status da sessão
 // if (!session) {
@@ -28,26 +29,10 @@ if (!session) {
   return (
     <>
       <Navbar nivelUsuario={nivel}/>
-      <div className="min-h-screen bg-gradient-to-b from-gray-300 to-indigo-200 -mt-5">
+      <div className="min-h-screen bg-gradient-to-b from-gray-300 to-indigo-200 pt-4">
       {/* Navbar */}
-      <nav className="bg-indigo-500 text-black py-4 mt-20 shadow-md">
-        <div className="container mx-auto flex justify-between items-center px-4">
-          <div className="text-2xl font-bold">Dashboard</div>
-          <div className="flex space-x-4 text-slate-200">
-            <Link href="/usuarios/perfil" className="hover:text-secondary flex items-center space-x-2 hover:bg-indigo-400 hover:p-1">
-              <SlUser className=""/>
-              <span>Perfil</span>
-            </Link>
-            <button 
-              onClick={() => signOut({ callbackUrl: "/conta" })} // Redireciona para a página de login após o logout
-              className="hover:text-secondary flex items-center space-x-2"
-            >
-              <SlLogout />
-              <span>Logout</span>
-            </button>
-          </div>
-        </div>
-      </nav>
+      
+      {/* <NavBarPerfil/> */}
       {/* Boas-vindas */}
       <main className="flex flex-col items-center justify-center text-center mt-10">
       {/* Imagem inserida precisa ser quadrada */}

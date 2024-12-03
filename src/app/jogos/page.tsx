@@ -25,34 +25,6 @@ export default function Jogos() {
 
      console.log(jogos);
 
-   
-
-    // const games = [
-    //   {
-    //     image: "/img/carro.jpg",
-    //     title: "Exploring the New World",
-    //     description: "Descubra os segredos do universo neste incrível RPG.",
-    //     category: "Game Reviews",
-    //   },
-    //   {
-    //     image: "/img/carro.jpg",
-    //     title: "Mastering eSports",
-    //     description: "Guia completo para brilhar nas competições online.",
-    //     category: "eSports",
-    //   },
-    //   {
-    //     image: "/img/homem_ferro.jpg",
-    //     title: "Tips & Tricks for Gamers",
-    //     description: "Melhore suas habilidades com essas dicas essenciais.",
-    //     category: "Tips & Tricks",
-    //   },
-    //   {
-    //     image: "/img/homem_ferro.jpg",
-    //     title: "Retro Gaming Revival",
-    //     description: "Uma viagem nostálgica pelos clássicos dos games.",
-    //     category: "Retro Gaming",
-    //   },
-    // ];
 
   return (
 
@@ -96,7 +68,7 @@ export default function Jogos() {
                 <div className="p-4 flex flex-col justify-between">
                   <div>
                     <span className="text-sm text-green-500 font-semibold uppercase">
-                      {game.categoria_jogos?.categoria_jogo_area_atuacao || "Sem Categoria"}
+                      Categoria: {game.categoria_jogos?.categoria_jogo_area_atuacao || "Sem Categoria"}
                     </span>
                     <h2 className="text-white text-xl font-bold mt-2">
                       {game.jogos_nome || "Nome do Jogo"}
@@ -104,7 +76,13 @@ export default function Jogos() {
                     <p className="text-gray-400 text-sm mt-2">
                       {game.jogos_descricao || "Descrição indisponível."}
                     </p>
+                    <div className="text-sm mb-2 text-fuchsia-500 font-semibold uppercase text-right block ">
+                     <p>Desenvolvido por:  {game.jogos_autor || "Autor Desconhecido"}</p>
+                    </div>
                   </div>
+                  <button className="bg-fuchsia-700 hover:bg-pink-600 transition-colors py-2 px-4 rounded font-semibold  text-white ">
+                    Conhecer Jogo
+                  </button>
                 </div>
               </div>
             ))}

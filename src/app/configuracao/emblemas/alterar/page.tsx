@@ -5,7 +5,7 @@ import { useState,useEffect } from "react";
 import InputForm from "@/app/components/InputsForm";
 import Image from "next/image";
 
-export default function AlterarJogos({ dados }: { dados: any }) {
+export default function AlterarJEmblemas({ dados }: { dados: any }) {
   const [formData, setFormData] = useState(dados); // Inicializa com os dados recebidos
   const [modalText, setModalText] = useState(""); // Texto do modal
   const [loading, setLoading] = useState(false); // Estado para controlar o loading

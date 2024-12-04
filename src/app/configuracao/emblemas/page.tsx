@@ -3,34 +3,34 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 import Tabela from "../../components/Tabela";
-import { FaGamepad} from "react-icons/fa";
+import { FaMeteor} from "react-icons/fa";
 import CabecalhoViwer from "../../components/CabecalhoViwer";
-import Footer from "@/app/components/Rodape";
+
 // import Fly from "@/app/components/Flyout";
 
-export default function Jogos() {
+export default function Emblemas() {
     
   // variáveis globais
-  const nomeModulo = 'Jogos';
+  const nomeModulo = 'Emblemas';
 
-  const atributosCabTab = ["ID", "Nome", "Descrição", "Link", "Imagem","Autor(es)"];
+  const atributosCabTab = ["ID", "Nome", "Critério", "Imagem", "Pontos","Status"];
+  
+  const atributosDados = ["emblema_id", "emblema_nome", "emblema_criterio", "emblema_imagem", "emblemas_pontos","emblemas_status"];
+// console.log(atributosDados)
 
-  const atributosDados = ["jogos_id", "jogos_nome", "jogos_descricao", "jogos_link", "jogos_url_img","jogos_autor"];
-console.log(atributosDados)
-
-  const [jogos, setJogos] = useState([]);
+  const [emblemas, setEmblemas] = useState([]);
 
   useEffect(() => {
-    async function fetchJogos() {
+    async function fetchEmblemas() {
       try {
-        const response = await axios.get('/api/jogos');
-        setJogos(response.data);
-        console.log(jogos); 
+        const response = await axios.get('/api/emblemas');
+        setEmblemas(response.data);
+        console.log(emblemas); 
       } catch (error) {
-        console.error('Erro ao buscar Jogos:', error);
+        console.error('Erro ao buscar Emblemas:', error);
       }
     }
-    fetchJogos();
+    fetchEmblemas();
   }, []);
 
   return (
@@ -38,15 +38,15 @@ console.log(atributosDados)
       {/* <Fly/> */}
       <CabecalhoViwer 
         nomeModel={nomeModulo} 
-        Icone={FaGamepad}
-        urlCadastro= "/configuracao/jogos/cadastrar"
+        Icone={FaMeteor}
+        urlCadastro= "/configuracao/emblemas/cadastrar"
       />
       <div className="">
         <Tabela 
-          data={jogos} 
+          data={emblemas} 
           atributosCabTab={atributosCabTab} 
           atributosDados={atributosDados}
-          modulo='jogo'
+          modulo='emblema'
         />
       </div>
     </>

@@ -2,25 +2,24 @@
 import { useState, useEffect } from "react";
 import Botao from "@/app/components/Botao";
 import InputForm from "@/app/components/InputsForm";
-import { CgGames } from "react-icons/cg";
+import { FaMeteor } from "react-icons/fa";
 import Alert from "@/app/components/Alert";
 import CabecalhoVoltar from "@/app/components/CabecalhoVoltar";
 import Image from "next/image";
 
-export default function CadastrarJogos() {
+export default function CadastrarEmblemas() {
   const [alertVisible, setAlertVisible] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [alertType, setAlertType] = useState<"sucesso" | "erro">("sucesso");
   const [file, setFile] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
-  const [jogos, setJogos] = useState([]);
+  const [emblemas, setEmblemas] = useState([]);
   const [formData, setFormData] = useState({
-    jogos_nome: "",
-    jogos_descricao: "",
-    jogos_link: "",
-    jogos_url_img: "",
-    categoria_jogo_id: "",
-    jogos_autor: "",
+    emblema_nome: "",
+    emblema_criterio: "",
+    emblema_imagem: "",
+    emblemas_pontos: "",
+    emblemas_status: "",
   });
 
   // Atualiza a pré-visualização da imagem ao selecionar um arquivo
@@ -34,63 +33,61 @@ export default function CadastrarJogos() {
 
   // Função para buscar categorias dos Jogos
   useEffect(() => {
-    const fetchJogos = async () => {
+    const fetchEmblemas = async () => {
       try {
-        const response = await fetch("/api/categoria_jogos");
+        const response = await fetch("/api/emblemas");
         const data = await response.json();
-        setJogos(data);
+        setEmblemas(data);
       } catch (error) {
-        console.error("Erro ao buscar Jogos:", error);
+        console.error("Erro ao buscar Emblemas:", error);
       }
     };
-    fetchJogos();
+    fetchEmblemas();
   }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formDataToSend = new FormData();
-    formDataToSend.append("jogos_nome", formData.jogos_nome);
-    formDataToSend.append("jogos_descricao", formData.jogos_descricao);
-    formDataToSend.append("jogos_link", formData.jogos_link);
-    formDataToSend.append("jogos_autor", formData.jogos_autor);
-    formDataToSend.append("categoria_jogo_id", formData.categoria_jogo_id);
+    formDataToSend.append("emblema_nome", formData.emblema_nome);
+    formDataToSend.append("emblema_criterio", formData.emblema_criterio);
+    formDataToSend.append("emblemas_status", formData.emblemas_status);
+    formDataToSend.append("emblemas_pontos", formData.emblemas_pontos);
 
     if (file) {
-      formDataToSend.append("jogos_url_img", file);
+      formDataToSend.append("emblema_imagem", file);
     }
 
     try {
-      const res = await fetch("/api/jogos", {
+      const res = await fetch("/api/emblemas", {
         method: "POST",
         body: formDataToSend,
       });
 
       if (!res.ok) {
         const errorData = await res.json();
-        setAlertMessage(errorData.error || "Erro ao cadastrar Jogos.");
+        setAlertMessage(errorData.error || "Erro ao cadastrar Emblemas.");
         setAlertType("erro");
         setAlertVisible(true);
         return;
       }
 
-      setAlertMessage("Jogo cadastrado com sucesso!");
+      setAlertMessage("Emblema cadastrado com sucesso!");
       setAlertType("sucesso");
       setAlertVisible(true);
 
       // Limpa o formulário e a pré-visualização
       setFormData({
-        jogos_nome: "",
-        jogos_descricao: "",
-        jogos_link: "",
-        jogos_url_img: "",
-        categoria_jogo_id: "",
-        jogos_autor: "",
+        emblema_nome: "",
+        emblema_criterio: "",
+        emblema_imagem: "",
+        emblemas_pontos: "",
+        emblemas_status: "",
       });
       setFile(null);
       setPreviewImage(null);
 
-      const fileInput = document.getElementById("categoria_jogo_icone") as HTMLInputElement;
+      const fileInput = document.getElementById("emblema_imagem") as HTMLInputElement;
       if (fileInput) {
         fileInput.value = ""; // Reseta o valor do input file
       }
@@ -105,7 +102,7 @@ export default function CadastrarJogos() {
   return (
     <>
       <h1 className="text-center mt-32 mb-3 text-2xl font-bold">Cadastro de Jogos</h1>
-      <CabecalhoVoltar Icone={CgGames} />
+      <CabecalhoVoltar Icone={FaMeteor} />
 
       {alertVisible && (
         <Alert
@@ -120,55 +117,58 @@ export default function CadastrarJogos() {
         <div className="p-8 border border-gray-300 shadow-lg bg-white rounded-lg mr-2 ml-2">
           <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg mt-2">
             <div className="p-6">
-              <div className="flex flex-wrap gap-4">             
-                <div className="flex-1">             
-                  <InputForm
-                    tipoInput="text"
-                    label="Jogo"
-                    placeholder="Nome do Jogo"
-                    valorInput={formData.jogos_nome}
-                    metodoSubmit={(e) => setFormData({ ...formData, jogos_nome: e.target.value })}
-                  />
-                </div>
-                <div className="flex-1">
-                  <InputForm
-                    tipoInput="text"
-                    label="Link do Jogo"
-                    placeholder="www.exemplo.com.br"
-                    valorInput={formData.jogos_link}
-                    metodoSubmit={(e) => setFormData({ ...formData, jogos_link: e.target.value })}
-                  />
-                </div>
-              </div>    
-              <div className="flex flex-wrap gap-4 mt-4">              
-                <div className="flex-1">
+
+            <div className="flex flex-wrap gap-4">              
+                {/* <div className="flex-1">
                   <InputForm
                     tipoInput="selectDados"
                     label="Categoria do Jogo"
                     dadosSelect={jogos}
-                    idSelect="categoria_jogo_id"
+                    idSelect="emblemas_pontos"
                     nomeSelect="categoria_jogo_area_atuacao"
-                    valorInput={formData.categoria_jogo_id}
-                    metodoSubmit={(e) => setFormData({ ...formData, categoria_jogo_id: e.target.value })}
+                    valorInput={formData.emblemas_pontos}
+                    metodoSubmit={(e) => setFormData({ ...formData, emblemas_pontos: e.target.value })}
+                  />
+                </div> */}
+                <div className="flex-1">
+                  <InputForm
+                    tipoInput="text"
+                    label="Emblema"
+                    placeholder="Nome do Emblema"
+                    valorInput={formData.emblema_nome}
+                    metodoSubmit={(e) => setFormData({ ...formData, emblema_nome: e.target.value })}
+                  />
+                </div>
+              </div>
+
+              <div className="flex flex-wrap gap-4  mt-4">             
+                <div className="flex-1">             
+                  <InputForm
+                    tipoInput="text"
+                    label="Status"
+                    placeholder="Adquirido"
+                    valorInput={formData.emblemas_status}
+                    metodoSubmit={(e) => setFormData({ ...formData, emblemas_status: e.target.value })}
                   />
                 </div>
                 <div className="flex-1">
                   <InputForm
                     tipoInput="text"
-                    label="Desenvolvedor(es) do Jogo"
-                    placeholder="Fulano e Beltrano"
-                    valorInput={formData.jogos_autor}
-                    metodoSubmit={(e) => setFormData({ ...formData, jogos_autor: e.target.value })}
+                    label="Quantidade de Pontos"
+                    placeholder="40"
+                    valorInput={formData.emblemas_pontos}
+                    metodoSubmit={(e) => setFormData({ ...formData, emblemas_pontos: e.target.value })}
                   />
                 </div>
-              </div>
+              </div>    
+
               <div className="mt-4">
                 <InputForm
                   tipoInput="textarea"
-                  label="Descrição"
-                  placeholder="Digite aqui a descrição do Jogo"
-                  valorInput={formData.jogos_descricao}
-                  metodoSubmit={(e) => setFormData({ ...formData, jogos_descricao: e.target.value })}
+                  label="Critério"
+                  placeholder="Digite aqui o critério e a descrição do emblema"
+                  valorInput={formData.emblema_criterio}
+                  metodoSubmit={(e) => setFormData({ ...formData, emblema_criterio: e.target.value })}
                 />
               </div>
 
@@ -193,9 +193,9 @@ export default function CadastrarJogos() {
             <div className="mt-4">
               <InputForm
                 tipoInput="fileInput"
-                label="Imagem do Jogo - (PNG)"
+                label="Imagem do Emblema - (PNG)"
                 fileImage={handleFileChange}
-                idFileInput="categoria_jogo_icone"
+                idFileInput="emblema_imagem"
               />
             </div>
           </div>

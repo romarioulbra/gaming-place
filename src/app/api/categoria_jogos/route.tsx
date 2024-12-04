@@ -7,7 +7,7 @@ import path from 'path';
 
 const prisma = new PrismaClient();
 
-// Função de Listagem de Dados
+// Função de Listagem de Todas as Categorias
 export async function GET() {
   try {
     const cat_jogos = await prisma.categoria_jogos.findMany({
@@ -28,53 +28,20 @@ export async function GET() {
 }
 
 
-// Função de Inserção de Dados com Upload
-// Configuração para desabilitar o bodyParser padrão do Next.js
-// export const config = {
-//   api: {
-//     bodyParser: false, // Desativa o bodyParser
-//   },
-// };
+// Retorna os jogos de uma categoria específica
+// export async function GET_BY_CATEGORIA({ params }: { params: { categoria_jogo_id: string } }) {
+//   const { categoria_jogo_id } = params;
+  
+//   const jogos = await prisma.jogos.findMany({
+//     where: {
+//       categoria_jogo_id: parseInt(categoria_jogo_id),
+//     },
+//   });
 
-
-// Esse Post esta funcionando de boa
-// export async function POST(req: Request) {
-//   try {
-//     const formData = await req.formData();
-//     const categoria_jogo_area_atuacao = formData.get("categoria_jogo_area_atuacao") ;
-//     const file = formData.get("categoria_jogo_icone") as File;
-
-//     if (!categoria_jogo_area_atuacao || !file) {
-//       return NextResponse.json({ error: "Todos os campos são obrigatórios!" }, { status: 400 });
-//     }
-
-//     // Verifica o tipo do arquivo
-//     if (file.type !== "image/svg+xml") {
-//       return NextResponse.json({ error: "Apenas arquivos SVG são permitidos." }, { status: 400 });
-//     }
-
-//     // Salvando o arquivo SVG no servidor
-//     const uploadsDir = path.join(process.cwd(), "public", "upload", "categoria_jogos");
-//     await fs.mkdir(uploadsDir, { recursive: true }); // Garante que o diretório exista
-
-//     const filePath = path.join(uploadsDir, file.name);
-//     const fileData = Buffer.from(await file.arrayBuffer());
-//     await fs.writeFile(filePath, fileData);
-
-//     // Salvando os dados no banco
-//     const newCatJogos = await prisma.categoria_jogos.create({
-//       data: {
-//         categoria_jogo_area_atuacao,
-//         categoria_jogo_icone: `/upload/categoria_jogos/${file.name}`, // Caminho do ícone salvo
-//       },
-//     });
-
-//     return NextResponse.json(newCatJogos, { status: 201 });
-//   } catch (error) {
-//     console.error("Erro ao criar nova Categoria de Jogos:", error);
-//     return NextResponse.json({ error: "Erro ao criar Categoria de Jogos." }, { status: 500 });
-//   }
+//   return NextResponse.json(jogos);
 // }
+
+
 
 
 

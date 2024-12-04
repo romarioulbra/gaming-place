@@ -283,18 +283,23 @@ export default function ListaComImagem() {
         )}
         {/* Card com lista e painel de detalhes */}
         <div className="w-full h-[600px] bg-white shadow-lg shadow-slate-500 overflow-hidden flex border-white border-4">
-      {/* Lista de jogos filtrada */}
-      <ul className="list-none p-0 m-0 w-1/3 bg-gray-300 flex flex-col border-r h-full overflow-y-auto custom-scroll">
-        {filteredJogos.map((game) => (
-          <li
-            key={game.id}
-            className="p-4 cursor-pointer border-b border-white text-center hover:bg-gray-400 font-bold"
-            onClick={() => setSelectedGame(game)} // Exibe os detalhes do jogo selecionado
-          >
-            {game.jogos_nome}
-          </li>
-        ))}
-      </ul>
+          {/* Lista de jogos filtrada */}
+          <ul className="list-none p-0 m-0 w-1/3 bg-gray-300 flex flex-col border-r h-full overflow-y-auto custom-scroll">
+            {filteredJogos.map((game) => (
+              <li
+                key={game.id}
+                className={`p-4 border-b border-white text-center hover:bg-gray-400 font-bold ${
+                  selectedGame.id === game.id ? "bg-indigo-500 text-white" : ""
+                }`}
+                onClick={() => setSelectedGame(game)} // Exibe os detalhes do jogo selecionado
+                style={{ caretColor: "transparent" }} // Remove o cursor piscante
+                tabIndex={-1} // Remove a capacidade de foco
+              >
+                {game.jogos_nome}
+              </li>
+            ))}
+          </ul>
+
 
       {/* Painel de detalhes */}
       <div className="flex-1 flex flex-col items-center justify-center text-center p-4">

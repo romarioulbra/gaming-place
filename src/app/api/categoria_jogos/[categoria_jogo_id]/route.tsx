@@ -1,55 +1,99 @@
-
-// FUNCIONA APENAS PARA GRAVAÇÃO DOS ARQUIVOS
-// 'use server';
-
-// import { PrismaClient } from '@prisma/client';
-// import { NextResponse } from 'next/server';
-
-// // Inicialize o Prisma
-// const prisma = new PrismaClient();
-
-// export async function PUT(req: Request, { params }: { params: { categoria_jogo_id: string } }) {
-//   try {
-//     console.log("Iniciando PUT...");
-//     console.log("Parâmetros recebidos:", params);
-
-//     const body = await req.json();
-//     console.log("Dados recebidos no body:", body);
-
-//     // Verifique se o ID é válido
-//     if (isNaN(Number(params.categoria_jogo_id))) {
-//       return NextResponse.json(
-//         { error: "ID inválido fornecido" },
-//         { status: 400 }
-//       );
-//     }
-
-//     // Atualizar no banco de dados
-//     const categoriaAtualizada = await prisma.categoria_jogos.update({
-//       where: { categoria_jogo_id: Number(params.categoria_jogo_id) },
-//       data: body,
-//     });
-
-//     console.log("Categoria atualizada com sucesso:", categoriaAtualizada);
-
-//     return NextResponse.json(categoriaAtualizada);
-//   } catch (error: any) {
-//     console.error("Erro ao atualizar categoria:", error);
-
-//     return NextResponse.json(
-//       { error: error.message || "Erro interno do servidor" },
-//       { status: 500 }
-//     );
-//   }
-// }
-
-
 import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client"; 
 import path from "path";
 import fs from "fs/promises";
 
 const prisma = new PrismaClient();
+
+export async function GET(
+  request: Request,
+  { params }: { params: { categoria_jogo_id: string } }
+) {
+  const { categoria_jogo_id } = params;
+
+  try {
+    // Busca os jogos da categoria específica
+    const jogos = await prisma.jogos.findMany({
+      where: {
+        categoria_jogo_id: parseInt(categoria_jogo_id, 10),
+      },
+      select: {
+        jogos_id: true,
+        jogos_nome: true,
+        jogos_descricao: true,
+        jogos_link: true,
+        jogos_url_img: true,
+        jogos_autor: true,
+      },
+    });
+
+    return NextResponse.json(jogos, { status: 200 });
+  } catch (error) {
+    console.error("Erro ao buscar jogos da categoria:", error.message);
+    return NextResponse.json(
+      { error: "Erro ao buscar jogos da categoria", details: error.message },
+      { status: 500 }
+    );
+  }
+}
+// export async function GET() {
+//   try {
+//     const jogos = await prisma.jogos.findMany({
+//       select: {
+//         jogos_id: true,
+//         jogos_nome: true,
+//         jogos_descricao: true,
+//         jogos_link: true,
+//         jogos_url_img: true,
+//         jogos_autor: true,
+//         categoria_jogo_id: true, // Inclui o ID da categoria
+//         categoria_jogos: { // Inclui a tabela relacionada (assumindo que o relacionamento é definido no Prisma)
+//           select: {
+//             categoria_jogo_id: true, // Chave primária da categoria
+//             categoria_jogo_area_atuacao: true, // Campo da área de atuação da categoria
+//           }
+//         }
+//       },
+//     });
+    
+//     return NextResponse.json(jogos, { status: 200 });
+//   } catch (error) {
+//     console.error('Erro ao buscar Jogos:', error.message);
+//     return NextResponse.json(
+//       { error: 'Erro ao buscar Jogos', details: error.message },
+//       { status: 500 }
+//     );
+//   }
+// }
+
+
+
+
+
+// Retorna os jogos de uma categoria específica
+// export async function GET(
+//   request: Request,
+//   { params }: { params: { categoria_jogo_id: string } }
+// ) {
+//   const { categoria_jogo_id } = params;
+
+//   try {
+//     const jogos = await prisma.jogos.findMany({
+//       where: {
+//         categoria_jogo_id: parseInt(categoria_jogo_id, 10),
+//       },
+//     });
+
+//     return NextResponse.json(jogos, { status: 200 });
+//   } catch (error) {
+//     console.error("Erro ao buscar jogos da categoria:", error.message);
+//     return NextResponse.json(
+//       { error: "Erro ao buscar jogos da categoria", details: error.message },
+//       { status: 500 }
+//     );
+//   }
+// }
+
 
 export async function PUT(req: NextRequest, { params }: { params: { categoria_jogo_id: string } }) {
   try {

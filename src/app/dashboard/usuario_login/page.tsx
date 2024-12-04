@@ -2,7 +2,7 @@
 import React from "react";
 import Image from "next/image";
 import { useSession,signOut } from "next-auth/react";
-import Navbar from "../../components/MenuNavbar";
+// import Navbar from "../../components/MenuNavbar";
 
 
 export default function Dashboard() {
@@ -17,7 +17,7 @@ export default function Dashboard() {
 
   return (
     <>
-      <Navbar nivelUsuario={nivel}/>
+      {/* <Navbar nivelUsuario={nivel}/> */}
       <div className="min-h-screen bg-gradient-to-b from-gray-300 to-indigo-200 pt-4">
 
         {/* Boas-vindas */}

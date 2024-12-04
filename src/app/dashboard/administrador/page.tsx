@@ -1,10 +1,10 @@
-import { FaUser, FaGamepad, FaLayerGroup } from "react-icons/fa";
-
+import { FaUser, FaGamepad, FaLayerGroup,FaClone,FaMeteor,FaSpaceShuttle,FaTachometerAlt } from "react-icons/fa";
+import Link from "next/link";
 export default function AdminDashboard() {
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-indigo-600 via-purple-500 to-pink-500">
       {/* Navbar */}
-      <header className="bg-indigo-700 text-white shadow-lg">
+      {/* <header className="bg-indigo-700 text-white shadow-lg">
         <div className="container mx-auto px-6 py-4 flex justify-between items-center">
           <h1 className="text-2xl font-bold tracking-wide">Painel Administrativo</h1>
           <div className="flex items-center space-x-4">
@@ -13,7 +13,7 @@ export default function AdminDashboard() {
             </button>
           </div>
         </div>
-      </header>
+      </header> */}
 
       {/* Main Content */}
       <div className="flex flex-1">
@@ -47,7 +47,7 @@ export default function AdminDashboard() {
         <aside className="w-64 bg-indigo-800 text-white">
             <nav className="mt-10 space-y-4 px-4">
               {/* Item com Badge */}
-              <a
+              <Link
                 href="#usuarios"
                 className="relative flex items-center px-4 py-3 bg-indigo-700 rounded-lg hover:bg-indigo-600 transition"
               >
@@ -57,9 +57,9 @@ export default function AdminDashboard() {
                 <div className="absolute right-3 top-2 bg-red-500 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center">
                   5 {/* Substitua pelo valor dinâmico */}
                 </div>
-              </a>
+              </Link>
 
-              <a
+              <Link
                 href="#jogos"
                 className="relative flex items-center px-4 py-3 bg-indigo-700 rounded-lg hover:bg-indigo-600 transition"
               >
@@ -69,9 +69,9 @@ export default function AdminDashboard() {
                 <div className="absolute right-3 top-2 bg-red-500 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center">
                   10 {/* Substitua pelo valor dinâmico */}
                 </div>
-              </a>
+              </Link>
 
-              <a
+              <Link
                 href="#categorias"
                 className="relative flex items-center px-4 py-3 bg-indigo-700 rounded-lg hover:bg-indigo-600 transition"
               >
@@ -81,7 +81,19 @@ export default function AdminDashboard() {
                 <div className="absolute right-3 top-2 bg-red-500 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center">
                   2 {/* Substitua pelo valor dinâmico */}
                 </div>
-              </a>
+              </Link>
+
+              <Link
+                href="/configuracao/emblemas"
+                className="relative flex items-center px-4 py-3 bg-indigo-700 rounded-lg hover:bg-indigo-600 transition"
+              >
+                <FaMeteor className="mr-2" />
+                <span>Emblemas</span>
+                {/* Badge Circular */}
+                <div className="absolute right-3 top-2 bg-red-500 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center">
+                  2 {/* Substitua pelo valor dinâmico */}
+                </div>
+              </Link>
             </nav>
           </aside>
 
@@ -120,6 +132,15 @@ export default function AdminDashboard() {
                 <div>
                   <h3 className="text-xl font-semibold">Categorias</h3>
                   <p className="text-sm">Organize os jogos em categorias.</p>
+                </div>
+              </div>
+
+              {/* Card - Categorias */}
+              <div className="bg-yellow-600 text-white p-6 rounded-lg shadow-md flex items-center">
+                <FaMeteor className="w-10 h-10 mr-4" />
+                <div>
+                  <h3 className="text-xl font-semibold">Emblemas</h3>
+                  <p className="text-sm">Configure emblemas de Perfil dos Usuários.</p>
                 </div>
               </div>
             </div>

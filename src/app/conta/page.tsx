@@ -15,6 +15,24 @@ export default function Conta() {
   const [erro, setErro] = useState("");
   const router = useRouter();
 
+  // AUTENTICAÇÃO QUE ESTÁ FUNCIONANDO PERFEITAMENTE
+// const handleLogin = async (e: React.FormEvent) => {
+//   e.preventDefault();
+
+//   const res = await signIn("credentials", {
+//     redirect: false, // Evita redirecionamento automático
+//     email, // Email fornecido pelo usuário
+//     senha, // Senha fornecida pelo usuário
+//   });
+
+//   if (!res || res.error) {
+//     setErro(res?.error || "Erro ao realizar login.");
+//   } else {
+//     // Redirecionar após login bem-sucedido
+//     router.push("/dashboard");
+//   }
+// };
+
 const handleLogin = async (e: React.FormEvent) => {
   e.preventDefault();
 
@@ -27,12 +45,18 @@ const handleLogin = async (e: React.FormEvent) => {
   if (!res || res.error) {
     setErro(res?.error || "Erro ao realizar login.");
   } else {
-    // Redirecionar após login bem-sucedido
-    router.push("/dashboard");
+    // Obtenha o nível do usuário a partir da sessão
+    const session = await fetch("/api/auth/session").then((res) => res.json());
+
+    if (session?.usuario?.nivel === "Administrador") {
+      router.push("/dashboard/administrador");
+    } else if (session?.usuario?.nivel === "Normal" || session?.usuario?.nivel === "Logado") {
+      router.push("/dashboard/usuario_login");
+    } else {
+      setErro("Acesso negado.");
+    }
   }
 };
-
-
 
 
   // Variáveis do Modal
@@ -40,9 +64,7 @@ const handleLogin = async (e: React.FormEvent) => {
   const abrirModal = () => setModalAberto(true);
   const fecharModal = () => setModalAberto(false);
 
-
-  // Criação de Usuário
-
+  // Variáveis do Alert
   const [alertVisible, setAlertVisible] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
   const [alertType, setAlertType] = useState<"sucesso" | "erro">("sucesso"); 
@@ -54,11 +76,10 @@ const handleLogin = async (e: React.FormEvent) => {
       usuario_nivel: "Normal"
      }
   );
-
-
+  
+  //Cadastro
   const handleCadastro = async (event: React.FormEvent) => {
     event.preventDefault();
-  
     try {
       const res = await fetch("/api/usuarios", {
         method: "POST",
@@ -73,9 +94,7 @@ const handleLogin = async (e: React.FormEvent) => {
       if (!res.ok) {
         throw new Error(data.error || "Erro ao cadastrar o usuário.");
       }
-      
-      
-      
+       
       // Exibe mensagem de sucesso
       setAlertMessage("Usuário cadastrado com sucesso!");
       setAlertType("sucesso");
@@ -95,8 +114,6 @@ const handleLogin = async (e: React.FormEvent) => {
     }
     // fecharModal();
   };
-  
-
 
   return (
     <>
@@ -131,29 +148,6 @@ const handleLogin = async (e: React.FormEvent) => {
           >
             <h2 className="text-2xl font-bold text-center mb-6">Logar</h2>
 
-
-            {/* <div className="mb-4">
-              <InputForm
-                tipoInput="email"
-                label="Email"
-                placeholder="Digite seu email"
-                valorInput={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-
-            <div className="mb-6">
-              <InputForm
-                tipoInput="password"
-                label="Senha"
-                placeholder="Digite sua senha"
-                valorInput={senha}
-                onChange={(e) => setSenha(e.target.value)}
-              />
-            </div> */}
-
-
-
             <div className="mb-4">
               <InputForm
                 tipoInput="email"
@@ -173,7 +167,6 @@ const handleLogin = async (e: React.FormEvent) => {
                 metodoSubmit={(e) => setSenha(e.target.value)}
               />
             </div>
-
 
             {/* Exibir erro, se houver */}
             {erro && (

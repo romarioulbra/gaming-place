@@ -15,40 +15,6 @@ export default function Conta() {
   const [erro, setErro] = useState("");
   const router = useRouter();
 
-  // const handleLogin = async (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   setErro("");
-
-  //   try {
-  //     const res = await fetch("/api/usuarios", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({ email, senha }),
-  //     });
-
-  //     const data = await res.json();
-
-  //     if (!res.ok) {
-  //       throw new Error(data.error || "Erro ao realizar login.");
-  //     }
-
-  //     // Armazene o token (se utilizado)
-  //     localStorage.setItem("token", data.token);
-
-  //     // Redirecione o usuário para outra página (ex.: dashboard)
-  //     router.push("/dashboard");
-  //   } catch (err: any) {
-  //     setErro(err.message);
-  //   }
-  // };
-
-
-//   const [email, setEmail] = useState("");
-// const [senha, setSenha] = useState("");
-
-
 const handleLogin = async (e: React.FormEvent) => {
   e.preventDefault();
 

@@ -60,10 +60,14 @@ const authOptions = {
       return session;
     },
   },
-  pages: {
-    signIn: "/dashboard",
-  },
+  // pages: {
+  //   signIn: "/dashboard",
+  // },
+  secret: process.env.NEXTAUTH_SECRET,
+  // secret: "1337fafcb2fb44e496dc09a5d9570be7f2115cedf2e6742d9d6bc8809766043c",
+  
 };
+console.log("NEXTAUTH_SECRET:", process.env.NEXTAUTH_SECRET);
 
 // Exportação obrigatória para o App Router
 const handler = NextAuth(authOptions);

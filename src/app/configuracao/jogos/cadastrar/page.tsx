@@ -120,47 +120,57 @@ export default function CadastrarJogos() {
         <div className="p-8 border border-gray-300 shadow-lg bg-white rounded-lg mr-2 ml-2">
           <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg mt-2">
             <div className="p-6">
-              <InputForm
-                tipoInput="text"
-                label="Jogo"
-                placeholder="Nome do Jogo"
-                valorInput={formData.jogos_nome}
-                metodoSubmit={(e) => setFormData({ ...formData, jogos_nome: e.target.value })}
-              />
-
-              <InputForm
-                tipoInput="text"
-                label="Link do Jogo"
-                placeholder="www.exemplo.com.br"
-                valorInput={formData.jogos_link}
-                metodoSubmit={(e) => setFormData({ ...formData, jogos_link: e.target.value })}
-              />
-              
-
-              <InputForm
-                tipoInput="selectDados"
-                label="Categoria do Jogo"
-                dadosSelect={jogos}
-                idSelect="categoria_jogo_id"
-                nomeSelect="categoria_jogo_area_atuacao"
-                valorInput={formData.categoria_jogo_id}
-                metodoSubmit={(e) => setFormData({ ...formData, categoria_jogo_id: e.target.value })}
-              />
-
-              <InputForm
-                tipoInput="text"
-                label="Desenvolvedor(es) do Jogo"
-                placeholder="Fulano e Beltrano"
-                valorInput={formData.jogos_autor}
-                metodoSubmit={(e) => setFormData({ ...formData, jogos_autor: e.target.value })}
-              />
-              <InputForm
-                tipoInput="textarea"
-                label="Descrição"
-                placeholder="Digite aqui a descrição do Jogo"
-                valorInput={formData.jogos_descricao}
-                metodoSubmit={(e) => setFormData({ ...formData, jogos_descricao: e.target.value })}
-              />
+              <div className="flex flex-wrap gap-4">             
+                <div className="flex-1">             
+                  <InputForm
+                    tipoInput="text"
+                    label="Jogo"
+                    placeholder="Nome do Jogo"
+                    valorInput={formData.jogos_nome}
+                    metodoSubmit={(e) => setFormData({ ...formData, jogos_nome: e.target.value })}
+                  />
+                </div>
+                <div className="flex-1">
+                  <InputForm
+                    tipoInput="text"
+                    label="Link do Jogo"
+                    placeholder="www.exemplo.com.br"
+                    valorInput={formData.jogos_link}
+                    metodoSubmit={(e) => setFormData({ ...formData, jogos_link: e.target.value })}
+                  />
+                </div>
+              </div>    
+              <div className="flex flex-wrap gap-4 mt-4">              
+                <div className="flex-1">
+                  <InputForm
+                    tipoInput="selectDados"
+                    label="Categoria do Jogo"
+                    dadosSelect={jogos}
+                    idSelect="categoria_jogo_id"
+                    nomeSelect="categoria_jogo_area_atuacao"
+                    valorInput={formData.categoria_jogo_id}
+                    metodoSubmit={(e) => setFormData({ ...formData, categoria_jogo_id: e.target.value })}
+                  />
+                </div>
+                <div className="flex-1">
+                  <InputForm
+                    tipoInput="text"
+                    label="Desenvolvedor(es) do Jogo"
+                    placeholder="Fulano e Beltrano"
+                    valorInput={formData.jogos_autor}
+                    metodoSubmit={(e) => setFormData({ ...formData, jogos_autor: e.target.value })}
+                  />
+                </div>
+              </div>
+              <div className="mt-4">
+                <InputForm
+                  tipoInput="textarea"
+                  label="Descrição"
+                  placeholder="Digite aqui a descrição do Jogo"
+                  valorInput={formData.jogos_descricao}
+                  metodoSubmit={(e) => setFormData({ ...formData, jogos_descricao: e.target.value })}
+                />
+              </div>
 
               {previewImage && (
                 <div className="mb-4">
@@ -180,6 +190,7 @@ export default function CadastrarJogos() {
                 </div>
               )}
 
+            <div className="mt-4">
               <InputForm
                 tipoInput="fileInput"
                 label="Imagem do Jogo - (PNG)"
@@ -187,6 +198,7 @@ export default function CadastrarJogos() {
                 idFileInput="categoria_jogo_icone"
               />
             </div>
+          </div>
 
             <div className="flex justify-center">
               <Botao texto="Cadastrar" tipo="submit" cor="verde" />

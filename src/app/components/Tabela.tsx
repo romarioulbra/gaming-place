@@ -9,6 +9,7 @@ import Alert from './Alert';
 import AlterarJogosCategoria from '../configuracao/jogos_categoria/alterar/page';
 import AlterarUsuarios from '../configuracao/usuarios/alterar/page';
 import AlterarJogos from '../configuracao/jogos/alterar/page';
+import AlterarEmblemas from '../configuracao/emblemas/alterar/page';
 import Image from 'next/image';
 
 export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
@@ -95,6 +96,13 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
       caminho_api = `/api/jogos?jogos_id=${id}`
       nomeModulo = "Jogos"
       break;
+
+    case "emblema":
+      id = selectedItem?.emblema_id || null;
+      nome = selectedItem?.emblema_nome || null;
+      caminho_api = `/api/emblemas?emblema_id=${id}`
+      nomeModulo = "Emblemas"
+      break;
   }
 
   // console.log("Selected Item:", selectedItem);
@@ -130,6 +138,16 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
             item.jogos_link.toLowerCase().includes(searchTerm.toLowerCase()) ||
             item.jogos_autor.toLowerCase().includes(searchTerm.toLowerCase()) ||
             item.jogos_url_img.toLowerCase().includes(searchTerm.toLowerCase())
+          );
+    
+        case "emblema":
+          // Filtra itens com base no nome do jogo
+          return (
+            item.emblema_nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            item.emblema_criterio.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            item.emblemas_status.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            item.emblemas_pontos.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            item.emblema_imagem.toLowerCase().includes(searchTerm.toLowerCase())
           );
 
         default:
@@ -308,6 +326,12 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
                     } else if (modulo === "jogo") {
                       return (
                         <AlterarJogos
+                          dados={selectedItem}
+                        />
+                      );
+                    }else if (modulo === "emblema") {
+                      return (
+                        <AlterarEmblemas
                           dados={selectedItem}
                         />
                       );

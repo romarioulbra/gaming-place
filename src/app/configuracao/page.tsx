@@ -1,25 +1,4 @@
-// 'use client'
-// import CardsGrid from '../components/CardsPainel';
-
-// export default function ConfigPanel() {
-//   return (
-//     <>
-//       <div className="flex h-screen mt-9">
-//           {/* Menu Lateral */}
-//           {/* Painel Principal */}
-//           <div className="flex-1 bg-gray-100 p-6  sm:ml-0">
-//             <h1 className='text-center  font-bold text-2xl mt-10 mb-5 text-black'>Painel de Configuração</h1>
-//             <CardsGrid 
-//             />
-//           </div>
-//       </div>
-//     </>
-//   );
-// }
-
-import { FaUser, FaGamepad, FaLayerGroup,FaClone,FaMeteor,FaSpaceShuttle,FaTachometerAlt } from "react-icons/fa";
-import Link from "next/link";
-
+import { FaUser, FaGamepad, FaLayerGroup,FaMeteor,} from "react-icons/fa";
 
 export default function ConfigPanel() {
   return (
@@ -31,7 +10,7 @@ export default function ConfigPanel() {
         <main className="flex-1 bg-white shadow-2xl">
           <div className="container mx-auto px-6 py-8">
             {/* Title */}
-            <h2 className="text-3xl font-bold text-gray-800 mb-6">
+            <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">
               Bem-vindo ao Painel Administrativo
             </h2>
 

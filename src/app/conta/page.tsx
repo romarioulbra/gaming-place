@@ -105,14 +105,12 @@ const handleLogin = async (e: React.FormEvent) => {
   
       // Limpa o formulário e fecha o modal
       setFormData({ usuario_nome: "", usuario_email: "", usuario_senha: "", usuario_nivel: "Normal" });
-      // fecharModal();
     } catch (err: any) {
       // Exibe mensagem de erro
       setAlertMessage(err.message || "Erro ao cadastrar o usuário.");
       setAlertType("erro");
       setAlertVisible(true);
     }
-    // fecharModal();
   };
 
   return (
@@ -214,9 +212,9 @@ const handleLogin = async (e: React.FormEvent) => {
           {alertVisible && (
             <Alert
               message={alertMessage}
-              tipoAlert={alertType} // Define o tipo de alerta dinamicamente
-              texto={alertMessage} // Mostra a mensagem apropriada
-              cor={alertType === "sucesso" ? "verde" : "vermelho"} // Escolhe a cor com base no tipo
+              tipoAlert={alertType} 
+              texto={alertMessage} 
+              cor={alertType === "sucesso" ? "verde" : "vermelho"} 
             />
           )}
           

@@ -27,46 +27,6 @@ export default function AlterarJogosCategoria({ dados }: { dados: any }) {
   };
 
 
-
-  // Função para salvar os dados com mensagem no modal
-  // const handleSave = async () => {
-  //   setLoading(true); // Indica que a operação começou
-  //   setModalText("Salvando alterações, por favor aguarde...");
-
-  //   try {
-  //     const response = await fetch(`/api/categoria_jogos/${formData.categoria_jogo_id}`, {
-  //       method: "PUT",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(formData),
-  //     });
-
-  //     if (response.ok) {
-  //       const data = await response.json();
-  //       console.log("Atualização bem-sucedida:", data);
-
-  //       setModalText("Dados atualizados com sucesso!"); // Exibe mensagem de sucesso
-
-  //       // Aguarde 2 segundos antes de fechar o modal e recarregar a tabela
-  //       setTimeout(() => {
-  //         setModalText(""); // Limpa o texto do modal
-  //         location.reload(); // Recarrega a página/tabela
-  //       }, 2000);
-  //     } else {
-  //       const errorData = await response.json();
-  //       console.error("Erro do servidor:", errorData);
-  //       setModalText(`Erro ao atualizar: ${errorData.error || "Erro desconhecido"}`);
-  //     }
-  //   } catch (error) {
-  //     console.error("Erro na requisição:", error);
-  //     setModalText("Erro ao atualizar os dados. Verifique a conexão.");
-  //   } finally {
-  //     setLoading(false); // Finaliza o estado de loading
-  //   }
-  // };
-
-
   const handleSave = async () => {
     setLoading(true);
     setModalText("Salvando alterações, por favor aguarde...");

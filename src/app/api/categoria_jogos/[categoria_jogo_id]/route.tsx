@@ -36,63 +36,7 @@ export async function GET(
     );
   }
 }
-// export async function GET() {
-//   try {
-//     const jogos = await prisma.jogos.findMany({
-//       select: {
-//         jogos_id: true,
-//         jogos_nome: true,
-//         jogos_descricao: true,
-//         jogos_link: true,
-//         jogos_url_img: true,
-//         jogos_autor: true,
-//         categoria_jogo_id: true, // Inclui o ID da categoria
-//         categoria_jogos: { // Inclui a tabela relacionada (assumindo que o relacionamento é definido no Prisma)
-//           select: {
-//             categoria_jogo_id: true, // Chave primária da categoria
-//             categoria_jogo_area_atuacao: true, // Campo da área de atuação da categoria
-//           }
-//         }
-//       },
-//     });
-    
-//     return NextResponse.json(jogos, { status: 200 });
-//   } catch (error) {
-//     console.error('Erro ao buscar Jogos:', error.message);
-//     return NextResponse.json(
-//       { error: 'Erro ao buscar Jogos', details: error.message },
-//       { status: 500 }
-//     );
-//   }
-// }
 
-
-
-
-
-// Retorna os jogos de uma categoria específica
-// export async function GET(
-//   request: Request,
-//   { params }: { params: { categoria_jogo_id: string } }
-// ) {
-//   const { categoria_jogo_id } = params;
-
-//   try {
-//     const jogos = await prisma.jogos.findMany({
-//       where: {
-//         categoria_jogo_id: parseInt(categoria_jogo_id, 10),
-//       },
-//     });
-
-//     return NextResponse.json(jogos, { status: 200 });
-//   } catch (error) {
-//     console.error("Erro ao buscar jogos da categoria:", error.message);
-//     return NextResponse.json(
-//       { error: "Erro ao buscar jogos da categoria", details: error.message },
-//       { status: 500 }
-//     );
-//   }
-// }
 
 
 export async function PUT(req: NextRequest, { params }: { params: { categoria_jogo_id: string } }) {

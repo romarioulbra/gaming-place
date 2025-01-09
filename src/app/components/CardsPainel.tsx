@@ -1,7 +1,5 @@
 'use client'
 import Link from 'next/link';
-// import { FaRocket} from 'react-icons/fa'; // Ícones para os cards
-
 import { FaGear,FaUsersGear,FaGamepad } from "react-icons/fa6";
 import { GiGamepadCross } from "react-icons/gi";
 

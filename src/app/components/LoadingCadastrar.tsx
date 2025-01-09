@@ -15,7 +15,6 @@ export default function LoadCadastrar({caminho}) {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-      // window.location.href = "/dashboard";
       router.push(caminho);
     }, 1000); // Simulação de 3 segundos
   };

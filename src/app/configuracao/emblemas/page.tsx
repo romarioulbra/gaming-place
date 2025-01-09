@@ -35,7 +35,6 @@ export default function Emblemas() {
 
   return (
     <>
-      {/* <Fly/> */}
       <CabecalhoViwer 
         nomeModel={nomeModulo} 
         Icone={FaMeteor}

@@ -151,7 +151,6 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
           );
 
         default:
-          // Caso nenhum módulo seja correspondente, retorna false (nada será incluído)
           return false;
       }
     });

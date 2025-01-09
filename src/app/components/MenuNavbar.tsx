@@ -4,36 +4,18 @@ import { useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { SlGameController } from "react-icons/sl";
 import { usePathname } from "next/navigation";
-// import Image from "next/image";
-// import { useSession} from "next-auth/react";
 
 export default function Navbar() {
   const nivelUsuario = 'Normal'
   const [isOpen, setIsOpen] = useState(false);
-  // const [isDropdownOpen, setIsDropdownOpen] = useState(false); // Estado para o dropdown do perfil
   const pathname = usePathname();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
-  // const toggleDropdown = () => {
-  //   setIsDropdownOpen(!isDropdownOpen);
-  // };
-
-
-//   const { data: session, status } = useSession();
-
-//   // if (!session) {
-//   //   return <p>Você precisa estar logado para acessar o Dashboard.</p>;
-//   // }
-
-//  // Acessa os dados do usuário na sessão
-//  const {nivel} = session.usuario;
-
 
   const getLinksNivelUsuario = () => {
-    // switch (nivelUsuario) {
     switch (nivelUsuario) {
       case "Normal":
         return [

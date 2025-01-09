@@ -28,23 +28,6 @@ export async function GET() {
 }
 
 
-// Retorna os jogos de uma categoria específica
-// export async function GET_BY_CATEGORIA({ params }: { params: { categoria_jogo_id: string } }) {
-//   const { categoria_jogo_id } = params;
-  
-//   const jogos = await prisma.jogos.findMany({
-//     where: {
-//       categoria_jogo_id: parseInt(categoria_jogo_id),
-//     },
-//   });
-
-//   return NextResponse.json(jogos);
-// }
-
-
-
-
-
 export async function POST(req: Request) {
   try {
     const formData = await req.formData();
@@ -94,7 +77,6 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Erro ao criar Categoria de Jogos." }, { status: 500 });
   }
 }
-
 
 
 // Funcionando a todo vapor

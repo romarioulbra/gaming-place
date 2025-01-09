@@ -32,7 +32,6 @@ export default function Sobre() {
             title="Minecraft"
             image="/img/sobre.png"
             buttonText="Jogar"
-            alt="Imagem representando o jogo Minecraft"
           />
           <article className="max-w-lg">
             <div className="max-w-lg text-center lg:text-justify">
@@ -64,7 +63,6 @@ export default function Sobre() {
             title=""
             image="/img/recompensa.png"
             buttonText="Jogar"
-            alt="Imagem representando recompensas no Gaming Place"
           />
         </section>
       </main>

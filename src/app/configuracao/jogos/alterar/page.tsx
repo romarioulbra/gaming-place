@@ -61,15 +61,6 @@ const handleFileChange = (event) => {
     }, []);
 
 
-
-  // const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const selectedFile = e.target.files?.[0];
-  //   if (selectedFile) {
-  //     setFile(selectedFile); // Salva o arquivo no estado
-  //   }
-  // };
-
-
   const handleSave = async () => {
     setLoading(true);
     setModalText("Salvando alterações, por favor aguarde...");
@@ -115,8 +106,6 @@ const handleFileChange = (event) => {
     }
   };
   
-  
-
 
   return (
     <div className="flex flex-col">

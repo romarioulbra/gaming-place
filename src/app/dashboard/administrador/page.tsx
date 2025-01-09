@@ -1,14 +1,15 @@
 'use client'
-import { FaUser, FaGamepad, FaLayerGroup,FaClone,FaMeteor,FaSpaceShuttle,FaTachometerAlt } from "react-icons/fa";
-import Link from "next/link";
 
-// Importar os componentes de cada seção (usuários, jogos, categorias, emblemas)
+import { FaUser, FaGamepad, FaLayerGroup,FaMeteor,FaTachometerAlt } from "react-icons/fa";
+import Link from "next/link";
 import Usuarios from "../../configuracao/usuarios/page";
 import Jogos from "../../configuracao/jogos/page";
 import CategoriaJogos from "../../configuracao/jogos_categoria/page";
 import Emblemas from "../../configuracao/emblemas/page";
 import { useState } from "react";
 import ConfigPanel from "../../configuracao/page";
+
+
 export default function AdminDashboard() {
 
   const [currentPage, setCurrentPage] = useState("dashboard"); // Estado para controlar a página exibida
@@ -74,10 +75,6 @@ export default function AdminDashboard() {
         {/* Dashboard Content */}
         <main className="flex-1 bg-white shadow-2xl">
           <div className="container mx-auto px-6 py-8">
-            {/* Título Principal */}
-            {/* <h2 className="text-3xl font-bold text-gray-800 mb-6">
-              Bem-vindo ao Painel Administrativo
-            </h2> */}
 
             {/* Renderizando o conteúdo dinâmico de acordo com o estado */}
             <div className="mt-12">

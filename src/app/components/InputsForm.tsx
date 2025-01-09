@@ -34,7 +34,6 @@ export default function InputForm({
     const file = e.target.files?.[0];
     if (file) {
       setPreviewUrl(URL.createObjectURL(file)); // Cria uma URL temporária para a imagem
-      // onChange(e); // Chama a função onChange passada como prop
     }
   };
 

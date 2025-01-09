@@ -66,8 +66,6 @@ const authOptions = {
   // secret: process.env.NEXTAUTH_SECRET,
   
 };
-// console.log("NEXTAUTH_SECRET:", process.env.NEXTAUTH_SECRET);
-
 // Exportação obrigatória para o App Router
 const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };

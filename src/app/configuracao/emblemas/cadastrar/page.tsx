@@ -119,17 +119,6 @@ export default function CadastrarEmblemas() {
             <div className="p-6">
 
             <div className="flex flex-wrap gap-4">              
-                {/* <div className="flex-1">
-                  <InputForm
-                    tipoInput="selectDados"
-                    label="Categoria do Jogo"
-                    dadosSelect={jogos}
-                    idSelect="emblemas_pontos"
-                    nomeSelect="categoria_jogo_area_atuacao"
-                    valorInput={formData.emblemas_pontos}
-                    metodoSubmit={(e) => setFormData({ ...formData, emblemas_pontos: e.target.value })}
-                  />
-                </div> */}
                 <div className="flex-1">
                   <InputForm
                     tipoInput="text"

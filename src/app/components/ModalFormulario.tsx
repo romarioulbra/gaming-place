@@ -7,7 +7,7 @@ interface ModalProps {
   children: ReactNode;
   titulo: string;
   subtitulo: string;
-  modalType: 'editar' | 'excluir'; // Prop para diferenciar os tipos de modal
+  modalType: 'editar' | 'excluir' | 'editarSenha'; // Prop para diferenciar os tipos de modal
 }
 
 export function ModalFormulario({ modalAberto, fecharModal, children, titulo, subtitulo, modalType}: ModalProps) {
@@ -18,7 +18,7 @@ export function ModalFormulario({ modalAberto, fecharModal, children, titulo, su
       <div className="absolute inset-0 bg-black opacity-50"></div>
 
       {/* Contêiner do modal */}
-      <div className="relative z-10 max-h-[90vh] w-full max-w-5xl overflow-y-auto bg-white p-6 md:rounded-lg shadow-lg">
+      <div className="relative z-10 max-h-[90vh] w-full max-w-5xl overflow-y-auto bg-white p-6 md:rounded-lg shadow-lg ml-2 mr-2">
         {/* Cabeçalho do Modal */}
         <div className="border-b border-blue-400 pb-4">
           <h2 className="text-3xl font-semibold text-zinc-600 text-center">{titulo}</h2>
@@ -32,7 +32,7 @@ export function ModalFormulario({ modalAberto, fecharModal, children, titulo, su
           </button>
         </div>
 
-        {modalType === 'editar' ? (
+        {modalType === 'editar' || modalType === 'editarSenha' ? (
           <>
             {/* Conteúdo do Modal para Edição com os dados do formulário */}
             <div className="mt-6 space-y-4">

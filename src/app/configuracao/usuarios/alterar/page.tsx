@@ -4,7 +4,10 @@ import InputForm from "@/app/components/InputsForm";
 import { useState } from "react";
 import { FaRegEdit } from "react-icons/fa";
 
-export default function AlterarUsuarios({ dados }) {
+import { PiLockKeyFill } from "react-icons/pi";
+
+
+export default function AlterarUsuarios({ dados,tipoModal }) {
   const [formData, setFormData] = useState(dados); // Inicializa com os dados recebidos
   const [modalText, setModalText] = useState(""); // Texto do modal
   const [loading, setLoading] = useState(false); // Estado para controlar o loading
@@ -97,10 +100,17 @@ export default function AlterarUsuarios({ dados }) {
     <>
       <div className="flex flex-col">
         <div className="mt-2 space-y-2">
-          <div className="flex justify-center">
-            <FaRegEdit className="flex w-10 h-10 mb-3 mt-3 transition-transform duration-300 hover:scale-125" />
-          </div>
-
+          {
+              tipoModal === 'ModalCompleto' ? (
+            <div className="flex justify-center">
+              <FaRegEdit className="flex w-10 h-10 mb-3 mt-3 transition-transform duration-300 hover:scale-125" />
+            </div>
+            ):(
+            <div className="flex justify-center">
+              <PiLockKeyFill className="flex w-10 h-10 mb-3 mt-3 transition-transform duration-300 hover:scale-125 text-yellow-500 " />
+            </div>
+            )
+          }
           {/* Corpo do modal para mensagens */}
           {modalText && (
             <div className="mt-4 p-4 bg-yellow-100 rounded-lg shadow">
@@ -108,34 +118,60 @@ export default function AlterarUsuarios({ dados }) {
             </div>
           )}
 
-          <InputForm
-            tipoInput="text"
-            label="Nome"
-            placeholder="Nome do Usuário"
-            valorInput={formData.usuario_nome}
-            metodoSubmit={(e) => handleInputChange("usuario_nome", e.target.value)}
-          />
-          <InputForm
-            tipoInput="text"
-            label="Email"
-            placeholder="Email do Usuário"
-            valorInput={formData.usuario_email}
-            metodoSubmit={(e) => handleInputChange("usuario_email", e.target.value)}
-          />
-          <InputForm
-            tipoInput="text"
-            label="Senha"
-            placeholder="Senha do Usuário"
-            valorInput={formData.usuario_senha}
-            metodoSubmit={(e) => handleInputChange("usuario_senha", e.target.value)}
-          />
-          <InputForm
-            tipoInput="select"
-            label="Nível"
-            options={["Administrador", "Normal", "Logado"]}
-            valorInput={formData.usuario_nivel}
-            metodoSubmit={(e) => handleInputChange("usuario_nivel", e.target.value)}
-          />
+
+          {
+            tipoModal === 'ModalCompleto' ? (
+              <>
+                <InputForm
+                  tipoInput="text"
+                  label="Nome"
+                  placeholder="Nome do Usuário"
+                  valorInput={formData.usuario_nome}
+                  metodoSubmit={(e) => handleInputChange("usuario_nome", e.target.value)}
+                />
+                <InputForm
+                  tipoInput="text"
+                  label="Email"
+                  placeholder="Email do Usuário"
+                  valorInput={formData.usuario_email}
+                  metodoSubmit={(e) => handleInputChange("usuario_email", e.target.value)}
+                />
+                <InputForm
+                  tipoInput="text"
+                  label="Senha"
+                  placeholder="Senha do Usuário"
+                  valorInput={formData.usuario_senha}
+                  metodoSubmit={(e) => handleInputChange("usuario_senha", e.target.value)}
+                />
+                <InputForm
+                  tipoInput="select"
+                  label="Nível"
+                  options={["Administrador", "Normal", "Logado"]}
+                  valorInput={formData.usuario_nivel}
+                  metodoSubmit={(e) => handleInputChange("usuario_nivel", e.target.value)}
+                />
+              </>
+            ) : (
+              <>
+                <div className="flex items-center space-x-2 ">
+                  <h2 className="mb-10 font-bold text-yellow-500 text-center">
+                    Desculpe, Não é possível exibir a senha devido à questões de segurança da criptografia!
+                    Por favor altere a Senha!
+                  </h2>
+                </div>
+
+             
+                <InputForm
+                  tipoInput="text"
+                  label="Senha"
+                  placeholder="Senha do Usuário"
+                  valorInput={formData.usuario_senha}
+                  metodoSubmit={(e) => handleInputChange("usuario_senha", e.target.value)}
+                />
+              </>
+            )
+          }
+
         </div>
 
         <div className="flex flex-col mt-6 mb-4 space-x-4">

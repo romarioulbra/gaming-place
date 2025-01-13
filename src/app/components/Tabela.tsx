@@ -527,7 +527,7 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
     }
   }, [data]);
 
-
+// console.log(data)
   // ********  ******** Variáves da Listagem da Exclusão ********  ******** 
 
   let id = null;
@@ -567,12 +567,12 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
       id = selectedItem?.emblema_id || null;
       nome = selectedItem?.emblema_nome || null;
       caminho_api = `/api/emblemas?emblema_id=${id}`
-      caminhoApiDel = `/api/emblemas?emblema_id=${id}`
+      caminhoApiDel = `/api/emblemas/${id}`
       nomeModulo = "Emblemas"
       break;
   }
 
-  // console.log("Selected Item:", selectedItem);
+  //  console.log("Selected Item:", selectedItem);
 
  
   // ==============  xxxxxxxxxxxxxxxx Métodos de Modais Final xxxxxxxxxxxxxxxx ===================//
@@ -686,7 +686,6 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
                       className="border-b border-black hover:bg-gray-200 hover:border  hover:border-fuchsia-300 transition-colors"
                     > 
                   
-
                   {atributosDados.map((atributoArray, idx) => {
                     if (atributoArray === "usuario_senha") {
                       // Condição para ocultar a senha

@@ -9,101 +9,156 @@ const prisma = new PrismaClient();
 export async function PUT(req: NextRequest, { params }: { params: { jogos_id: string } }) {
   try {
     const { jogos_id } = params;
+
+    // Validação do ID
+    const jogosIdNumber = Number(jogos_id);
+    if (isNaN(jogosIdNumber)) {
+      return NextResponse.json({ error: "ID do Jogo inválido." }, { status: 400 });
+    }
+
     const formData = await req.formData();
-    
+
+    // Obter dados do formulário
     const jogos_nome = formData.get("jogos_nome");
     const jogos_descricao = formData.get("jogos_descricao");
     const jogos_link = formData.get("jogos_link");
     const jogos_autor = formData.get("jogos_autor");
     const categoria_jogo_id = formData.get("categoria_jogo_id");
-    
     const file = formData.get("jogos_url_img") as File;
 
-    if (!jogos_id) {
-      return NextResponse.json({ error: "ID do Jogo é obrigatório." }, { status: 400 });
+    // Validação dos campos obrigatórios
+    if (!jogos_nome || !jogos_descricao || !jogos_link || !jogos_autor || !categoria_jogo_id) {
+      return NextResponse.json({ error: "Todos os campos obrigatórios devem ser preenchidos." }, { status: 400 });
     }
 
-    // Objeto para armazenar os dados de atualização
-    const updateData: any = {};
+    const updateData: any = {
+      jogos_nome: jogos_nome.toString(),
+      jogos_descricao: jogos_descricao.toString(),
+      jogos_link: jogos_link.toString(),
+      jogos_autor: jogos_autor.toString(),
+      categoria_jogo_id: Number(categoria_jogo_id),
+    };
 
-    // Atualiza a área de atuação, se fornecida
-    if (jogos_nome) {
-      updateData.jogos_nome = jogos_nome.toString();
-      updateData.jogos_descricao = jogos_descricao.toString();
-      updateData.jogos_link = jogos_link.toString();
-      updateData.jogos_autor = jogos_autor.toString();
-      updateData.categoria_jogo_id = categoria_jogo_id;
-    }
-
-    // Verifica se há um arquivo para atualizar
+    // Verificar e processar o arquivo de imagem
     if (file) {
-      // Verifica o tipo do arquivo
+      // Validar tipo do arquivo
       if (!file.type.startsWith("image/")) {
         return NextResponse.json({ error: "Apenas arquivos de imagens são permitidos." }, { status: 400 });
       }
 
-      // Recupera o registro atual para obter o caminho do arquivo antigo
-      const currentCategory = await prisma.jogos.findUnique({
-        where: { jogos_id: Number(jogos_id) },
+      // Recuperar jogo atual
+      const currentGame = await prisma.jogos.findUnique({
+        where: { jogos_id: jogosIdNumber },
       });
 
-      const jogosIdNumber = Number(jogos_id);
-        if (isNaN(jogosIdNumber)) {
-          return NextResponse.json({ error: "ID do Jogo inválido." }, { status: 400 });
-        }
-
-
-      if (!currentCategory) {
+      if (!currentGame) {
         return NextResponse.json({ error: "Jogo não encontrado." }, { status: 404 });
       }
 
-      // Remove o arquivo antigo, se existir
-      if (currentCategory.jogos_url_img) {
-        const oldFilePath = path.join(process.cwd(), "public", currentCategory.jogos_url_img);
+      // Remover arquivo antigo, se existir
+      if (currentGame.jogos_url_img) {
+        const oldFilePath = path.join(process.cwd(), "public", currentGame.jogos_url_img);
         try {
-          await fs.unlink(oldFilePath); // Remove o arquivo antigo
+          await fs.unlink(oldFilePath);
         } catch (error) {
-          console.warn("Não foi possível remover o arquivo antigo:", oldFilePath, error);
+          console.warn("Erro ao remover arquivo antigo:", oldFilePath, error);
         }
       }
-      
 
-      // Cria um nome único para o novo arquivo
+      // Criar nome único para o novo arquivo
       const now = new Date();
-      const day = String(now.getDate()).padStart(2, "0");
-      const month = String(now.getMonth() + 1).padStart(2, "0");
-      const year = now.getFullYear();
-      const hours = String(now.getHours()).padStart(2, "0");
-      const minutes = String(now.getMinutes()).padStart(2, "0");
-      const seconds = String(now.getSeconds()).padStart(2, "0");
-
-      const uniqueFileName = `${day}_${month}_${year}_${hours}-${minutes}-${seconds}_${file.name}`;
+      const uniqueFileName = `${now.toISOString().replace(/[-:.TZ]/g, "_")}_${file.name}`;
 
       // Caminho do diretório de upload
       const uploadsDir = path.join(process.cwd(), "public", "upload", "jogos");
       await fs.mkdir(uploadsDir, { recursive: true });
 
+      // Salvar o novo arquivo
       const filePath = path.join(uploadsDir, uniqueFileName);
       const fileData = Buffer.from(await file.arrayBuffer());
       await fs.writeFile(filePath, fileData);
 
-      // Atualiza o caminho do ícone no banco de dados
+      // Atualizar o caminho da imagem
       updateData.jogos_url_img = `/upload/jogos/${uniqueFileName}`;
     }
 
-    // Atualiza os dados no banco de dados
-    const updatedCategory = await prisma.jogos.update({
-      where: { jogos_id: Number(jogos_id) },
+    // Atualizar os dados no banco
+    console.log("Dados sendo atualizados:", updateData);
+    const updatedGame = await prisma.jogos.update({
+      where: { jogos_id: jogosIdNumber },
       data: updateData,
     });
 
-    return NextResponse.json(updatedCategory, { status: 200 });
+    return NextResponse.json(updatedGame, { status: 200 });
   } catch (error) {
     console.error("Erro ao atualizar Jogo:", {
-      message: error.message,
-      stack: error.stack,
+      message: error instanceof Error ? error.message : "Erro desconhecido",
+      stack: error instanceof Error ? error.stack : "Sem stack trace",
     });
     return NextResponse.json({ error: "Erro ao atualizar Jogo." }, { status: 500 });
   }
 }
 
+
+
+// Verifica se o método é DELETE
+export async function DELETE(req: NextRequest, { params }: { params: { jogos_id: string } }) {
+  try {
+    const { jogos_id } = params;
+
+    if (!jogos_id) {
+      return NextResponse.json({ error: "ID do Jogo é obrigatório." }, { status: 400 });
+    }
+
+    const jogosIdNumber = Number(jogos_id);
+    if (isNaN(jogosIdNumber)) {
+      return NextResponse.json({ error: "ID do Jogo inválido." }, { status: 400 });
+    }
+
+    // Busca o jogo para garantir que ele existe e também inclui a categoria
+    const jogo = await prisma.jogos.findUnique({
+      where: { jogos_id: jogosIdNumber },
+      include: { categoria_jogos: true },
+    });
+
+    if (!jogo) {
+      return NextResponse.json({ error: "Jogo não encontrado." }, { status: 404 });
+    }
+
+    // Remove a imagem associada ao jogo, se existir
+    if (jogo.jogos_url_img) {
+      const oldFilePath = path.join(process.cwd(), "public", jogo.jogos_url_img);
+      try {
+        await fs.unlink(oldFilePath); // Remove o arquivo da imagem
+      } catch (error) {
+        console.warn("Não foi possível remover o arquivo antigo:", oldFilePath, error);
+      }
+    }
+
+    // Exclui o jogo
+    await prisma.jogos.delete({
+      where: { jogos_id: jogosIdNumber },
+    });
+
+    // Verifica se a categoria tem outros jogos
+    const categoria = await prisma.categoria_jogos.findUnique({
+      where: { categoria_jogo_id: jogo.categoria_jogo_id },
+      include: { jogos: true },  // Verifica os jogos associados à categoria
+    });
+
+    // Se não houver mais jogos associados à categoria, exclui a categoria
+    if (categoria && categoria.jogos.length === 0) {
+      await prisma.categoria_jogos.delete({
+        where: { categoria_jogo_id: categoria.categoria_jogo_id },
+      });
+    }
+
+    return NextResponse.json({ message: "Jogo excluído com sucesso." }, { status: 200 });
+  } catch (error) {
+    console.error("Erro ao excluir Jogo:", {
+      message: error.message,
+      stack: error.stack,
+    });
+    return NextResponse.json({ error: "Erro ao excluir Jogo." }, { status: 500 });
+  }
+}

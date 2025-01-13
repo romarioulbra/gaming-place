@@ -24,7 +24,8 @@ model jogos {
   jogos_link        String
   jogos_url_img     String?
   jogos_autor       String?
-  categoria_jogos   categoria_jogos @relation(fields: [categoria_jogo_id], references: [categoria_jogo_id])
+  // categoria_jogos   categoria_jogos @relation(fields: [categoria_jogo_id], references: [categoria_jogo_id])
+  categoria_jogos   categoria_jogos @relation(fields: [categoria_jogo_id], references: [categoria_jogo_id], onDelete: Cascade)
   categoria_jogo_id Int
   createdAt         DateTime        @default(now())
 }

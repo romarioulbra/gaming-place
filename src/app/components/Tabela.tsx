@@ -709,6 +709,19 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
                           />
                         </td>
                       );
+                    } else if (atributoArray === "emblema_imagem") {
+                      // Condição para exibir a imagem
+                      return (
+                        <td key={idx} className="py-3 px-6 border border-black">
+                          <Image
+                            src={item[atributoArray]} // URL da imagem
+                            alt="Imagem do jogo"
+                            className="w-16 h-16 object-cover rounded"
+                            width={50}
+                            height={50}
+                          />
+                        </td>
+                      );
                     } else if (atributoArray === "jogos_descricao") {
                       // Limitar o texto a 15 caracteres
                       return (

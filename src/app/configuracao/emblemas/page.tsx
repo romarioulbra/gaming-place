@@ -13,9 +13,9 @@ export default function Emblemas() {
   // variáveis globais
   const nomeModulo = 'Emblemas';
 
-  const atributosCabTab = ["ID", "Nome", "Critério", "Imagem", "Pontos","Status"];
+  const atributosCabTab = ["ID", "Nome", "Critério", "Pontos","Status", "Imagem"];
   
-  const atributosDados = ["emblema_id", "emblema_nome", "emblema_criterio", "emblema_imagem", "emblemas_pontos","emblemas_status"];
+  const atributosDados = ["emblema_id", "emblema_nome", "emblema_criterio", "emblemas_pontos", "emblemas_status" ,"emblema_imagem"];
 
   const [emblemas, setEmblemas] = useState([]);
 

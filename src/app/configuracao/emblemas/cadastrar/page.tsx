@@ -8,12 +8,14 @@ import CabecalhoVoltar from "@/app/components/CabecalhoVoltar";
 import Image from "next/image";
 
 export default function CadastrarEmblemas() {
+
   const [alertVisible, setAlertVisible] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [alertType, setAlertType] = useState<"sucesso" | "erro">("sucesso");
   const [file, setFile] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [emblemas, setEmblemas] = useState([]);
+  
   const [formData, setFormData] = useState({
     emblema_nome: "",
     emblema_criterio: "",
@@ -101,7 +103,7 @@ export default function CadastrarEmblemas() {
 
   return (
     <>
-      <h1 className="text-center mt-32 mb-3 text-2xl font-bold">Cadastro de Jogos</h1>
+      <h1 className="text-center mt-32 mb-3 text-2xl font-bold">Cadastro de Emblemas</h1>
       <CabecalhoVoltar Icone={FaMeteor} />
 
       {alertVisible && (

@@ -16,7 +16,6 @@ export default function Emblemas() {
   const atributosCabTab = ["ID", "Nome", "Critério", "Imagem", "Pontos","Status"];
   
   const atributosDados = ["emblema_id", "emblema_nome", "emblema_criterio", "emblema_imagem", "emblemas_pontos","emblemas_status"];
-// console.log(atributosDados)
 
   const [emblemas, setEmblemas] = useState([]);
 
@@ -25,7 +24,6 @@ export default function Emblemas() {
       try {
         const response = await axios.get('/api/emblemas');
         setEmblemas(response.data);
-        console.log(emblemas); 
       } catch (error) {
         console.error('Erro ao buscar Emblemas:', error);
       }
@@ -33,6 +31,7 @@ export default function Emblemas() {
     fetchEmblemas();
   }, []);
 
+ 
   return (
     <>
       <CabecalhoViwer 

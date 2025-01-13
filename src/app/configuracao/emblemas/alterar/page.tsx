@@ -5,14 +5,14 @@ import { useState,useEffect } from "react";
 import InputForm from "@/app/components/InputsForm";
 import Image from "next/image";
 
-export default function AlterarJEmblemas({ dados }: { dados: any }) {
+export default function AlterarEmblemas({ dados }: { dados: any }) {
   const [formData, setFormData] = useState(dados); // Inicializa com os dados recebidos
   const [modalText, setModalText] = useState(""); // Texto do modal
   const [loading, setLoading] = useState(false); // Estado para controlar o loading
   const [file, setFile] = useState<File | null>(null); // Estado para o arquivo
   
   const [previewImage, setPreviewImage] = useState<string | null>(null);
-  const [jogos, setJogos] = useState([]);
+  const [Emblemas, setEmblemas] = useState([]);
 
   // Atualiza o estado ao editar os inputs
   const handleInputChange = (field: string, value: string | number) => {
@@ -22,18 +22,6 @@ export default function AlterarJEmblemas({ dados }: { dados: any }) {
     }));
   };
 
-
-  // Atualização para categorias:
-const handleCategoryChange = (e) => {
-  const selectedId = e.target.value;
-  const selectedCategory = jogos.find((jogo) => jogo.id === selectedId);
-
-  setFormData((prev) => ({
-    ...prev,
-    categoria_jogo_id: selectedId, // ID da categoria
-    categoria_jogo_nome: selectedCategory?.categoria_jogo_area_atuacao || "", // Nome da categoria
-  }));
-};
 
 
 const handleFileChange = (event) => {
@@ -46,18 +34,18 @@ const handleFileChange = (event) => {
 };
 
 
-    // Função para buscar categorias dos Jogos
+    // Função para buscar categorias dos Emblemas
     useEffect(() => {
-      const fetchJogos = async () => {
+      const fetchEmblemas = async () => {
         try {
-          const response = await fetch("/api/categoria_jogos");
+          const response = await fetch("/api/emblemas");
           const data = await response.json();
-          setJogos(data);
+          setEmblemas(data);
         } catch (error) {
-          console.error("Erro ao buscar Jogos:", error);
+          console.error("Erro ao buscar Emblemas:", error);
         }
       };
-      fetchJogos();
+      fetchEmblemas();
     }, []);
 
 
@@ -67,14 +55,13 @@ const handleFileChange = (event) => {
   
     try {
       const formDados = new FormData();
-      formDados.append("jogos_nome", formData.jogos_nome);
-      formDados.append("jogos_descricao", formData.jogos_descricao);
-      formDados.append("jogos_link", formData.jogos_link);
-      formDados.append("jogos_autor", formData.jogos_autor);
-      formDados.append("categoria_jogo_id", formData.categoria_jogo_id);
+      formDados.append("emblema_nome", formData.emblema_nome);
+      formDados.append("emblema_criterio", formData.emblema_criterio);
+      formDados.append("emblemas_pontos", formData.emblemas_pontos);
+      formDados.append("emblemas_status", formData.emblemas_status);
   
       if (file) {
-        formDados.append("jogos_url_img", file);
+        formDados.append("emblema_imagem", file);
       }
   
       console.log("FormData enviado:");
@@ -82,7 +69,7 @@ const handleFileChange = (event) => {
         console.log(`${key}:`, value);
       }
   
-      const response = await fetch(`/api/jogos/${formData.jogos_id}`, {
+      const response = await fetch(`/api/emblemas/${formData.emblema_id}`, {
         method: "PUT",
         body: formDados,
       });
@@ -106,8 +93,7 @@ const handleFileChange = (event) => {
     }
   };
   
-  
-
+ 
 
   return (
     <div className="flex flex-col">
@@ -124,51 +110,49 @@ const handleFileChange = (event) => {
               </div>
             )}
 
-
+            <div className="grid grid-cols-3 gap-4">
               <InputForm
                 tipoInput="text"
-                label="Jogo"
-                placeholder="Nome do Jogo"
-                valorInput={formData.jogos_nome}
-                metodoSubmit={(e) => setFormData({ ...formData, jogos_nome: e.target.value })}
+                label="Emblema"
+                placeholder="Nome do Emblema"
+                valorInput={formData.emblema_nome}
+                metodoSubmit={(e) => setFormData({ ...formData, emblema_nome: e.target.value })}
               />
 
+
               <InputForm
                 tipoInput="text"
-                label="Link do Jogo"
+                label="Valor de Pontos"
                 placeholder="www.exemplo.com.br"
-                valorInput={formData.jogos_link}
-                metodoSubmit={(e) => setFormData({ ...formData, jogos_link: e.target.value })}
+                valorInput={formData.emblemas_pontos}
+                metodoSubmit={(e) => setFormData({ ...formData, emblemas_pontos: e.target.value })}
               />
-              <div>
-                <p>Categoria Selecionada: {formData.categoria_jogo_nome || "Nenhuma selecionada"}</p>
-              </div>
+
               <InputForm
-                tipoInput="selectDados"
-                label="Categoria do Jogo"
-                dadosSelect={jogos}
-                idSelect="categoria_jogo_id"
-                nomeSelect="categoria_jogo_area_atuacao"
-                valorInput={formData.categoria_jogo_id}
-                metodoSubmit={handleCategoryChange}
+                tipoInput="text"
+                label="Status"
+                placeholder="www.exemplo.com.br"
+                valorInput={formData.emblemas_status}
+                metodoSubmit={(e) => setFormData({ ...formData, emblemas_status: e.target.value })}
               />
+            </div>
 
               <InputForm
                 tipoInput="textarea"
-                label="Descrição"
-                placeholder="Digite aqui a descrição do Jogo"
-                valorInput={formData.jogos_descricao}
-                metodoSubmit={(e) => setFormData({ ...formData, jogos_descricao: e.target.value })}
+                label="Critérios"
+                placeholder="Digite aqui o critério do Emblema"
+                valorInput={formData.emblema_criterio}
+                metodoSubmit={(e) => setFormData({ ...formData, emblema_criterio: e.target.value })}
               />
 
 
-              {previewImage && (
+              {(previewImage || formData.emblema_imagem) && (
                 <div className="mb-4">
                   <div className="flex justify-center mb-4">
                     <div className="relative w-32 h-32">
                       <Image
-                        src={previewImage}
-                        alt="Pré-visualização"
+                        src={previewImage || formData.emblema_imagem} // Exibe o preview ou a URL existente
+                        alt="Imagem do Jogo"
                         layout="fixed"
                         objectFit="cover"
                         className="max-w-full h-auto rounded-md"
@@ -184,11 +168,11 @@ const handleFileChange = (event) => {
                 tipoInput="fileInput"
                 label="Imagem do Jogo - (PNG)"
                 fileImage={handleFileChange}
-                idFileInput="jogos_url_img"
+                idFileInput="emblema_imagem"
                 metodoSubmit={(e) =>
-                  setFormData({ ...formData, jogos_url_img: e.target.files[0] })
+                  setFormData({ ...formData, emblema_imagem: e.target.files[0] })
                 }
-                onChange={(e) => handleInputChange("jogos_url_img", e.target.files[0])}
+                onChange={(e) => handleInputChange("emblema_imagem", e.target.files[0])}
               />
       
       </div>

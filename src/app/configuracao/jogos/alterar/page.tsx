@@ -46,19 +46,19 @@ const handleFileChange = (event) => {
 };
 
 
-    // Função para buscar categorias dos Jogos
-    useEffect(() => {
-      const fetchJogos = async () => {
-        try {
-          const response = await fetch("/api/categoria_jogos");
-          const data = await response.json();
-          setJogos(data);
-        } catch (error) {
-          console.error("Erro ao buscar Jogos:", error);
-        }
-      };
-      fetchJogos();
-    }, []);
+  // Função para buscar categorias dos Jogos
+  useEffect(() => {
+    const fetchJogos = async () => {
+      try {
+        const response = await fetch("/api/categoria_jogos");
+        const data = await response.json();
+        setJogos(data);
+      } catch (error) {
+        console.error("Erro ao buscar Jogos:", error);
+      }
+    };
+    fetchJogos();
+  }, []);
 
 
   const handleSave = async () => {
@@ -160,13 +160,13 @@ const handleFileChange = (event) => {
               />
 
 
-              {previewImage && (
+              {(previewImage || formData.jogos_url_img) && (
                 <div className="mb-4">
                   <div className="flex justify-center mb-4">
                     <div className="relative w-32 h-32">
                       <Image
-                        src={previewImage}
-                        alt="Pré-visualização"
+                        src={previewImage || formData.jogos_url_img} // Exibe o preview ou a URL existente
+                        alt="Imagem do Jogo"
                         layout="fixed"
                         objectFit="cover"
                         className="max-w-full h-auto rounded-md"

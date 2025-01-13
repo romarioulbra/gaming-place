@@ -533,6 +533,7 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
   let id = null;
   let nome = null;
   let caminho_api = '';
+  let caminhoApiDel = '';
  
   switch (modulo) {
     
@@ -540,6 +541,7 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
       id = selectedItem?.categoria_jogo_id || null;
       nome = selectedItem?.categoria_jogo_area_atuacao || null;
       caminho_api = `/api/categoria_jogos?categoria_jogo_id=${id}`
+      caminhoApiDel = `/api/categoria_jogos?categoria_jogo_id=${id}`
       nomeModulo = "Categoria de Jogos"
       break;
   
@@ -547,13 +549,17 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
       id = selectedItem?.usuario_id || null;
       nome = selectedItem?.usuario_nome || null;
       caminho_api = `/api/usuarios?usuario_id=${id}`
+      caminhoApiDel = `/api/usuarios?usuario_id=${id}`
       nomeModulo = "Usuário"
       break;
   
+ 
     case "jogo":
       id = selectedItem?.jogos_id || null;
       nome = selectedItem?.jogos_nome || null;
-      caminho_api = `/api/jogos?jogos_id=${id}`
+      // Este caminho Funciona para GET e POST
+      caminho_api = `/api/jogos?jogos_id=${id}` 
+      caminhoApiDel = `/api/jogos/${id}`
       nomeModulo = "Jogos"
       break;
 
@@ -561,6 +567,7 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
       id = selectedItem?.emblema_id || null;
       nome = selectedItem?.emblema_nome || null;
       caminho_api = `/api/emblemas?emblema_id=${id}`
+      caminhoApiDel = `/api/emblemas?emblema_id=${id}`
       nomeModulo = "Emblemas"
       break;
   }
@@ -840,16 +847,19 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
                           setIsLoading(true);
                           
                           try {
-                            const endpoint = caminho_api;
+                            const endpoint = caminhoApiDel;
+                            
                             const response = await fetch(endpoint, {
                               method: "DELETE",
                             });
-                            console.log(endpoint);
+                            console.log('Resultado do caminho: '+endpoint);
+                           
                             if (!response.ok) {
                               throw new Error(`Erro ao excluir o registro: ${response.status}`);
                             }
                       
                             const data = await response.json();
+                           
                             console.log("Resposta da API:", data);
                       
                             setModalText("Registro excluído com sucesso!");

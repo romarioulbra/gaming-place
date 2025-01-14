@@ -51,7 +51,7 @@ const handleLogin = async (e: React.FormEvent) => {
     if (session?.usuario?.nivel === "Administrador") {
       router.push("/dashboard/administrador");
     } else if (session?.usuario?.nivel === "Normal" || session?.usuario?.nivel === "Logado") {
-      router.push("/dashboard/usuario_login");
+      router.push("/dashboard/usuario/login");
     } else {
       setErro("Acesso negado.");
     }

@@ -2,11 +2,17 @@
 import Ranking from "@/app/components/Ranking";
 import Image from "next/image";
 import Emblemas from "@/app/components/Emblemas";
+import { useSession} from "next-auth/react";
+
 
 export default function Perfil() {
+    const { data: session, status } = useSession();
+     // Acessa os dados do usuário na sessão
+    const { nome, nivel,email } = session.usuario;
+
 
   return (
-    <div className="bg-gradient-to-r from-purple-800 to-indigo-900 min-h-screen flex justify-center items-center mt-10">
+    <div className="bg-gradient-to-r from-purple-800 to-indigo-900 min-h-screen flex justify-center items-center ">
       <div className="w-full max-w-4xl p-6 bg-purple-900 text-white rounded-xl shadow-lg space-y-6">
         {/* Perfil */}
         <div className="flex items-center justify-between">
@@ -19,14 +25,15 @@ export default function Perfil() {
               height={100}
             />
             <div>
-              <h2 className="text-2xl font-bold">Zaya Madson</h2>
-              <p className="text-sm text-gray-300">zaya@gmail.com.br</p>
+              <h2 className="text-2xl font-bold">{nome}</h2>
+              <p className="text-sm text-gray-300">{email}</p>
               <p className="text-sm text-gray-300">Palmas, Tocantins</p>
             </div>
           </div>
           <div>
             <p className="text-sm">Troféus: <span className="font-bold">5</span></p>
             <p className="text-sm">Pontos: <span className="font-bold text-yellow-400">2.6k</span></p>
+            <p className="text-sm">Nível: <span className="font-bold text-green-400">{nivel}</span></p>
           </div>
         </div>
 
@@ -36,7 +43,7 @@ export default function Perfil() {
           <div className="w-full bg-gray-700 rounded-full h-2">
             <div
               className="bg-yellow-400 h-2 rounded-full"
-              style={{ width: "99%" }}
+              style={{ width: "80%" }}
             ></div>
           </div>
         </div>

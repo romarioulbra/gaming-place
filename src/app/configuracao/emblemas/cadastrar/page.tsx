@@ -137,7 +137,7 @@ export default function CadastrarEmblemas() {
                   <InputForm
                     tipoInput="text"
                     label="Status"
-                    placeholder="Adquirido"
+                    placeholder="Ativo/Inativo"
                     valorInput={formData.emblemas_status}
                     metodoSubmit={(e) => setFormData({ ...formData, emblemas_status: e.target.value })}
                   />

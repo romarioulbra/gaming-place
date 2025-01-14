@@ -26,11 +26,19 @@ export default function NavbarPerfil(){
     <>
       <nav className="bg-indigo-500 text-black py-4 mt-16 shadow-md">
         <div className="container mx-auto flex justify-between items-center px-4">
-          <div className="text-2xl font-bold">Dashboard</div>
+          
+          {nivel !== "Administrador" ? (
+            <Link href="/dashboard/usuario/login"> 
+              {/* <div className="text-2xl font-bold">Dashboard</div> */}
+              <div className="text-2xl font-bold">Dashboard</div>
+            </Link>
+          ):(
+              <div className="text-2xl font-bold">Dashboard</div>
+          )}
           <div className="flex space-x-4 text-slate-200 ">
 
           {nivel !== "Administrador" && (
-            <Link href="/usuarios/perfil" className="hover:text-secondary flex items-center space-x-2 hover:bg-indigo-600 p-2 rounded-md text-sm">
+            <Link href="/dashboard/usuario/perfil" className="hover:text-secondary flex items-center space-x-2 hover:bg-indigo-600 p-2 rounded-md text-sm">
               <SlUser className=""/>
               <span>Perfil</span>
             </Link>

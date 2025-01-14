@@ -1,41 +1,38 @@
-'use client'
+'use client';
 
-import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import EmblemasList from './EmblemasList';
+import Image from 'next/image';
 
-export default function Emblemas(){
-
+export default function Emblemas() {
+  const [emblemas, setEmblemas] = useState([]);
   const [selectedEmblema, setSelectedEmblema] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
-
-  const emblemas = ["1", "2", "3", "4", "5"];
 
   const handleOpenModal = (emblema) => {
     setSelectedEmblema(emblema);
     setIsOpen(true);
   };
 
+  useEffect(() => {
+    async function fetchEmblemas() {
+      try {
+        const response = await axios.get('/api/emblemas');
+        setEmblemas(response.data);
+      } catch (error) {
+        console.error('Erro ao buscar emblemas:', error);
+      }
+    }
+    fetchEmblemas();
+  }, []);
 
-  return(
-    <>
-      {/* Emblemas */}
-      <div>
-        <h3 className="text-lg font-bold">Emblemas</h3>
-        <div className="flex space-x-4 mt-2  bg-purple-600 p-2 rounded">
-          {emblemas.map((item) => (
-            <Image
-              key={item}
-              src={`/img/menin.png`} // Substitua pela URL do emblema real
-              alt={`Emblema ${item}`}
-              className="w-12 h-12 rounded-full cursor-pointer"
-              width={100}
-              height={100}
-              onClick={() => handleOpenModal(item)} // Ao clicar, abre o modal
-            />
-          ))}
-        </div>
+  return (
+    <div>
+      {/* Componente de lista de emblemas */}
+      <div className="max-w-5xl mx-auto bg-purple-700 bg-opacity-20 rounded-lg p-4 shadow-lg">
+        <EmblemasList emblemas={emblemas} handleOpenModal={handleOpenModal} />
       </div>
-
 
       {/* Modal */}
       {isOpen && (
@@ -49,10 +46,9 @@ export default function Emblemas(){
             </button>
             <div className="flex flex-col items-center">
               <div className="w-24 h-24 rounded-full overflow-hidden bg-white flex items-center justify-center mb-4">
-                {/* Mostra o emblema selecionado */}
                 <Image
-                  src={`/img/menin.png`} // Substitua pela URL do emblema real
-                  alt={`Emblema ${selectedEmblema}`}
+                  src={`${selectedEmblema?.emblema_imagem}`}
+                  alt={`Emblema ${selectedEmblema?.emblema_nome}`}
                   className="object-cover"
                   width={100}
                   height={100}
@@ -61,11 +57,11 @@ export default function Emblemas(){
               <h2 className="text-lg font-bold">Parabéns! Recompensa coletada</h2>
               <p className="mt-2 text-sm">
                 Você selecionou o emblema:{" "}
-                <span className="font-bold">{selectedEmblema}</span>
+                <span className="font-bold">{selectedEmblema?.emblema_nome}</span>
               </p>
               <p className="mt-2 text-sm">
-                Pontos Conquistados: 
-                <span className="font-bold"> 40</span>
+                Pontos Conquistados:{" "}
+                <span className="font-bold">{selectedEmblema?.emblemas_pontos || 0}</span>
               </p>
               <button
                 onClick={() => setIsOpen(false)}
@@ -77,7 +73,8 @@ export default function Emblemas(){
           </div>
         </div>
       )}
-
-    </>
-  )
+    </div>
+  );
 }
+
+

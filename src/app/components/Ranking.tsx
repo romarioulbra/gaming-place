@@ -6,7 +6,7 @@ export default function Ranking(){
   return(
     <>
       {/* Ranking */}
-      <div className="bg-purple-800 p-4 rounded-xl">
+      <div className="bg-purple-800 p-4 rounded-xl border border-purple-400">
           <h3 className="text-lg font-bold">Ranking</h3>
           <ul className="mt-2 space-y-2">
             {[

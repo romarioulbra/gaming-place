@@ -30,7 +30,7 @@ export default function Emblemas() {
   return (
     <div>
       {/* Componente de lista de emblemas */}
-      <div className="max-w-5xl mx-auto bg-purple-700 bg-opacity-20 rounded-lg p-4 shadow-lg">
+      <div className="max-w-5xl mx-auto bg-purple-900 bg-opacity-20 rounded-lg p-4 shadow-lg border border-purple-400">
         <EmblemasList emblemas={emblemas} handleOpenModal={handleOpenModal} />
       </div>
 

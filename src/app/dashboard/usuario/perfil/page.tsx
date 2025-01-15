@@ -12,15 +12,15 @@ export default function Perfil() {
 
 
   return (
-    <div className="bg-gradient-to-b from-gray-300 to-indigo-200 min-h-screen flex justify-center items-center ">
-      <div className="w-full max-w-4xl p-6 bg-purple-600 text-white rounded-xl shadow-lg space-y-6">
+    <div className="bg-gradient-to-b from-gray-300 to-indigo-200 min-h-screen flex justify-center items-center">
+      <div className="w-full max-w-4xl p-6 bg-purple-600 text-white rounded-xl shadow-lg space-y-6 m-2">
         {/* Perfil */}
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <Image
               src={`/img/homem.png`}
               alt="Foto de perfil"
-              className="w-24 h-24 rounded-full border-4 border-pink-500"
+              className="w-24 h-24 rounded-full border-2 border-pink-500"
               width={100}
               height={100}
             />

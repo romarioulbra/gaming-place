@@ -2,13 +2,15 @@
 import React from "react";
 import Image from "next/image";
 import { useSession} from "next-auth/react";
+import AcessoNegado from "@/app/components/UsuarioInacessivel";
 
 
 export default function Dashboard() {
   const { data: session, status } = useSession();
 
   if (!session) {
-    return <p>Você precisa estar logado para acessar o Dashboard.</p>;
+    // return <p className="mt-20">Você precisa estar logado para acessar o Dashboard.</p>;
+    return <AcessoNegado/>;
   }
 
  // Acessa os dados do usuário na sessão

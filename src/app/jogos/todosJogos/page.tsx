@@ -551,12 +551,14 @@ export default function ListaComImagem() {
                       height={250}
                       className="rounded-lg shadow-lg shadow-slate-500 object-cover"
                     />
-                    <p className="text-gray-600 text-justify mt-4">
-                      {selectedGame.jogos_descricao || "Descrição indisponível."}
-                    </p>
+                    <div className="mt-2 mb-2">
+                      <p className="text-gray-600 text-justify mt-4 h-22">
+                        {selectedGame.jogos_descricao || "Descrição indisponível."}
+                      </p>
+                    </div>
                  
                     {session ? (
-                      <div>
+                      <div className="mt-16 ">
                         <Link href={selectedGame.jogos_link}>
                           <button className="bg-fuchsia-500 text-white rounded w-15 m-3 p-3">Acessar Jogo</button>
                         </Link>

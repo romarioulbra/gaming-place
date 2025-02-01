@@ -54,8 +54,8 @@ model perfis {
   perfil_cidade   String
   perfil_pontos   String
   perfil_nivel    String
-  perfil_usuarios usuarios @relation(fields: [usuario_id], references: [usuario_id], onDelete: Cascade)
-  perfil_emblemas emblemas @relation(fields: [emblema_id], references: [emblema_id], onDelete: Cascade)
-  usuario_id      Int
-  emblema_id      Int
+  perfil_usuarios usuarios @relation(fields: [usuario], references: [usuario_id], onDelete: Cascade)
+  perfil_emblemas emblemas @relation(fields: [emblema], references: [emblema_id], onDelete: Cascade)
+  usuario         Int
+  emblema         Int
 }

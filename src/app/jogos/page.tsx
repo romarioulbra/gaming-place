@@ -27,7 +27,6 @@ export default function Jogos() {
 
 
   return (
-
      <>
       <header className="text-center py-8 bg-indigo-800 shadow-lg mt-12">
         <h1 className="text-4xl font-extrabold text-white">Jogos Disponíveis</h1>

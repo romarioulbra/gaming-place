@@ -52,3 +52,30 @@ body {
   scrollbar-width: thin;
   scrollbar-color: #800080 #f1f1f1;
 }
+
+
+/* Carregamento da Página de Jogos */
+
+@keyframes spin-left-right {
+  0% {
+    transform: rotate(0deg);
+    scale: 1;
+  }
+  25% {
+    transform: rotate(-90deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  75% {
+    transform: rotate(90deg);
+  }
+  100% {
+    transform: rotate(0deg);
+    scale: 1.25;
+  }
+}
+
+.animate-spin-left-right {
+  animation: spin-left-right 2s ease-in-out forwards;
+}

@@ -15,12 +15,13 @@ model usuarios {
   usuario_nivel     String
   usuario_criacao   DateTime @default(now())
   usuario_alteracao DateTime @updatedAt
+  perfis            perfis[]
 }
 
 model jogos {
   jogos_id          Int             @id @default(autoincrement())
   jogos_nome        String
-  jogos_descricao   String
+  jogos_descricao   String          @db.VarChar(254)
   jogos_link        String
   jogos_url_img     String?
   jogos_autor       String?
@@ -38,10 +39,23 @@ model categoria_jogos {
 }
 
 model emblemas {
-  emblema_id       Int    @id @default(autoincrement())
+  emblema_id       Int      @id @default(autoincrement())
   emblema_nome     String
   emblema_criterio String
   emblema_imagem   String
   emblemas_pontos  String
   emblemas_status  String
+  perfis           perfis[]
+}
+
+model perfis {
+  perfil_id       Int      @id @default(autoincrement())
+  perfil_imagem   String
+  perfil_cidade   String
+  perfil_pontos   String
+  perfil_nivel    String
+  perfil_usuarios usuarios @relation(fields: [usuario_id], references: [usuario_id], onDelete: Cascade)
+  perfil_emblemas emblemas @relation(fields: [emblema_id], references: [emblema_id], onDelete: Cascade)
+  usuario_id      Int
+  emblema_id      Int
 }

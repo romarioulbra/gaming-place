@@ -1,30 +1,3 @@
-// import { PrismaClient } from "@prisma/client";
-// import { NextResponse } from "next/server";
-
-// const prisma = new PrismaClient();
-
-// export async function PATCH(req: Request, { params }: { params: { perfil_id: string } }) {
-//   try {
-//     const perfilId = parseInt(params.perfil_id); // Convertendo ID para número
-//     if (isNaN(perfilId)) {
-//       return NextResponse.json({ error: "ID inválido" }, { status: 400 });
-//     }
-
-//     const { perfil_imagem, perfil_cidade } = await req.json();
-
-//     const perfil = await prisma.perfis.update({
-//       where: { perfil_id: perfilId },
-//       data: { perfil_imagem, perfil_cidade },
-//     });
-
-//     return NextResponse.json({ success: true, perfil }, { status: 200 });
-//   } catch (error) {
-//     console.error("Erro ao atualizar perfil:", error);
-//     return NextResponse.json({ error: "Erro ao atualizar perfil" }, { status: 500 });
-//   }
-// }
-
-
 import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 import path from "path";

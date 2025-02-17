@@ -32,28 +32,66 @@ export async function GET() {
 
 
 // Função de Inserção de Dados
+// export async function POST(req: Request) {
+//   const { usuario_nome, usuario_email, usuario_senha, usuario_nivel } = await req.json();
+
+//   try {
+//     // Gerar o hash da senha antes de salvar no banco
+//     const salt = await bcrypt.genSalt(10); // Número de rounds (10 é padrão)
+//     const hashedPassword = await bcrypt.hash(usuario_senha, salt);
+
+//     // Criar o novo usuário com a senha criptografada
+//     const newUsuario = await prisma.usuarios.create({
+//       data: {
+//         usuario_nome,
+//         usuario_email,
+//         usuario_senha: hashedPassword, // Salvar a senha criptografada
+//         usuario_nivel,
+//       },
+//     });
+
+//     return NextResponse.json(newUsuario, { status: 201 });
+//   } catch (error) {
+//     console.error('Erro ao criar usuário:', error);
+//     return NextResponse.json({ error: 'Erro ao criar usuário.' }, { status: 500 });
+//   }
+// }
+
+
 export async function POST(req: Request) {
   const { usuario_nome, usuario_email, usuario_senha, usuario_nivel } = await req.json();
 
   try {
-    // Gerar o hash da senha antes de salvar no banco
-    const salt = await bcrypt.genSalt(10); // Número de rounds (10 é padrão)
+    // Gerar hash da senha
+    const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(usuario_senha, salt);
 
-    // Criar o novo usuário com a senha criptografada
+    // Criar usuário e perfil ao mesmo tempo
     const newUsuario = await prisma.usuarios.create({
       data: {
         usuario_nome,
         usuario_email,
-        usuario_senha: hashedPassword, // Salvar a senha criptografada
+        usuario_senha: hashedPassword,
         usuario_nivel,
+        perfis: {
+          create: {
+            perfil_imagem: "/img/avatar.jpg", // Imagem padrão
+            perfil_cidade: "",
+            perfil_pontos: 0, // Valor inicial de pontos
+            perfil_nivel: 1, // Nível inicial
+            emblema: 1,
+          },
+        },
+      },
+      include: {
+        perfis: true, // Retorna o perfil junto com o usuário criado
       },
     });
 
     return NextResponse.json(newUsuario, { status: 201 });
   } catch (error) {
-    console.error('Erro ao criar usuário:', error);
-    return NextResponse.json({ error: 'Erro ao criar usuário.' }, { status: 500 });
+    console.error("Erro ao criar usuário e perfil:", error);
+    return NextResponse.json({ error: "Erro ao criar usuário e perfil." }, { status: 500 });
   }
 }
 

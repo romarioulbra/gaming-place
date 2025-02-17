@@ -1,4 +1,3 @@
-'use client'
 interface BotaoProps {
   texto: string;
   tipo?: 'button' | 'submit'; // Tipo do botão, opcional, padrão será 'submit'

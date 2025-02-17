@@ -5,7 +5,9 @@ import { useRouter } from "next/navigation";
 import LoadingOverlay from "../components/LoadingOverlay";
 
 export default function CabecalhoVoltar({ Icone }) {
+  
   const [isLoading, setIsLoading] = useState(false);
+
   const router = useRouter();
 
   const handleVoltarClick = () => {

@@ -1,31 +1,5 @@
 // 'use client';
 
-// import Image from 'next/image';
-
-// export default function EmblemasList({ emblemas, handleOpenModal }) {
-//   return (
-//     <div className="p-2">
-//       <h3 className="text-lg font-bold">Emblemas</h3>
-//       <div className="flex space-x-4 mt-2 bg-purple-600 p-2 rounded shadow">
-//         {emblemas.map((emblema) => (
-//           <Image
-//             key={emblema.emblema_id}
-//             src={`${emblema.emblema_imagem}`} // Caminho correto das imagens
-//             alt={`Emblema ${emblema.emblema_nome}`}
-//             className="w-16 h-16 rounded-full cursor-pointer object-cover border-white border-2 p-1"
-//             width={100}
-//             height={100}
-//             onClick={() => handleOpenModal(emblema)} // Abre o modal ao clicar
-//           />
-//         ))}
-//       </div>
-//     </div>
-//   );
-// }
-
-
-'use client';
-
 import Image from 'next/image';
 
 export default function EmblemasList({ emblemas, handleOpenModal }) {

@@ -1,5 +1,3 @@
-
-
 interface AlertProps {
   cor?: 'verde' | 'azul' | 'amarelo' | 'vermelho';
   tipoAlert?: 'sucesso' | 'erro' | 'aviso' | 'informacao';

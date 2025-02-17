@@ -1,8 +1,8 @@
 'use client'
+
 import Link from 'next/link';
 import { FaGear,FaUsersGear,FaGamepad } from "react-icons/fa6";
 import { GiGamepadCross } from "react-icons/gi";
-
 
 export default function CardsGrid() {
   const cardsData = [

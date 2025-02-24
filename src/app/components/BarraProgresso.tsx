@@ -29,7 +29,8 @@ export default function BarraProgresso() {
       <div className="w-full bg-gray-700 rounded-full h-2">
         <div
           className="bg-yellow-400 h-2 rounded-full transition-all duration-500"
-          style={{ width: `${progresso}%` }}
+          // style={{ width: `${progresso}%` }}
+          style={{ width: `${(progresso / 1000) * 100}%` }}
         ></div>
       </div>
       <p className="text-sm mt-1">Nível de progresso: {progresso}%</p>

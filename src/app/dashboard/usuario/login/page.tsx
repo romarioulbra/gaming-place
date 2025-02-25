@@ -46,22 +46,28 @@
 
 //   // Acessa os dados do usuário na sessão e do perfil
 //   const { nome, nivel } = session.usuario;
-//   const { perfil_imagem } = perfil;
+//   const { perfil_imagem,perfil_pontos,perfil_nivel } = perfil;
+
+//   const xp = 500;
 
 //   return (
 //     <>
 //       <div className="min-h-screen bg-gradient-to-b from-gray-300 to-indigo-200 pt-4">
 //         {/* Boas-vindas */}
 //         <main className="flex flex-col items-center justify-center text-center mt-10">
-//           {/* Exibe a imagem do perfil */}
-//           <Image
-//             // className="rounded-full mx-auto object-cover"
-//             className="rounded-full object-cover w-60 h-60"
-//             width={200}
-//             height={200}
-//             src={perfil_imagem || "/img/avatar.jpg"} // Fallback para uma imagem padrão
-//             alt="Foto do usuário"
-//           />
+//           {/* Exibe a imagem do perfil com efeitos */}
+//           <div className="relative w-60 h-60 rounded-full p-1 transition-all duration-300">
+//             <div className="absolute inset-0 bg-white/20 rounded-full"></div> {/* Fundo desfocado */}
+//             <Image
+//               className="rounded-full object-cover w-full h-full border-4 border-white hover:scale-105 transition-transform duration-300"
+//               width={200}
+//               height={200}
+//               src={perfil_imagem || "/img/avatar.jpg"}
+//               alt="Foto do usuário"
+//             />
+//             <div className="absolute inset-0 rounded-full border-4 border-white shadow-[0_0_20px_5px_rgba(255,255,255,0.6)]"></div> {/* Brilho ao redor da imagem */}
+//           </div>
+
 //           <h1 className="text-4xl font-extrabold text-text mt-6">
 //             Bem-vindo, <span className="text-pink-600">{nome}</span>!
 //           </h1>
@@ -73,7 +79,7 @@
 //               <div className="bg-pink-600 h-2 rounded-full w-[70%]"></div>
 //             </div>
 //             <p className="mt-2 text-sm text-text text-black font-bold">
-//               Seu nível: 2 | XP: 350/500
+//               Seu nível: {perfil_nivel} | XP: {perfil_pontos} / {xp}
 //             </p>
 //           </div>
 //         </main>
@@ -106,7 +112,9 @@
 //   );
 // }
 
-'use client';
+
+"use client";
+
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
@@ -154,7 +162,12 @@ export default function Dashboard() {
 
   // Acessa os dados do usuário na sessão e do perfil
   const { nome, nivel } = session.usuario;
-  const { perfil_imagem } = perfil;
+  const { perfil_imagem, perfil_pontos, perfil_nivel } = perfil;
+
+  const xp = 500; // XP necessário para o próximo nível
+
+  // Calcula a porcentagem da barra de progresso
+  const progresso = Math.min((perfil_pontos / xp) * 100, 100); // Garante que não ultrapasse 100%
 
   return (
     <>
@@ -171,7 +184,7 @@ export default function Dashboard() {
               src={perfil_imagem || "/img/avatar.jpg"}
               alt="Foto do usuário"
             />
-            <div className="absolute inset-0 rounded-full border-4 border-white shadow-[0_0_20px_5px_rgba(255,255,255,0.6)]"></div> {/* Brilho ao redor da imagem */}
+            <div className="absolute inset-0 rounded-full border-4 border-white shadow-[0_0_20px_5px_rgba(255,255,255,0.8)]"></div> {/* Brilho ao redor da imagem */}
           </div>
 
           <h1 className="text-4xl font-extrabold text-text mt-6">
@@ -180,16 +193,24 @@ export default function Dashboard() {
           <p className="mt-4 text-lg text-text">Nível: {nivel}</p>
           <p className="mt-4 text-lg text-text">Estamos felizes em ter você por aqui!</p>
 
+          {/* Barra de progresso do XP */}
           <div className="mt-8 w-full max-w-md mx-auto">
-            <div className="bg-pink-300 h-2 rounded-full">
-              <div className="bg-pink-600 h-2 rounded-full w-[70%]"></div>
+            <div className="bg-gray-400 h-3 rounded-full overflow-hidden">
+              <div
+                className="bg-pink-600 h-full transition-all duration-500"
+                style={{ width: `${progresso}%` }}
+              ></div>
             </div>
-            <p className="mt-2 text-sm text-text text-black font-bold">
-              Seu nível: 2 | XP: 350/500
+            <p className="mt-2 text-sm text-black font-bold">
+              Seu nível: {perfil_nivel} | XP: {perfil_pontos} / {xp}
             </p>
           </div>
         </main>
 
+
+
+
+        {/* Seção de desafios */}
         <section className="mt-12 px-4 max-w-md mx-auto text-left">
           <h2 className="text-2xl font-semibold text-green-600">Desafios Atuais</h2>
           <ul className="mt-6 space-y-4">

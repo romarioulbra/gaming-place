@@ -85,3 +85,99 @@ export default function Sobre() {
   );
 }
 
+
+
+
+
+// import CardJogo from "../components/CardJogo";
+// import ImagensCirculares from "../components/Imagens";
+
+// export default function Sobre() {
+//   const circularImages = [
+//     "/img/zoombi.png",
+//     "/img/homem.png",
+//     "/img/img3.png",
+//     "/img/menina.png",
+//   ];
+//   const recompensa = [
+//     "/img/trofeu.png",
+//     "/img/lancamento__foguete.png",
+//     "/img/dist.png",
+//     "/img/montanha.png",
+//   ];
+
+//   return (
+//     <div className="bg-gray-100 text-gray-900 mt-10">
+//       {/* Header */}
+//       <header className="text-center py-12 bg-gradient-to-r from-indigo-700 to-purple-800 shadow-md">
+//         <h1 className="text-3xl md:text-4xl font-extrabold text-white">
+//           Sobre
+//         </h1>
+//         <p className="mt-2 text-base md:text-lg text-indigo-300 px-4">
+//           Descubra como a{" "}
+//           <span className="font-semibold text-white">Gaming Place</span>{" "}
+//           transforma sua experiência de jogo!
+//         </p>
+//       </header>
+
+//       <main className="container mx-auto px-6 lg:px-20 py-12 text-center">
+//         {/* Seção 1: Sobre a Plataforma */}
+//         <section className="flex flex-col lg:flex-row items-center gap-12 mb-20">
+//           <CardJogo title="Minecraft" image="/img/sobre.png" buttonText="Jogar" />
+//           <article className="max-w-lg">
+//             <h2 className="text-2xl md:text-3xl font-bold text-green-700 mb-4">
+//               Gaming Place
+//             </h2>
+//             <p className="text-gray-700 leading-relaxed text-sm md:text-base">
+//               A <span className="font-semibold text-green-700">Gaming Place</span>{" "}
+//               é uma plataforma gamificada que reúne todos os jogos desenvolvidos na{" "}
+//               <span className="font-semibold">ULBRA Palmas</span>.  
+//               Organizamos jogos em categorias como{" "}
+//               <span className="font-semibold">saúde, social, educação e acessibilidade</span>,  
+//               facilitando o acesso e a divulgação dos desenvolvedores.  
+//               Um ambiente único, pensado para unir{" "}
+//               <span className="text-indigo-600 font-semibold">diversão</span> e{" "}
+//               <span className="text-indigo-600 font-semibold">aprendizado</span>.
+//             </p>
+//           </article>
+//         </section>
+
+//         {/* Seção 2: Ganhe Recompensas */}
+//         <section className="flex flex-col-reverse lg:flex-row items-center gap-12">
+//           <div className="max-w-lg text-center lg:text-justify">
+//             <h2 className="text-2xl md:text-3xl font-bold text-green-700 mb-4">
+//               Ganhe Recompensas
+//             </h2>
+//             <p className="text-gray-700 leading-relaxed text-sm md:text-base">
+//               Na <span className="font-semibold text-green-700">Gaming Place</span>, sua jornada é recompensada!  
+//               Conquiste <span className="text-indigo-600 font-semibold">emblemas, troféus e níveis de usuário</span> ao completar desafios.  
+//               Um sistema projetado para incentivar e engajar jogadores enquanto aprendem e se divertem.
+//             </p>
+//             <div className="flex flex-wrap justify-center lg:justify-start gap-4 mt-6">
+//               {recompensa.map((imgPath, index) => (
+//                 <ImagensCirculares key={index} caminho={imgPath} />
+//               ))}
+//             </div>
+//           </div>
+//           <CardJogo title="" image="/img/recompensa.png" buttonText="Jogar" />
+//         </section>
+//       </main>
+
+//       {/* Footer */}
+//       <footer className="bg-gradient-to-r from-indigo-700 to-purple-800 py-10 text-center border-t-2 border-white">
+//         <h2 className="text-2xl md:text-3xl font-bold text-white">
+//           Acompanhe seu Progresso
+//         </h2>
+//         <p className="text-indigo-300 mt-2 text-sm md:text-base">
+//           Monitore suas conquistas com{" "}
+//           <span className="font-semibold text-white">emblemas, troféus</span> e muito mais.
+//         </p>
+//         <div className="flex flex-wrap justify-center gap-6 mt-6 px-4">
+//           {circularImages.map((img, index) => (
+//             <ImagensCirculares key={index} caminho={img} />
+//           ))}
+//         </div>
+//       </footer>
+//     </div>
+//   );
+// }

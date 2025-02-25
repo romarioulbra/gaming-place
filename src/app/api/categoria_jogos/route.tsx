@@ -79,6 +79,7 @@ export async function POST(req: Request) {
 }
 
 
+
 // Funcionando a todo vapor
 export async function DELETE(req: Request) {
   const { searchParams } = new URL(req.url);

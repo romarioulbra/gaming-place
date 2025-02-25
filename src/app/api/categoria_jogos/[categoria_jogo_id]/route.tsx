@@ -120,3 +120,45 @@ export async function PUT(req: NextRequest, { params }: { params: { categoria_jo
     return NextResponse.json({ error: "Erro ao atualizar Categoria de Jogos." }, { status: 500 });
   }
 }
+
+
+
+
+// Funcionando a todo vapor
+// export async function DELETE(req: Request) {
+//   const { searchParams } = new URL(req.url);
+//   const categoria_jogo_id = searchParams.get("categoria_jogo_id");
+
+//   if (!categoria_jogo_id || isNaN(Number(categoria_jogo_id))) {
+//     return NextResponse.json({ error: "ID inválido ou não fornecido!" }, { status: 400 });
+//   }
+
+//   try {
+//     // Busca o registro no banco
+//     const categoria = await prisma.categoria_jogos.findUnique({
+//       where: { categoria_jogo_id: Number(categoria_jogo_id) },
+//     });
+
+//     if (!categoria) {
+//       return NextResponse.json({ error: "Registro não encontrado!" }, { status: 404 });
+//     }
+
+//     // Caminho do arquivo a ser excluído
+//     const filePath = path.join(process.cwd(), "public", categoria.categoria_jogo_icone);
+
+//     // Exclui o arquivo do diretório
+//     await fs.unlink(filePath).catch((err) => {
+//       console.error("Erro ao excluir o arquivo:", err);
+//     });
+
+//     // Exclui o registro no banco de dados
+//     await prisma.categoria_jogos.delete({
+//       where: { categoria_jogo_id: Number(categoria_jogo_id) },
+//     });
+
+//     return NextResponse.json({ message: "Registro excluído com sucesso!" }, { status: 200 });
+//   } catch (error) {
+//     console.error("Erro ao excluir o registro:", error);
+//     return NextResponse.json({ error: "Erro ao excluir registro." }, { status: 500 });
+//   }
+// }

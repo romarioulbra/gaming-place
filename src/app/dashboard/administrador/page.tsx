@@ -1,7 +1,5 @@
 'use client'
 
-// import { FaUser, FaGamepad, FaLayerGroup,FaMeteor,FaTachometerAlt } from "react-icons/fa";
-// import Link from "next/link";
 import Usuarios from "../../configuracao/usuarios/page";
 import Jogos from "../../configuracao/jogos/page";
 import CategoriaJogos from "../../configuracao/jogos_categoria/page";
@@ -36,13 +34,14 @@ export default function AdminDashboard() {
             <div className="mt-12">
               {currentPage === "dashboard" && (
                 <div>
-                  <h3 className="text-2xl font-bold text-gray-800 mb-4">Visão Geral</h3>
+                  <ConfigPanel />
+                  {/* <h3 className="text-2xl font-bold text-gray-800 mb-4">Visão Geral</h3>
                   <div className="bg-gray-100 p-6 rounded-lg shadow-md">
                     <p className="text-gray-700">
                       Aqui você pode gerenciar todas as informações do sistema, incluindo usuários,
                       jogos e categorias. Use o menu lateral para navegar entre as seções.
                     </p>
-                  </div>
+                  </div> */}
                 </div>
               )}
 

@@ -97,6 +97,7 @@
 // }
 
 
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -110,6 +111,7 @@ export default function Emblemas() {
   const [selectedEmblema, setSelectedEmblema] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
+  const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
 
   useEffect(() => {
     async function fetchEmblemas() {
@@ -121,6 +123,17 @@ export default function Emblemas() {
       }
     }
     fetchEmblemas();
+  }, []);
+
+  useEffect(() => {
+    // Atualiza o tamanho da tela
+    const updateSize = () => {
+      setWindowSize({ width: window.innerWidth, height: window.innerHeight });
+    };
+
+    updateSize(); // Definir o tamanho ao carregar
+    window.addEventListener("resize", updateSize);
+    return () => window.removeEventListener("resize", updateSize);
   }, []);
 
   // Controla o tempo do confete
@@ -142,9 +155,13 @@ export default function Emblemas() {
   };
 
   return (
-    <div className="relative">
-      {/* Confete */}
-      {showConfetti && <Confetti recycle={false} numberOfPieces={300} gravity={0.2} />}
+    <>
+      {/* Confete na tela inteira */}
+      {showConfetti && (
+        <div className="fixed inset-0 z-50 pointer-events-none">
+          <Confetti width={windowSize.width} height={windowSize.height} recycle={false} numberOfPieces={400} gravity={0.2} />
+        </div>
+      )}
 
       {/* Lista de Emblemas */}
       <div className="max-w-4xl mx-auto bg-purple-800 bg-opacity-30 rounded-lg p-6 shadow-lg border border-purple-500">
@@ -190,6 +207,6 @@ export default function Emblemas() {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }

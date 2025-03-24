@@ -122,7 +122,6 @@ const handleFileChange = (event) => {
               </div>
             )}
 
-
               <InputForm
                 tipoInput="text"
                 label="Jogo"
@@ -138,18 +137,30 @@ const handleFileChange = (event) => {
                 valorInput={formData.jogos_link}
                 metodoSubmit={(e) => setFormData({ ...formData, jogos_link: e.target.value })}
               />
-              <div>
-                <p>Categoria Selecionada: {formData.categoria_jogo_nome || "Nenhuma selecionada"}</p>
+              
+              <div className="flex flex-wrap gap-4 mt-4">              
+                <div className="flex-1">
+                  <InputForm
+                    tipoInput="selectDados"
+                    label="Categoria do Jogo"
+                    dadosSelect={jogos}
+                    idSelect="categoria_jogo_id"
+                    nomeSelect="categoria_jogo_area_atuacao"
+                    valorInput={formData.categoria_jogo_id}
+                    metodoSubmit={handleCategoryChange}
+                  />
+                </div>
+                <div className="flex-1">
+                  <InputForm
+                    tipoInput="text"
+                    label="Desenvolvedor(es) do Jogo"
+                    placeholder="Fulano e Beltrano"
+                    valorInput={formData.jogos_autor}
+                    metodoSubmit={(e) => setFormData({ ...formData, jogos_autor: e.target.value })}
+                  />
+                </div>
               </div>
-              <InputForm
-                tipoInput="selectDados"
-                label="Categoria do Jogo"
-                dadosSelect={jogos}
-                idSelect="categoria_jogo_id"
-                nomeSelect="categoria_jogo_area_atuacao"
-                valorInput={formData.categoria_jogo_id}
-                metodoSubmit={handleCategoryChange}
-              />
+
 
               <InputForm
                 tipoInput="textarea"

@@ -12,7 +12,10 @@ import axios from "axios";
 export default function ConfigPanel() {
   const [currentPage, setCurrentPage] = useState("dashboard"); // Estado para controlar a página exibida
   const [isLoading, setIsLoading] = useState(false); // Estado para controlar o loading
+  
+  // CONTADORES
   const [numeroUsuarios, setNumeroUsuarios] = useState(0);
+  const [numeroJogos, setNumeroJogos] = useState(0);
 
   // Função para buscar o total de usuários
   useEffect(() => {
@@ -26,6 +29,20 @@ export default function ConfigPanel() {
     }
 
     fetchTotalUsuarios();
+  }, []);
+
+  // Função para buscar o total de jogos
+  useEffect(() => {
+    async function fetchTotalJogos() {
+      try {
+        const response = await axios.get('/api/jogos');
+        setNumeroJogos(response.data.totalJogos);
+      } catch (error) {
+        console.error('Erro ao buscar jogos:', error);
+      }
+    }
+
+    fetchTotalJogos();
   }, []);
   
   // console.log(numeroUsuarios)
@@ -84,7 +101,7 @@ export default function ConfigPanel() {
                 
                 {/* Círculo com a quantidade de jogos */}
                 <div className="absolute top-0 right-0 -mt-2 -mr-2 bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">
-                  {numeroUsuarios} {/* Substitua 'numeroJogos' pela variável que contém a quantidade */}
+                  {numeroJogos} {/* Substitua 'numeroJogos' pela variável que contém a quantidade */}
                 </div>
               </div>
 

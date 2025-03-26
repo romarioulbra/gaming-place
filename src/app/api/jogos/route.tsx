@@ -3,38 +3,58 @@ import { PrismaClient } from '@prisma/client';
 import { NextResponse } from 'next/server';
 import { promises as fs } from 'fs';
 import path from 'path';
+import { getTodosJogos, getTotalJogos } from '@/app/utils/jogoUtils';
+
 
 const prisma = new PrismaClient();
 // Função de Listagem de Dados de Jogos com Categorias de Jogos
+// export async function GET() {
+//   try {
+//     const jogos = await prisma.jogos.findMany({
+//       select: {
+//         jogos_id: true,
+//         jogos_nome: true,
+//         jogos_descricao: true,
+//         jogos_link: true,
+//         jogos_url_img: true,
+//         jogos_autor: true,
+//         categoria_jogo_id: true, // Inclui o ID da categoria
+//         categoria_jogos: { // Inclui a tabela relacionada (assumindo que o relacionamento é definido no Prisma)
+//           select: {
+//             categoria_jogo_id: true, // Chave primária da categoria
+//             categoria_jogo_area_atuacao: true, // Campo da área de atuação da categoria
+//           }
+//         }
+//       },
+//     });
+    
+//     return NextResponse.json(jogos, { status: 200 });
+//   } catch (error) {
+//     console.error('Erro ao buscar Jogos:', error.message);
+//     return NextResponse.json(
+//       { error: 'Erro ao buscar Jogos', details: error.message },
+//       { status: 500 }
+//     );
+//   }
+// }
+
+
 export async function GET() {
   try {
-    const jogos = await prisma.jogos.findMany({
-      select: {
-        jogos_id: true,
-        jogos_nome: true,
-        jogos_descricao: true,
-        jogos_link: true,
-        jogos_url_img: true,
-        jogos_autor: true,
-        categoria_jogo_id: true, // Inclui o ID da categoria
-        categoria_jogos: { // Inclui a tabela relacionada (assumindo que o relacionamento é definido no Prisma)
-          select: {
-            categoria_jogo_id: true, // Chave primária da categoria
-            categoria_jogo_area_atuacao: true, // Campo da área de atuação da categoria
-          }
-        }
-      },
-    });
-    
-    return NextResponse.json(jogos, { status: 200 });
+    const [jogos, totalJogos] = await Promise.all([
+      getTodosJogos(),
+      getTotalJogos(),
+    ]);
+
+    return NextResponse.json({ jogos, totalJogos }, { status: 200 });
   } catch (error) {
-    console.error('Erro ao buscar Jogos:', error.message);
     return NextResponse.json(
-      { error: 'Erro ao buscar Jogos', details: error.message },
+      { error: "Erro ao buscar Jogos", details: error.message },
       { status: 500 }
     );
   }
 }
+
 
 
 // Função de Inserção de Dados

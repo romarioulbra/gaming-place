@@ -126,9 +126,7 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
       break;
   }
 
-  //  console.log("Selected Item:", selectedItem);
 
- 
   // ==============  xxxxxxxxxxxxxxxx Métodos de Modais Final xxxxxxxxxxxxxxxx ===================//
 
     
@@ -138,46 +136,6 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
     const [searchTerm, setSearchTerm] = useState('');
 
   // Aqui ESTA O CERTO --------
-    // const filteredData = data.filter(item => {
-    //   switch (modulo) {
-    //     case "jogoCategoria":
-    //       // Filtra itens com base em `categoria_jogo_area_atuacao`
-    //       return item.categoria_jogo_area_atuacao.toLowerCase().includes(searchTerm.toLowerCase());
-    
-    //     case "usuario":
-    //       // Filtra itens com base no nome, email, senha ou nível do usuário
-    //       return (
-    //         item.usuario_nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    //         item.usuario_email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    //         item.usuario_nivel.toLowerCase().includes(searchTerm.toLowerCase())
-    //       );
-    
-    //     case "jogo":
-    //       // Filtra itens com base no nome do jogo
-    //       return (
-    //         item.jogos_nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    //         item.jogos_descricao.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    //         item.jogos_link.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    //         item.jogos_autor.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    //         item.jogos_url_img.toLowerCase().includes(searchTerm.toLowerCase())
-    //       );
-    
-    //     case "emblema":
-    //       // Filtra itens com base no nome do jogo
-    //       return (
-    //         item.emblema_nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    //         item.emblema_criterio.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    //         item.emblemas_status.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    //         item.emblemas_pontos.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    //         item.emblema_imagem.toLowerCase().includes(searchTerm.toLowerCase())
-    //       );
-
-    //     default:
-    //       return false;
-    //   }
-    // });
-
-
     const filteredData = Array.isArray(data) ? data.filter(item => {
       switch (modulo) {
         case "jogoCategoria":
@@ -259,119 +217,7 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
                   setCurrentPage(0); // Reseta para a primeira página em cada nova pesquisa
                 }}
               /> 
-            
-         
-            {/* <table className="table-auto min-w-full bg-white text-black rounded-lg border-collapse border border-black">
-                <thead>
-                  <tr className="bg-neutral-900 text-gray-300 ">
-                    {atributosCabTab.map((atributo, index) => (
-                     <th
-                        key={index}
-                        className={`sm:w-1/3 md:w-1/4 lg:w-1/6 py-3 px-6 text-left border border-white`
-                      }
-                      >
-                        {atributo}
-                      </th>
-                      ))}
-                      <th className="py-3 px-6 text-left ">Ação</th>
-                  </tr>
-                </thead>
-                <tbody className='border border-black'>
-                {paginatedData.map((item,index) => (
-                  <tr
-                      key={index}
-                      className="border-b border-black hover:bg-gray-200 hover:border  hover:border-fuchsia-300 transition-colors"
-                    > 
-                  {atributosDados.map((atributoArray, idx) => {
-                    if (atributoArray === "usuario_senha") {
-                      // Condição para ocultar a senha
-                      return (
-                        <td key={idx} className="py-3 px-6 border border-black">
-                          <BotaoSenha
-                             mostrarModal={() => handleEditSenha(item)}                             
-                          />
-                        </td>
-                      );
-                    } else if (atributoArray === "jogos_url_img") {
-                      // Condição para exibir a imagem
-                      return (
-                        <td key={idx} className="py-3 px-6 border border-black">
-                          <Image
-                            src={item[atributoArray]} // URL da imagem
-                            alt="Imagem do jogo"
-                            className="w-16 h-16 object-cover rounded"
-                            width={50}
-                            height={50}
-                          />
-                        </td>
-                      );
-                    } else if (atributoArray === "emblema_imagem") {
-                      // Condição para exibir a imagem
-                      return (
-                        <td key={idx} className="py-3 px-6 border border-black">
-                          <Image
-                            src={item[atributoArray]} // URL da imagem
-                            alt="Imagem do jogo"
-                            className="w-16 h-16 object-cover rounded"
-                            width={50}
-                            height={50}
-                          />
-                        </td>
-                      );
-                    } else if (atributoArray === "jogos_descricao") {
-                      // Limitar o texto a 15 caracteres
-                      return (
-                        <td key={idx} className="py-3 px-6 border border-black">
-                          {item[atributoArray].length > 15
-                            ? item[atributoArray].substring(0, 15) + "..."
-                            : item[atributoArray]}
-                        </td>
-                      );
-                    } else if (atributoArray === "jogos_link") {
-                      // Transformar em link clicável e ajustar a fonte
-                      return (
-                        <td key={idx} className="py-3 px-6 border border-black">
-                          <a
-                            href={item[atributoArray]} // URL do link
-                            target="_blank" // Abrir em nova aba
-                            rel="noopener noreferrer" // Segurança
-                            className="text-sm text-blue-500 underline hover:text-blue-700" // Estilos para fonte e cor
-                          >
-                            {item[atributoArray]}
-                          </a>
-                        </td>
-                      );
-                    } else {
-                      // Caso padrão: exibe o valor do campo normalmente
-                      return (
-                        <td key={idx} className={`py-3 px-6 border border-black`}>
-                        {item[atributoArray]}
-                      </td>
-                      );
-                    }
-                  })}
-
-                    <td className="py-4 px-6  flex space-x-4">  
-                      
-                      <button 
-                        onClick={() => handleEditModal(item)}
-                        className="flex items-center px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-700 transition-colors border border-white shadow-md shadow-yellow-500/50">
-                        <FaPencilAlt className="w-5 h-5 mr-2" />
-                      </button>
-
-                        
-                      <button 
-                        className="flex items-center px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700 transition-colors border border-white shadow-md shadow-red-500/50"
-                        onClick={() => handleDeletarModal(item)}
-                      >  
-                        <FaTrashAlt className="w-5 h-5 mr-2" />
-                      </button>
-                    </td>
-                   </tr>
-                  ))}
-                </tbody>
-              </table> */}
-
+                     
             <table className="table-auto min-w-full bg-white text-black rounded-lg border-collapse border border-black">
               <thead>
                 <tr className="bg-neutral-900 text-gray-300 text-center uppercase font-bold">
@@ -465,9 +311,6 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
               </tbody>
             </table>
 
-
-
-  
 
               {/* Modal Editar */}
               <ModalFormulario 
@@ -608,24 +451,6 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
               breakClassName={"px-4 py-2 text-gray-400"}
               disabledClassName={"bg-gray-600 cursor-not-allowed"}
             />
-
-            {/* <ReactPaginate
-              previousLabel={<GrCaretPrevious size={20} />} // Reduzi o ícone para 16px
-              nextLabel={<GrCaretNext size={20} />}
-              breakLabel={"..."}
-              pageCount={pageCount}
-              marginPagesDisplayed={2}
-              pageRangeDisplayed={3}
-              onPageChange={handlePageClick}
-              containerClassName={"flex mt-2 space-x-1"} // Menor espaçamento entre botões
-              pageClassName={"px-2 py-2 bg-indigo-600 rounded text-white text-xs cursor-pointer hover:bg-indigo-700"} // Reduzi padding e fonte
-              activeClassName={"bg-indigo-800"}
-              previousClassName={"px-2 py-1 bg-indigo-600 rounded text-white text-xs cursor-pointer hover:bg-indigo-700"} // Reduzi padding e fonte
-              nextClassName={"px-2 py-1 bg-indigo-600 rounded text-white text-xs cursor-pointer hover:bg-indigo-700"} // Reduzi padding e fonte
-              breakClassName={"px-2 py-1 text-gray-400"}
-              disabledClassName={"bg-gray-600 cursor-not-allowed"}
-            /> */}
-
           </div>
          )}
       </div>

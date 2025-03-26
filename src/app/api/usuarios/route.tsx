@@ -6,48 +6,6 @@ import { getAllUsuarios, getTotalUsuarios  } from '@/app/utils/userUtils';
 
 const prisma = new PrismaClient();
 
-
-// Função de Listagem de Dados
-// export async function GET() {
-//   try {
-//     const users = await prisma.usuarios.findMany({
-//       select: {
-//         usuario_id: true,
-//         usuario_nome: true,
-//         usuario_email: true,
-//         usuario_senha: true,
-//         usuario_nivel: true,
-//         usuario_criacao: true,
-//         usuario_alteracao: true,
-//       },
-//     });
-    
-//     return NextResponse.json(users, { status: 200 });
-
-
-//   } catch (error) {
-//     console.error('Erro ao buscar usuários:', error.message);
-//     return NextResponse.json(
-//       { error: 'Erro ao buscar usuários', details: error.message },
-//       { status: 500 }
-//     );
-//   }
-// }
-
-
-// export async function GET() {
-//   try {
-//     const users = await getAllUsuarios();
-//     return NextResponse.json(users, { status: 200 });
-//   } catch (error) {
-//     return NextResponse.json(
-//       { error: 'Erro ao buscar usuários', details: error.message },
-//       { status: 500 }
-//     );
-//   }
-// }
-
-
 export async function GET() {
   try {
     const [users, totalUsuarios] = await Promise.all([
@@ -65,10 +23,9 @@ export async function GET() {
 }
 
 
-
-
 // Função de Inserção de Dados
 export async function POST(req: Request) {
+  
   const { usuario_nome, usuario_email, usuario_senha, usuario_nivel } = await req.json();
 
   try {
@@ -104,7 +61,6 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Erro ao criar usuário e perfil." }, { status: 500 });
   }
 }
-
 
 
 // Função de Exclusão de Dados

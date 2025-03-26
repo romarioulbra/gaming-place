@@ -6,30 +6,15 @@ import Usuarios from "./usuarios/page";
 import Jogos from "./jogos/page";
 import CategoriaJogos from "./jogos_categoria/page";
 import Emblemas from "./emblemas/page";
-import LoadingOverlay from "../components/LoadingOverlay"; // Importe o componente aqui
+import LoadingOverlay from "../components/LoadingOverlay"; 
 import axios from "axios";
-import { getTotalUsuarios } from "../utils/userUtils";
 
 export default function ConfigPanel() {
   const [currentPage, setCurrentPage] = useState("dashboard"); // Estado para controlar a página exibida
   const [isLoading, setIsLoading] = useState(false); // Estado para controlar o loading
-  // const numeroUsuarios = 12;
   const [numeroUsuarios, setNumeroUsuarios] = useState(0);
 
-
-
-    // Função para buscar o total de usuários
-  // useEffect(() => {
-  //   async function fetchTotalUsuarios() {
-  //     try {
-  //       const response = await axios.get('/api/usuarios');
-  //       setNumeroUsuarios(response.data.totalUsuarios);
-  //     } catch (error) {
-  //       console.error('Erro ao buscar usuários:', error);
-  //     }
-  //   }
-  //   fetchTotalUsuarios();
-  // }, []);
+  // Função para buscar o total de usuários
   useEffect(() => {
     async function fetchTotalUsuarios() {
       try {
@@ -43,7 +28,7 @@ export default function ConfigPanel() {
     fetchTotalUsuarios();
   }, []);
   
-  console.log(numeroUsuarios)
+  // console.log(numeroUsuarios)
 
 
   // Função para mudar a página com atraso

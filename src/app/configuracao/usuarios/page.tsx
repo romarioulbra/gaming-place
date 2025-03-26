@@ -8,8 +8,10 @@ import CabecalhoViwer from "../../components/CabecalhoViwer";
 
 export default function Usuarios() {  
 // variáveis globais
- const atributosCabTab = ["ID", "Nome","Email","Senha","Nível"];
- const atributosDados = ["usuario_id", "usuario_nome", "usuario_email", "usuario_senha", "usuario_nivel"];
+//  const atributosCabTab = ["ID", "Nome","Email","Senha","Nível"];
+//  const atributosDados = ["usuario_id", "usuario_nome", "usuario_email", "usuario_senha", "usuario_nivel"];
+ const atributosCabTab = ["ID", "Nome","Email","Nível"];
+ const atributosDados = ["usuario_id", "usuario_nome", "usuario_email","usuario_nivel"];
  const nomeModulo = 'Perfis de Usuários';
  const [usuarios, setUsuarios] = useState([]);
 
@@ -18,8 +20,8 @@ export default function Usuarios() {
     async function fetchUsers() {
       try {
         const response = await axios.get('/api/usuarios');
-        setUsuarios(response.data);
-        console.log(usuarios); 
+        setUsuarios(response.data.users);
+        // console.log(usuarios); 
       } catch (error) {
         console.error('Erro ao buscar usuários:', error);
       }

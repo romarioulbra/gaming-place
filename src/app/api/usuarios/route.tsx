@@ -1,34 +1,70 @@
 'use server'
 import { PrismaClient } from '@prisma/client';
 import { NextResponse } from 'next/server';
-
 import bcrypt from 'bcryptjs';
+import { getAllUsuarios, getTotalUsuarios  } from '@/app/utils/userUtils';
 
 const prisma = new PrismaClient();
 
+
 // Função de Listagem de Dados
+// export async function GET() {
+//   try {
+//     const users = await prisma.usuarios.findMany({
+//       select: {
+//         usuario_id: true,
+//         usuario_nome: true,
+//         usuario_email: true,
+//         usuario_senha: true,
+//         usuario_nivel: true,
+//         usuario_criacao: true,
+//         usuario_alteracao: true,
+//       },
+//     });
+    
+//     return NextResponse.json(users, { status: 200 });
+
+
+//   } catch (error) {
+//     console.error('Erro ao buscar usuários:', error.message);
+//     return NextResponse.json(
+//       { error: 'Erro ao buscar usuários', details: error.message },
+//       { status: 500 }
+//     );
+//   }
+// }
+
+
+// export async function GET() {
+//   try {
+//     const users = await getAllUsuarios();
+//     return NextResponse.json(users, { status: 200 });
+//   } catch (error) {
+//     return NextResponse.json(
+//       { error: 'Erro ao buscar usuários', details: error.message },
+//       { status: 500 }
+//     );
+//   }
+// }
+
+
 export async function GET() {
   try {
-    const users = await prisma.usuarios.findMany({
-      select: {
-        usuario_id: true,
-        usuario_nome: true,
-        usuario_email: true,
-        usuario_senha: true,
-        usuario_nivel: true,
-        usuario_criacao: true,
-        usuario_alteracao: true,
-      },
-    });
-    return NextResponse.json(users, { status: 200 });
+    const [users, totalUsuarios] = await Promise.all([
+      getAllUsuarios(),
+      getTotalUsuarios(),
+    ]);
+
+    return NextResponse.json({ users, totalUsuarios }, { status: 200 });
   } catch (error) {
-    console.error('Erro ao buscar usuários:', error.message);
     return NextResponse.json(
       { error: 'Erro ao buscar usuários', details: error.message },
       { status: 500 }
     );
   }
 }
+
+
 
 
 // Função de Inserção de Dados

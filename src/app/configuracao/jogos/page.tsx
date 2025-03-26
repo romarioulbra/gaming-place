@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import Tabela from "../../components/Tabela";
 import { FaGamepad} from "react-icons/fa";
 import CabecalhoViwer from "../../components/CabecalhoViwer";
-import Footer from "@/app/components/Rodape";
+// import Footer from "@/app/components/Rodape";
 // import Fly from "@/app/components/Flyout";
 
 export default function Jogos() {
@@ -13,10 +13,11 @@ export default function Jogos() {
   // variáveis globais
   const nomeModulo = 'Jogos';
 
-  const atributosCabTab = ["ID", "Nome", "Descrição", "Link", "Imagem","Autor(es)"];
+  // const atributosCabTab = ["ID", "Nome", "Descrição", "Link", "Imagem","Autor(es)"];
+  const atributosCabTab = ["ID", "Nome", "Autor(es)"];
 
-  const atributosDados = ["jogos_id", "jogos_nome", "jogos_descricao", "jogos_link", "jogos_url_img","jogos_autor"];
-console.log(atributosDados)
+  const atributosDados = ["jogos_id", "jogos_nome", "jogos_autor"];
+  // console.log(atributosDados)
 
   const [jogos, setJogos] = useState([]);
 

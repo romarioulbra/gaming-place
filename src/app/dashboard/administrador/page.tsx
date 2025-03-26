@@ -35,13 +35,6 @@ export default function AdminDashboard() {
               {currentPage === "dashboard" && (
                 <div>
                   <ConfigPanel />
-                  {/* <h3 className="text-2xl font-bold text-gray-800 mb-4">Visão Geral</h3>
-                  <div className="bg-gray-100 p-6 rounded-lg shadow-md">
-                    <p className="text-gray-700">
-                      Aqui você pode gerenciar todas as informações do sistema, incluindo usuários,
-                      jogos e categorias. Use o menu lateral para navegar entre as seções.
-                    </p>
-                  </div> */}
                 </div>
               )}
 

@@ -1,16 +1,50 @@
 'use client';
 
 import { FaUser, FaGamepad, FaLayerGroup, FaMeteor } from "react-icons/fa";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import Usuarios from "./usuarios/page";
 import Jogos from "./jogos/page";
 import CategoriaJogos from "./jogos_categoria/page";
 import Emblemas from "./emblemas/page";
 import LoadingOverlay from "../components/LoadingOverlay"; // Importe o componente aqui
+import axios from "axios";
+import { getTotalUsuarios } from "../utils/userUtils";
 
 export default function ConfigPanel() {
   const [currentPage, setCurrentPage] = useState("dashboard"); // Estado para controlar a página exibida
   const [isLoading, setIsLoading] = useState(false); // Estado para controlar o loading
+  // const numeroUsuarios = 12;
+  const [numeroUsuarios, setNumeroUsuarios] = useState(0);
+
+
+
+    // Função para buscar o total de usuários
+  // useEffect(() => {
+  //   async function fetchTotalUsuarios() {
+  //     try {
+  //       const response = await axios.get('/api/usuarios');
+  //       setNumeroUsuarios(response.data.totalUsuarios);
+  //     } catch (error) {
+  //       console.error('Erro ao buscar usuários:', error);
+  //     }
+  //   }
+  //   fetchTotalUsuarios();
+  // }, []);
+  useEffect(() => {
+    async function fetchTotalUsuarios() {
+      try {
+        const response = await axios.get('/api/usuarios');
+        setNumeroUsuarios(response.data.totalUsuarios);
+      } catch (error) {
+        console.error('Erro ao buscar usuários:', error);
+      }
+    }
+
+    fetchTotalUsuarios();
+  }, []);
+  
+  console.log(numeroUsuarios)
+
 
   // Função para mudar a página com atraso
   const changePageWithDelay = (page) => {
@@ -37,9 +71,7 @@ export default function ConfigPanel() {
 
             {/* Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {/* Card - Usuários */}
-              <div
-                className="bg-indigo-600 text-white p-6 rounded-lg shadow-md flex items-center cursor-pointer hover:bg-indigo-500 transition"
+              <div className="bg-indigo-600 text-white p-6 rounded-lg shadow-md flex items-center cursor-pointer hover:bg-indigo-500 transition relative"
                 onClick={() => changePageWithDelay("usuarios")}
               >
                 <FaUser className="w-10 h-10 mr-4" />
@@ -47,11 +79,16 @@ export default function ConfigPanel() {
                   <h3 className="text-xl font-semibold">Usuários</h3>
                   <p className="text-sm">Gerencie todos os usuários do sistema.</p>
                 </div>
-              </div>
+                
+                {/* Círculo com a quantidade de usuários */}
+                <div className="absolute top-0 right-0 -mt-2 -mr-2 bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">
+                  {numeroUsuarios} 
+                </div>
+            </div>
 
               {/* Card - Jogos */}
               <div
-                className="bg-pink-600 text-white p-6 rounded-lg shadow-md flex items-center cursor-pointer hover:bg-pink-500 transition"
+                className="bg-pink-600 text-white p-6 rounded-lg shadow-md flex items-center cursor-pointer hover:bg-pink-500 transition relative"
                 onClick={() => changePageWithDelay("jogos")}
               >
                 <FaGamepad className="w-10 h-10 mr-4" />
@@ -59,11 +96,17 @@ export default function ConfigPanel() {
                   <h3 className="text-xl font-semibold">Jogos</h3>
                   <p className="text-sm">Adicione, edite ou exclua jogos.</p>
                 </div>
+                
+                {/* Círculo com a quantidade de jogos */}
+                <div className="absolute top-0 right-0 -mt-2 -mr-2 bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">
+                  {numeroUsuarios} {/* Substitua 'numeroJogos' pela variável que contém a quantidade */}
+                </div>
               </div>
+
 
               {/* Card - Categorias */}
               <div
-                className="bg-purple-600 text-white p-6 rounded-lg shadow-md flex items-center cursor-pointer hover:bg-purple-500 transition"
+                className="bg-purple-600 text-white p-6 rounded-lg shadow-md flex items-center cursor-pointer hover:bg-purple-500 transition relative"
                 onClick={() => changePageWithDelay("jogos_categoria")}
               >
                 <FaLayerGroup className="w-10 h-10 mr-4" />
@@ -71,11 +114,16 @@ export default function ConfigPanel() {
                   <h3 className="text-xl font-semibold">Categorias</h3>
                   <p className="text-sm">Organize os jogos em categorias.</p>
                 </div>
+                
+                {/* Círculo com a quantidade de categorias */}
+                <div className="absolute top-0 right-0 -mt-2 -mr-2 bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">
+                  {numeroUsuarios} {/* Substitua 'numeroCategorias' pela variável que contém a quantidade */}
+                </div>
               </div>
 
               {/* Card - Emblemas */}
               <div
-                className="bg-yellow-600 text-white p-6 rounded-lg shadow-md flex items-center cursor-pointer hover:bg-yellow-500 transition"
+                className="bg-yellow-600 text-white p-6 rounded-lg shadow-md flex items-center cursor-pointer hover:bg-yellow-500 transition relative"
                 onClick={() => changePageWithDelay("emblemas")}
               >
                 <FaMeteor className="w-10 h-10 mr-4" />
@@ -83,7 +131,13 @@ export default function ConfigPanel() {
                   <h3 className="text-xl font-semibold">Emblemas</h3>
                   <p className="text-sm">Configure emblemas de Perfil dos Usuários.</p>
                 </div>
+                
+                {/* Círculo com a quantidade de emblemas */}
+                <div className="absolute top-0 right-0 -mt-2 -mr-2 bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">
+                  {numeroUsuarios} {/* Substitua 'numeroEmblemas' pela variável que contém a quantidade */}
+                </div>
               </div>
+
             </div>
 
             {/* Visão Geral */}

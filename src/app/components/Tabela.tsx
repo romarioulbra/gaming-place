@@ -24,6 +24,8 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
     const [modalType, setModalType] = useState<'editar' | 'excluir' | null>(null);
     const [selectedItem,setSelectedItem] = useState(null);
     const [senha, setSenha] = useState('');
+
+    const [modalColor, setModalColor] = useState("text-gray-700"); 
     
     // ============== Métodos de Modais Inicio===================//
 
@@ -374,7 +376,11 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
 
                     <div className="flex flex-col text-center space-y-2">
                       <p className="text-black font-semibold">Este processo é irreversível!</p>
-                      <p className="text-black font-semibold">{modalText}</p>
+                      {/* Exibe a mensagem com a cor dinâmica */}
+                      {modalText && (
+                        <p className={`mt-3 font-semibold ${modalColor}`}>{modalText}</p>
+                      )}
+                      {/* <p className="text-black font-semibold">{modalText}</p> */}
                       <p className="p-3 text-2xl font-extrabold">{id || "ID não disponível"} - {nome || "Nome não disponível"}</p>
                     </div>
 
@@ -388,7 +394,10 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
                             return;
                           }
                       
-                          setModalText("Excluindo registro, por favor aguarde...");
+                          setModalText("Excluindo registro, Por favor aguarde...");
+
+                          setModalColor("text-red-700"); //Cor quando é processado
+
                           setIsLoading(true);
                           
                           try {
@@ -407,13 +416,14 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
                            
                             console.log("Resposta da API:", data);
                       
-                            setModalText("Registro excluído com sucesso!");
+                            setModalText("Registro Excluído com Sucesso!");
+                            setModalColor("text-green-700");
                             
                             // Aguarde 2 segundos antes de fechar o modal
                             setTimeout(() => {
                               fecharModal();
                               location.reload();
-                            }, 2000);
+                            }, 3000);
 
                           } catch (error) {
                             console.error("Erro ao excluir o item:", error.message);
@@ -428,6 +438,7 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
                         disabled={isLoading}
                       >
                         {isLoading ? "Excluindo..." : "Excluir"}
+
                       </button>
                     </div>
                   </>

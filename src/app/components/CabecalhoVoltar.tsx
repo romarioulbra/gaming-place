@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation"; 
 import LoadingOverlay from "../components/LoadingOverlay";
+import Link from "next/link";
+
 
 export default function CabecalhoVoltar({ Icone }) {
   
@@ -10,12 +12,21 @@ export default function CabecalhoVoltar({ Icone }) {
 
   const router = useRouter();
 
+  // const handleVoltarClick = () => {
+  //   setIsLoading(true);
+  //   setTimeout(() => {
+  //     router.back(); 
+  //   }, 1000); 
+  // };
+
   const handleVoltarClick = () => {
     setIsLoading(true);
     setTimeout(() => {
-      router.back(); 
+      router.replace('/dashboard/administrador#usuarios'); 
+      // router.replace('/configuracao/usuarios'); 
     }, 1000); 
   };
+
 
   return (
     <>

@@ -8,6 +8,8 @@ import CategoriaJogos from "./jogos_categoria/page";
 import Emblemas from "./emblemas/page";
 import LoadingOverlay from "../components/LoadingOverlay"; 
 import axios from "axios";
+import CadastrarUsuario from "./usuarios/cadastrar/page";
+
 
 export default function ConfigPanel() {
   const [currentPage, setCurrentPage] = useState("dashboard"); // Estado para controlar a página exibida
@@ -210,9 +212,11 @@ export default function ConfigPanel() {
           {/* Conteúdo da Página */}
           <div className="p-6">
             {currentPage === "usuarios" && <Usuarios />}
+            {/* {currentPage === "usuarios/cadastrar" && <CadastrarUsuario />} */}
             {currentPage === "jogos" && <Jogos />}
             {currentPage === "jogos_categoria" && <CategoriaJogos />}
             {currentPage === "emblemas" && <Emblemas />}
+
           </div>
         </div>
       )}

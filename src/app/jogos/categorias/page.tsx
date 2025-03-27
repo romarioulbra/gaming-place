@@ -17,7 +17,7 @@ export default function JogosCategorias() {
       async function fetchCatJogos() {
         try {
           const response = await axios.get('/api/categoria_jogos');
-          setcatJogos(response.data);      
+          setcatJogos(response.data.cat_jogos);      
         } catch (error) {
           console.error('Erro ao buscar Categoria de Jogos:', error);
         }

@@ -26,7 +26,7 @@ export default function Jogos() {
       try {
         const response = await axios.get('/api/jogos');
         setJogos(response.data.jogos);
-        console.log(jogos); 
+        // console.log(jogos); 
       } catch (error) {
         console.error('Erro ao buscar Jogos:', error);
       }

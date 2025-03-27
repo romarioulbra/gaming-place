@@ -3,25 +3,42 @@ import { PrismaClient } from '@prisma/client';
 import { NextResponse } from 'next/server';
 import { promises as fs } from 'fs';
 import path from 'path';
-
+import { getTodosCatJogos, getTotalCatJogos } from '@/app/utils/catJogosUtils';
 
 const prisma = new PrismaClient();
 
 // Função de Listagem de Todas as Categorias
+// export async function GET() {
+//   try {
+//     const cat_jogos = await prisma.categoria_jogos.findMany({
+//       select: {
+//         categoria_jogo_id: true,
+//         categoria_jogo_area_atuacao: true,
+//         categoria_jogo_icone: true,
+//       },
+//     });
+//     return NextResponse.json(cat_jogos, { status: 200 });
+//   } catch (error) {
+//     console.error('Erro ao buscar Categorias de Jogos:', error.message);
+//     return NextResponse.json(
+//       { error: 'Erro ao buscar Categorias de Jogos', details: error.message },
+//       { status: 500 }
+//     );
+//   }
+// }
+
+
 export async function GET() {
   try {
-    const cat_jogos = await prisma.categoria_jogos.findMany({
-      select: {
-        categoria_jogo_id: true,
-        categoria_jogo_area_atuacao: true,
-        categoria_jogo_icone: true,
-      },
-    });
-    return NextResponse.json(cat_jogos, { status: 200 });
+    const [cat_jogos, totalCatJogos] = await Promise.all([
+      getTodosCatJogos(),
+      getTotalCatJogos(),
+    ]);
+
+    return NextResponse.json({ cat_jogos, totalCatJogos }, { status: 200 });
   } catch (error) {
-    console.error('Erro ao buscar Categorias de Jogos:', error.message);
     return NextResponse.json(
-      { error: 'Erro ao buscar Categorias de Jogos', details: error.message },
+      { error: "Erro ao buscar Categorias de Jogos", details: error.message },
       { status: 500 }
     );
   }

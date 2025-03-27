@@ -16,6 +16,7 @@ export default function ConfigPanel() {
   // CONTADORES
   const [numeroUsuarios, setNumeroUsuarios] = useState(0);
   const [numeroJogos, setNumeroJogos] = useState(0);
+  const [numCatJogos, setNumCatJogos] = useState(0);
 
   // Função para buscar o total de usuários
   useEffect(() => {
@@ -43,6 +44,21 @@ export default function ConfigPanel() {
     }
 
     fetchTotalJogos();
+  }, []);
+
+
+  // Função para buscar o total de Categorias de Jogos
+  useEffect(() => {
+    async function fetchTotalCatJogos() {
+      try {
+        const response = await axios.get('/api/categoria_jogos');
+        setNumCatJogos(response.data.totalCatJogos);
+      } catch (error) {
+        console.error('Erro ao buscar jogos:', error);
+      }
+    }
+
+    fetchTotalCatJogos();
   }, []);
   
   // console.log(numeroUsuarios)
@@ -119,7 +135,7 @@ export default function ConfigPanel() {
                 
                 {/* Círculo com a quantidade de categorias */}
                 <div className="absolute top-0 right-0 -mt-2 -mr-2 bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">
-                  {numeroUsuarios} {/* Substitua 'numeroCategorias' pela variável que contém a quantidade */}
+                  {numCatJogos} {/* Substitua 'numeroCategorias' pela variável que contém a quantidade */}
                 </div>
               </div>
 

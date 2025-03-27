@@ -3,29 +3,47 @@ import { PrismaClient } from '@prisma/client';
 import { NextResponse } from 'next/server';
 import { promises as fs } from 'fs';
 import path from 'path';
+import { getTodosEmblemas, getTotalEmblemas  } from '@/app/utils/emblemasUtils';
 
 const prisma = new PrismaClient();
 
 
 // Função de Listagem de Dados de Jogos com Categorias de Jogos
+// export async function GET() {
+//   try {
+//     const emblemas = await prisma.emblemas.findMany({ 
+//       select: {
+//         emblema_id: true,
+//         emblema_nome: true,
+//         emblema_criterio: true,
+//         emblema_imagem: true,
+//         emblemas_pontos: true,
+//         emblemas_status: true, 
+//       },
+//     });
+    
+//     return NextResponse.json(emblemas, { status: 200 });
+//   } catch (error) {
+//     console.error('Erro ao buscar Jogos:', error.message);
+//     return NextResponse.json(
+//       { error: 'Erro ao buscar Jogos', details: error.message },
+//       { status: 500 }
+//     );
+//   }
+// }
+
+
 export async function GET() {
   try {
-    const emblemas = await prisma.emblemas.findMany({ 
-      select: {
-        emblema_id: true,
-        emblema_nome: true,
-        emblema_criterio: true,
-        emblema_imagem: true,
-        emblemas_pontos: true,
-        emblemas_status: true, 
-      },
-    });
-    
-    return NextResponse.json(emblemas, { status: 200 });
+    const [emblemas, totalEmblemas] = await Promise.all([
+      getTodosEmblemas(),
+      getTotalEmblemas(),
+    ]);
+
+    return NextResponse.json({ emblemas, totalEmblemas }, { status: 200 });
   } catch (error) {
-    console.error('Erro ao buscar Jogos:', error.message);
     return NextResponse.json(
-      { error: 'Erro ao buscar Jogos', details: error.message },
+      { error: "Erro ao buscar Jogos", details: error.message },
       { status: 500 }
     );
   }

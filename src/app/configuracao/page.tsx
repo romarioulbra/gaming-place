@@ -17,6 +17,7 @@ export default function ConfigPanel() {
   const [numeroUsuarios, setNumeroUsuarios] = useState(0);
   const [numeroJogos, setNumeroJogos] = useState(0);
   const [numCatJogos, setNumCatJogos] = useState(0);
+  const [numEmblemas, setNumEmblemas] = useState(0);
 
   // Função para buscar o total de usuários
   useEffect(() => {
@@ -60,8 +61,22 @@ export default function ConfigPanel() {
 
     fetchTotalCatJogos();
   }, []);
+
+
+  // Função para buscar o total de Emblemas
+  useEffect(() => {
+    async function fetchTotalEmblemas() {
+      try {
+        const response = await axios.get('/api/emblemas');
+        setNumEmblemas(response.data.totalEmblemas);
+      } catch (error) {
+        console.error('Erro ao buscar emblemas', error);
+      }
+    }
+    fetchTotalEmblemas();
+  }, []);
   
-  // console.log(numeroUsuarios)
+
 
 
   // Função para mudar a página com atraso
@@ -152,7 +167,7 @@ export default function ConfigPanel() {
                 
                 {/* Círculo com a quantidade de emblemas */}
                 <div className="absolute top-0 right-0 -mt-2 -mr-2 bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">
-                  {numeroUsuarios} {/* Substitua 'numeroEmblemas' pela variável que contém a quantidade */}
+                  {numEmblemas} {/* Substitua 'numeroEmblemas' pela variável que contém a quantidade */}
                 </div>
               </div>
 

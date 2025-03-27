@@ -25,7 +25,7 @@ export default function Emblemas() {
     async function fetchEmblemas() {
       try {
         const response = await axios.get('/api/emblemas');
-        setEmblemas(response.data);
+        setEmblemas(response.data.emblemas);
       } catch (error) {
         console.error('Erro ao buscar Emblemas:', error);
       }

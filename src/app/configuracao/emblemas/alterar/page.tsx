@@ -128,10 +128,11 @@ const handleFileChange = (event) => {
                 metodoSubmit={(e) => setFormData({ ...formData, emblemas_pontos: e.target.value })}
               />
 
+
               <InputForm
-                tipoInput="text"
+                tipoInput="select"
                 label="Status"
-                placeholder="www.exemplo.com.br"
+                options={['Ativo', 'Inativo']}
                 valorInput={formData.emblemas_status}
                 metodoSubmit={(e) => setFormData({ ...formData, emblemas_status: e.target.value })}
               />

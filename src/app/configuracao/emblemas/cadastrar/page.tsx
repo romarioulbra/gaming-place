@@ -135,9 +135,9 @@ export default function CadastrarEmblemas() {
               <div className="flex flex-wrap gap-4  mt-4">             
                 <div className="flex-1">             
                   <InputForm
-                    tipoInput="text"
+                    tipoInput="select"
                     label="Status"
-                    placeholder="Ativo/Inativo"
+                    options={['Ativo', 'Inativo']}
                     valorInput={formData.emblemas_status}
                     metodoSubmit={(e) => setFormData({ ...formData, emblemas_status: e.target.value })}
                   />

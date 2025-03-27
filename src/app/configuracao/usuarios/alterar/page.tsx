@@ -21,44 +21,7 @@ export default function AlterarUsuarios({ dados,tipoModal }) {
   };
 
   // Função para salvar os dados com mensagem no modal
-  // const handleSave = async () => {
-  //   setLoading(true); // Indica que a operação começou
-  //   setModalText("Salvando alterações, por favor aguarde...");
-
-  //   try {
-  //     const response = await fetch(`/api/usuarios/${formData.usuario_id}`, {
-  //       method: "PUT",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(formData),
-  //     });
-
-  //     if (response.ok) {
-  //       const data = await response.json();
-  //       console.log("Atualização bem-sucedida:", data);
-
-  //       setModalText("Dados atualizados com sucesso!"); // Exibe mensagem de sucesso
-
-  //       // Aguarde 2 segundos antes de fechar o modal e recarregar a tabela
-  //       setTimeout(() => {
-  //         setModalText(""); // Limpa o texto do modal
-  //         location.reload(); // Recarrega a página/tabela
-  //       }, 2000);
-
-  //     } else {
-  //       const errorData = await response.json();
-  //       console.error("Erro do servidor:", errorData);
-  //       setModalText(`Erro ao atualizar: ${errorData.error || "Erro desconhecido"}`);
-  //     }
-  //   } catch (error) {
-  //     console.error("Erro na requisição:", error);
-  //     setModalText("Erro ao atualizar os dados. Verifique a conexão.");
-  //   } finally {
-  //     setLoading(false); // Finaliza o estado de loading
-  //   }
-  // };
-
+  
   const handleSave = async () => {
     setLoading(true); // Indica que a operação começou
     setModalText("Salvando alterações, por favor aguarde...");
@@ -146,7 +109,7 @@ export default function AlterarUsuarios({ dados,tipoModal }) {
                 <InputForm
                   tipoInput="select"
                   label="Nível"
-                  options={["Administrador", "Normal", "Logado"]}
+                  options={["Administrador", "Normal"]}
                   valorInput={formData.usuario_nivel}
                   metodoSubmit={(e) => handleInputChange("usuario_nivel", e.target.value)}
                 />

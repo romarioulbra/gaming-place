@@ -3,6 +3,9 @@ import bcrypt from 'bcrypt';
 
 const prisma = new PrismaClient();
 
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL!;
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD!;
+
 async function main() {
   // Criar um emblema padrão
   const emblemaPadrao = await prisma.emblemas.upsert({
@@ -18,13 +21,13 @@ async function main() {
   });
 
   // Criar um usuário administrador
-  const senhaCriptografada = await bcrypt.hash('admin123', 10);
+  const senhaCriptografada = await bcrypt.hash(ADMIN_PASSWORD, 10);
   const usuarioAdmin = await prisma.usuarios.upsert({
-    where: { usuario_email: 'admin@meusistema.com' },
+    where: { usuario_email: ADMIN_EMAIL },
     update: {},
     create: {
       usuario_nome: 'Administrador',
-      usuario_email: 'admin@meusistema.com',
+      usuario_email: ADMIN_EMAIL,
       usuario_senha: senhaCriptografada,
       usuario_nivel: 'admin',
     },

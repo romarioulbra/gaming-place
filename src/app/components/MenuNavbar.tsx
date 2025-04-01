@@ -21,14 +21,14 @@ export default function Navbar() {
     switch (nivelUsuario) {
       case "Normal":
         return [
-          { label: "Ínicio", path: "/" },
+          { label: "Início", path: "/" },
           { label: "Sobre", path: "/sobre" },
           { label: "Jogos", path: "/jogos/categorias" },
           { label: "Conta", path: "/conta" },
         ];
       case "Administrador":
         return [
-          { label: "Ínicio", path: "/" },
+          { label: "Início", path: "/" },
           { label: "Sobre", path: "/sobre" },
           { label: "Jogos", path: "/jogos/categorias" },
           { label: "Conta", path: "/conta" },
@@ -37,7 +37,7 @@ export default function Navbar() {
         ];
       case "Logado":
         return [
-          { label: "Ínicio", path: "/" },
+          { label: "Início", path: "/" },
           { label: "Sobre", path: "/sobre" },
           { label: "Jogos", path: "/jogos/categorias" },
           { label: "Conta", path: "/conta" },
@@ -45,7 +45,7 @@ export default function Navbar() {
         ];
       default:
         return [
-          { label: "Ínicio", path: "/" },
+          { label: "Início", path: "/" },
           { label: "Sobre", path: "/sobre" },
           { label: "Jogos", path: "/jogos/categorias" },
           { label: "Conta", path: "/conta" },

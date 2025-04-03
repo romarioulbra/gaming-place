@@ -1,25 +1,41 @@
 import Link from "next/link";
 import { SlGameController } from "react-icons/sl";
+import Snowfall from "./components/Snowfall";
+
 export default function Home() {
   return (
     <>
-      {/* <div className="min-h-screen bg-gradient-to-r from-purple-700 to-purple-300"> */}
-      <div className="min-h-screen bg-gradient-to-tr from-purple-100">
+     <div className="relative min-h-screen bg-gradient-to-tr from-rose-200 via-pink-200 to-purple-200 overflow-hidden">
+      {/* </div><div className="min-h-screen bg-gradient-to-tr from-purple-100"> */}
+      <Snowfall />{/*  🌨 Efeito de neve */}
         <header className="flex flex-col items-center justify-center h-screen space-y-6">
           <div className="text-center">
             <h1 className="text-4xl font-bold text-black">Seja Bem-vindo ao Gaming Place!</h1>
-            <p className="text-lg mt-2 text-gray-600">Explore os incríveis jogos desenvolvidos na <strong className="font-bold">ULBRA Palmas</strong></p>
+            <p className="text-lg mt-2 text-gray-600">Explore os incríveis jogos desenvolvidos na <strong className="font-extrabold text-gray-900">ULBRA Palmas</strong></p>
           </div>
-            <div className="ml-4 flex justify-end mt-8">
-              <SlGameController className="w-40 h-40 text-fuchsia-500 hover:scale-110 transition-transform duration-300" />
-            </div>
-            <Link href='/conta'>
-              <button 
-                className="bg-fuchsia-500 hover:bg-fuchsia-600 text-white font-bold py-2 px-4 rounded shadow-lg shadow-violet-600 border-2 border-white transition duration-300 ease-in-out w-60">
-                Começar Agora
-              </button>
-            </Link>
+           {/* 🎮 Ícone do controle com rotação alternada */}
+          <div className="mt-12">
+            <SlGameController className="w-28 h-28 md:w-40 md:h-40 text-pink-500 transition-transform duration-300 drop-shadow-xl animate-[rotateIcon_2s_linear_infinite]" />
+          </div>
+          <Link href="/conta">
+            <button className="mt-8 px-7 py-3 text-lg md:text-xl font-bold bg-pink-500 text-white rounded-xl shadow-lg border-2 border-white transition-all duration-300 hover:bg-pink-600 hover:scale-110 hover:shadow-2xl">
+              Começar Agora
+            </button>
+          </Link>
         </header>
+
+        {/* 🎬 Animação personalizada no Tailwind */}
+      <style>
+        {`
+          @keyframes rotateIcon {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(-10deg); } /* Inclina para a esquerda */
+            50% { transform: rotate(0deg); }
+            75% { transform: rotate(80deg); } /* Inclina para a direita */
+            100% { transform: rotate(0deg); }
+          }
+        `}
+      </style>
       </div>
     </>
   );

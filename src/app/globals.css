@@ -79,3 +79,9 @@ body {
 .animate-spin-left-right {
   animation: spin-left-right 2s ease-in-out forwards;
 }
+
+
+.text-outline {
+  text-shadow: 1px 2px 0px white, -2px -2px 0px white, 2px -2px 0px white, -2px 2px 0px white;
+}
+

@@ -5,6 +5,8 @@ import Emblemas from "@/app/components/Emblemas";
 import { useSession } from "next-auth/react";
 import BarraProgresso from "@/app/components/BarraProgresso";
 import { useState, useEffect } from "react";
+import ModalAdicionarAmigo from "@/app/components/ModalAdicionarAmigo";
+
 
 export default function Perfil() {
   const { data: session, status } = useSession();
@@ -39,7 +41,7 @@ export default function Perfil() {
 
   const { nome, email, nivel } = session.usuario;
   const { perfil_imagem, perfil_cidade, perfil_pontos, emblema } = perfil;
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <div className="bg-gradient-to-b from-gray-300 to-indigo-200 min-h-screen flex justify-center items-center">
       <div className="w-full max-w-4xl p-6 bg-purple-600 text-white rounded-xl shadow-lg space-y-6 m-2">
@@ -73,13 +75,31 @@ export default function Perfil() {
 
         {/* Botões de Ação */}
         <div className="flex space-x-4">
-          <button className="flex-1 bg-pink-600 py-2 rounded-lg hover:bg-pink-700">
+          <button 
+            className="flex-1 bg-pink-600 py-2 rounded-lg hover:bg-pink-700"
+            onClick={() => setIsModalOpen(true)}
+          >
             Adicionar amigos
           </button>
+          
           <button className="flex-1 bg-blue-600 py-2 rounded-lg hover:bg-blue-700">
             Enviar sugestão
           </button>
         </div>
+
+
+        {/* Botão para abrir o modal */}
+        {/* <button
+          onClick={() => setIsModalOpen(true)}
+          className="mt-6 px-6 py-3 bg-red-600 text-white font-bold rounded-lg shadow-lg hover:bg-red-700 transition"
+        >
+          Abrir Modal
+        </button> */}
+
+        {/* Renderiza o modal quando estiver aberto */}
+        {isModalOpen && <ModalAdicionarAmigo isOpen={isModalOpen} setIsOpen={setIsModalOpen} />}
+
+
       </div>
     </div>
   );

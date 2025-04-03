@@ -190,7 +190,8 @@ export default function Emblemas() {
                   className="object-cover"
                 />
               </div>
-              <h2 className="text-lg font-bold">🎉 Parabéns! Recompensa coletada</h2>
+              {/* <h2 className="text-lg font-bold">🎉 Parabéns! Recompensa coletada</h2> */}
+              <h2 className="text-lg font-bold">Suas Recompensas</h2>
               <p className="mt-2 text-sm text-gray-300 text-center">
                 Você conquistou o emblema: <span className="font-bold">{selectedEmblema?.emblema_nome}</span>
               </p>
@@ -201,7 +202,7 @@ export default function Emblemas() {
                 onClick={handleCloseModal}
                 className="mt-5 px-6 py-2 bg-pink-500 rounded-lg font-bold hover:bg-pink-600 transition duration-200"
               >
-                Fechar
+                Coletar
               </button>
             </div>
           </div>

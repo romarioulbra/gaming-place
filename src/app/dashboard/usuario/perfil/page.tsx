@@ -6,7 +6,7 @@ import { useSession } from "next-auth/react";
 import BarraProgresso from "@/app/components/BarraProgresso";
 import { useState, useEffect } from "react";
 import ModalAdicionarAmigo from "@/app/components/ModalAdicionarAmigo";
-import { BtnEnviarSugestão } from "@/app/components/EnviarSugestão";
+import  EnviarSugestão from "../../../components/EnviarSugestão";
 
 
 export default function Perfil() {
@@ -87,7 +87,7 @@ export default function Perfil() {
             Enviar sugestão
           </button> */}
 
-          <BtnEnviarSugestão/>
+          <EnviarSugestão/>
         </div>
 
         {/* Renderiza o modal quando estiver aberto */}

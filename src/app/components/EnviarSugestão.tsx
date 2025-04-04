@@ -2,7 +2,7 @@ import { ModelFormSugestao } from "./ModelFormSugestao";
 import { useState } from "react";
 
 
-export function BtnEnviarSugestão() {
+export default function EnviarSugestão() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (

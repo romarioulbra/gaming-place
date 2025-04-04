@@ -56,7 +56,7 @@ export default function InputForm({
               name={label.toLowerCase()}
               value={valorInput}
               onChange={metodoSubmit}
-              className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
+              className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4 placeholder-slate-500 text-black"
               placeholder={placeholder}
               required
             />
@@ -68,7 +68,7 @@ export default function InputForm({
               name={label.toLowerCase()}
               value={valorInput}
               onChange={metodoSubmit}
-              className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
+              className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4 placeholder-slate-500 text-black"
               required
             >
               <option value="">Selecione uma opção</option>
@@ -86,7 +86,7 @@ export default function InputForm({
                 name={label.toLowerCase()}
                 value={valorInput}
                 onChange={metodoSubmit}
-                className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
+                className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4 placeholder-slate-500 text-black"
                 required>
                 <option value="">Selecione uma Opção</option>
                 {dadosSelect.map((option, index) => (
@@ -117,7 +117,7 @@ export default function InputForm({
               name={label.toLowerCase()}
               value={valorInput}
               onChange={metodoSubmit}
-              className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
+              className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4 placeholder-slate-500 text-black"
               placeholder={placeholder}
               required
             />
@@ -130,7 +130,7 @@ export default function InputForm({
               name={label.toLowerCase()}   
               value={valorInput}
               onChange={metodoSubmit}
-              className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
+              className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4 placeholder-slate-500 text-black"
               required
             />
           )}
@@ -142,7 +142,7 @@ export default function InputForm({
               name={label.toLowerCase()}
               value={valorInput}
               onChange={metodoSubmit}
-              className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
+              className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4 placeholder-slate-500 text-black"
               placeholder={placeholder}
               required
             />
@@ -155,7 +155,7 @@ export default function InputForm({
               name={label.toLowerCase()}
               value={valorInput}
               onChange={metodoSubmit}
-              className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
+              className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4 placeholder-slate-500 text-black"
               placeholder={placeholder}
               required
             />

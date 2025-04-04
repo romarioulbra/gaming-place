@@ -6,6 +6,7 @@ import { useSession } from "next-auth/react";
 import BarraProgresso from "@/app/components/BarraProgresso";
 import { useState, useEffect } from "react";
 import ModalAdicionarAmigo from "@/app/components/ModalAdicionarAmigo";
+import { BtnEnviarSugestão } from "@/app/components/EnviarSugestão";
 
 
 export default function Perfil() {
@@ -82,24 +83,15 @@ export default function Perfil() {
             Adicionar amigos
           </button>
           
-          <button className="flex-1 bg-blue-600 py-2 rounded-lg hover:bg-blue-700">
+          {/* <button className="flex-1 bg-blue-600 py-2 rounded-lg hover:bg-blue-700">
             Enviar sugestão
-          </button>
+          </button> */}
+
+          <BtnEnviarSugestão/>
         </div>
-
-
-        {/* Botão para abrir o modal */}
-        {/* <button
-          onClick={() => setIsModalOpen(true)}
-          className="mt-6 px-6 py-3 bg-red-600 text-white font-bold rounded-lg shadow-lg hover:bg-red-700 transition"
-        >
-          Abrir Modal
-        </button> */}
 
         {/* Renderiza o modal quando estiver aberto */}
         {isModalOpen && <ModalAdicionarAmigo isOpen={isModalOpen} setIsOpen={setIsModalOpen} />}
-
-
       </div>
     </div>
   );

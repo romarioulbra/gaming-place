@@ -16,6 +16,9 @@ model usuarios {
   usuario_criacao   DateTime @default(now())
   usuario_alteracao DateTime @updatedAt
   perfis            perfis[]
+
+  // Relação inversa (um usuário pode ter várias sugestões)
+  sugestoes sugestao_melhoria[]
 }
 
 model jogos {
@@ -58,4 +61,15 @@ model perfis {
   perfil_emblemas emblemas @relation(fields: [emblema], references: [emblema_id], onDelete: Cascade)
   usuario         Int
   emblema         Int
+}
+
+model sugestao_melhoria {
+  sugestao_melhoria_id        Int      @id @default(autoincrement())
+  sugestao_melhoria_titulo    String
+  sugestao_melhoria_nome      String
+  sugestao_melhoria_descricao String   @db.VarChar(254)
+  sugestao_melhoria_status    String
+  // Relação com usuarios
+  usuario_id                  Int
+  usuario                     usuarios @relation(fields: [usuario_id], references: [usuario_id], onDelete: Cascade)
 }

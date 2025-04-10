@@ -15,6 +15,7 @@
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "formidable": "^3.5.2",
+    "framer-motion": "^12.6.3",
     "gaming-place": "file:",
     "jsonwebtoken": "^9.0.2",
     "multer": "^1.4.5-lts.1",

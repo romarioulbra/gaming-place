@@ -2,8 +2,9 @@ import { ModelFormSugestao } from "./ModelFormSugestao";
 import { useState } from "react";
 
 
-export default function EnviarSugestão() {
+export default function EnviarSugestão({dadosUsuario}) {
   const [isOpen, setIsOpen] = useState(false);
+  
 
   return (
     <>
@@ -15,7 +16,7 @@ export default function EnviarSugestão() {
         Enviar Sugestão
       </button>
 
-      {isOpen && <ModelFormSugestao onClose={() => setIsOpen(false)} />}
+      {isOpen && <ModelFormSugestao dadosUsuario={dadosUsuario}onClose={() => setIsOpen(false)} />}
     </>
   );
 }

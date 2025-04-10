@@ -21,7 +21,7 @@ export default function BarraProgresso() {
     fetchPerfil();
   }, []);
 
-  console.log(progresso);
+  // console.log(progresso);
 
   return (
     <div>

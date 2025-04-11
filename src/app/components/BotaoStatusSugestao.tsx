@@ -252,7 +252,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FaCheckCircle, FaClock, FaTimes, FaInfoCircle, FaChevronDown } from 'react-icons/fa';
 import axios from 'axios';
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+// import { useRouter } from 'next/navigation';
 
 type Status = 'enviada' | 'validada' | 'rejeitada';
 
@@ -279,7 +279,7 @@ export default function BotaoStatusSugestao({
   const [pulse, setPulse] = useState(false);
   const [localStatus, setLocalStatus] = useState<Status>(initialStatus || DEFAULT_STATUS);
   const desabilitado = localStatus === 'validada' || localStatus === 'rejeitada';
-  const router = useRouter();
+  // const router = useRouter();
 
   const statusOptions = [
     { 

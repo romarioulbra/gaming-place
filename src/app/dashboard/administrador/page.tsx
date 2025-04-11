@@ -1,10 +1,11 @@
 'use client'
 
+import { useState } from "react";
 import Usuarios from "../../configuracao/usuarios/page";
 import Jogos from "../../configuracao/jogos/page";
 import CategoriaJogos from "../../configuracao/jogos_categoria/page";
 import Emblemas from "../../configuracao/emblemas/page";
-import { useState } from "react";
+import SugestoesMelhorias from "@/app/configuracao/sugestoes_melhoria/page";
 import ConfigPanel from "../../configuracao/page";
 import NavBarDashAdmin from "@/app/components/NavBarDashAdmin";
 
@@ -43,6 +44,7 @@ export default function AdminDashboard() {
               {currentPage === "jogos" && <Jogos />}
               {currentPage === "jogos_categoria" && <CategoriaJogos />}
               {currentPage === "emblemas" && <Emblemas />}
+              {currentPage === "sugestoes" && <SugestoesMelhorias />}
             </div>
           </div>
         </main>

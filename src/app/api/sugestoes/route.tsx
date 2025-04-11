@@ -3,6 +3,35 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
+// GET: Lista todas as sugestões
+export async function GET() {
+  try {
+    const [sug_melhoria, totalSugestoes] = await Promise.all([
+      prisma.sugestao_melhoria.findMany({
+        include: {
+          usuario: true, // inclui os dados do usuário relacionado
+        },
+        orderBy: {
+          sugestao_melhoria_id: 'desc', // ordena da mais recente para a mais antiga
+        },
+      }),
+      prisma.sugestao_melhoria.count(),
+    ]);
+
+    return NextResponse.json({ sug_melhoria, totalSugestoes }, { status: 200 });
+  } catch (error: any) {
+    console.error('Erro ao buscar sugestões:', error);
+    return NextResponse.json(
+      {
+        error: 'Erro ao buscar sugestões',
+        details: error.message,
+      },
+      { status: 500 }
+    );
+  }
+}
+
+
 export async function POST(request: Request) {
   try {
     const body = await request.json();

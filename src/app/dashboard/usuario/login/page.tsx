@@ -81,7 +81,7 @@ export default function Dashboard() {
               className="rounded-full object-cover w-full h-full border-4 border-white hover:scale-105 transition-transform duration-300"
               width={200}
               height={200}
-              src={perfil_imagem || "/img/avatar.jpg"}
+              src={perfil_imagem || "/img/avatar_perfil.jpg"} 
               alt="Foto do usuário"
             />
             <div className="absolute inset-0 rounded-full border-4 border-white shadow-[0_0_20px_5px_rgba(255,255,255,0.8)]"></div> {/* Brilho ao redor da imagem */}

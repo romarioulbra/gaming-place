@@ -12,7 +12,7 @@ import  EnviarSugestão from "../../../components/EnviarSugestão";
 export default function Perfil() {
   const { data: session, status } = useSession();
   const [perfil, setPerfil] = useState({
-    perfil_imagem: "/img/avatar.jpg",
+    perfil_imagem: "/img/avatar_perfil.jpg",
     perfil_cidade: "Cidade não informada",
     perfil_pontos: 0,
     perfil_nivel: 1,

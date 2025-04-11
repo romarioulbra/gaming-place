@@ -24,7 +24,7 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
     const [modalAberto,setModalAberto] = useState(false);
     const [modalType, setModalType] = useState<'editar' | 'excluir' | null>(null);
     const [selectedItem,setSelectedItem] = useState(null);
-    const [senha, setSenha] = useState('');
+    // const [senha, setSenha] = useState('');
 
     const [modalColor, setModalColor] = useState("text-gray-700"); 
     
@@ -207,6 +207,24 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
   
 
 
+
+    const [sugestoes, setSugestoes] = useState<Sugestao[]>([]);
+
+    const handleStatusChange = (sugestaoId: string, novoStatus: Status) => {
+      setSugestoes(prev => prev.map(item => 
+        item.sugestao_melhoria_id === sugestaoId 
+          ? {...item, sugestao_melhoria_status: novoStatus} 
+          : item
+      ));
+    };
+
+    const handleUpdateTable = async () => {
+      // Sua lógica para atualizar os dados da tabela
+      const response = await fetch('/api/sugestoes');
+      const data = await response.json();
+      setSugestoes(data);
+    };
+
     
     // =================  xxxxxxxxxxxxxxxx PAGINAÇÃO DAS TABELAS  xxxxxxxxxxxxxxxx ================= //
 
@@ -314,15 +332,30 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
                         <BotaoLinkJogo linkJogo={item.jogos_link} />
                       )}
 
-                      {modulo === "sugestaoMelhoria" && (
+
+
+                      {/* {modulo === "sugestaoMelhoria" && (
                         <BotaoStatusSugestao
                           sugestaoId={item.sugestao_melhoria_id}
                           statusAtual={item.sugestao_melhoria_status}
                           descricao={item.sugestao_melhoria_descricao}
                         />
                        
-                      )}
+                      )} */}
 
+
+                    {modulo === "sugestaoMelhoria" && (
+                      <BotaoStatusSugestao
+                        key={item.sugestao_melhoria_id}
+                        sugestaoId={item.sugestao_melhoria_id}
+                        statusAtual={item.sugestao_melhoria_status}
+                        descricao={item.sugestao_melhoria_descricao}
+                        onStatusChange={(novoStatus) => 
+                          handleStatusChange(item.sugestao_melhoria_id, novoStatus)
+                        }
+                        onUpdateTable={handleUpdateTable}
+                      />
+                    )}
 
               
                       <button 

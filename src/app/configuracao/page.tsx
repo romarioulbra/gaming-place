@@ -1,6 +1,6 @@
 'use client';
 
-import { FaUser, FaGamepad, FaLayerGroup, FaMeteor } from "react-icons/fa";
+import { FaUser, FaGamepad, FaLayerGroup, FaMeteor,FaLightbulb } from "react-icons/fa";
 import { useState,useEffect } from "react";
 import Usuarios from "./usuarios/page";
 import Jogos from "./jogos/page";
@@ -8,7 +8,8 @@ import CategoriaJogos from "./jogos_categoria/page";
 import Emblemas from "./emblemas/page";
 import LoadingOverlay from "../components/LoadingOverlay"; 
 import axios from "axios";
-import CadastrarUsuario from "./usuarios/cadastrar/page";
+import SugestoesMelhorias from "./sugestoes_melhoria/page";
+// import CadastrarUsuario from "./usuarios/cadastrar/page";
 
 
 export default function ConfigPanel() {
@@ -20,6 +21,7 @@ export default function ConfigPanel() {
   const [numeroJogos, setNumeroJogos] = useState(0);
   const [numCatJogos, setNumCatJogos] = useState(0);
   const [numEmblemas, setNumEmblemas] = useState(0);
+  const [numSugestoes, setNumSugestoes] = useState(0);
 
   // Função para buscar o total de usuários
   useEffect(() => {
@@ -76,6 +78,19 @@ export default function ConfigPanel() {
       }
     }
     fetchTotalEmblemas();
+  }, []);
+
+  // Função para buscar o total de Emblemas
+  useEffect(() => {
+    async function fetchTotalSugestoes() {
+      try {
+        const response = await axios.get('/api/sugestoes');
+        setNumSugestoes(response.data.totalSugestoes);
+      } catch (error) {
+        console.error('Erro ao buscar Sugestoes', error);
+      }
+    }
+    fetchTotalSugestoes();
   }, []);
   
 
@@ -173,6 +188,23 @@ export default function ConfigPanel() {
                 </div>
               </div>
 
+              {/* Card - Sugestões e Melhorias */}
+                <div
+                  className="bg-green-600 text-white p-6 rounded-lg shadow-md flex items-center cursor-pointer hover:bg-green-500 transition relative"
+                  onClick={() => changePageWithDelay("sugestoes")}
+                >
+                  <FaLightbulb className="w-10 h-10 mr-4" />
+                  <div>
+                    <h3 className="text-xl font-semibold">Sugestões e Melhorias</h3>
+                    <p className="text-sm">Visualize e avalie ideias enviadas pelos usuários.</p>
+                  </div>
+
+                  {/* Círculo com a quantidade de sugestões */}
+                  <div className="absolute top-0 right-0 -mt-2 -mr-2 bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">
+                    {numSugestoes}
+                  </div>
+                </div>
+
             </div>
 
             {/* Visão Geral */}
@@ -200,6 +232,7 @@ export default function ConfigPanel() {
               {currentPage === "jogos" && "Jogos"}
               {currentPage === "jogos_categoria" && "Categorias"}
               {currentPage === "emblemas" && "Emblemas"}
+              {currentPage === "sugestoes" && "Sugestoes"}
             </h2>
             <button
               className="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-700 transition"
@@ -216,6 +249,7 @@ export default function ConfigPanel() {
             {currentPage === "jogos" && <Jogos />}
             {currentPage === "jogos_categoria" && <CategoriaJogos />}
             {currentPage === "emblemas" && <Emblemas />}
+            {currentPage === "sugestoes" && <SugestoesMelhorias />}
 
           </div>
         </div>

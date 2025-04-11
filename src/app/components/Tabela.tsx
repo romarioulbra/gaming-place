@@ -14,6 +14,7 @@ import AlterarEmblemas from '../configuracao/emblemas/alterar/page';
 import Image from 'next/image';
 import BotaoSenha from './BotaoSenha';
 import BotaoLinkJogo from './BotaoLinkJogo';
+import BotaoStatusSugestao from './BotaoStatusSugestao';
 
 export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
     //  Variáveis Globais
@@ -126,6 +127,14 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
       caminhoApiDel = `/api/emblemas/${id}`
       nomeModulo = "Emblemas"
       break;
+
+    case "sugestaoMelhoria":
+      id = selectedItem?.sugestao_melhoria_id || null;
+      nome = selectedItem?.sugestao_melhoria_nome || null;
+      caminho_api = `/api/sugestao?sugestao_melhoria_id=${id}`
+      caminhoApiDel = `/api/sugestao/${id}`
+      nomeModulo = "Sugestao e Melhoria"
+      break;
   }
 
 
@@ -172,6 +181,15 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
             item.emblema_imagem.toLowerCase().includes(searchTerm.toLowerCase())
           );
 
+        case "sugestaoMelhoria":
+          // Filtra itens com base no nome do jogo
+          return (
+            item.sugestao_melhoria_nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            item.sugestao_melhoria_descricao.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            item.sugestao_melhoria_status.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            item.sugestao_melhoria_titulo.toLowerCase().includes(searchTerm.toLowerCase())
+          );
+
         default:
           return false;
       }
@@ -187,6 +205,9 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
       setCurrentPage(selected);
     };
   
+
+
+    
     // =================  xxxxxxxxxxxxxxxx PAGINAÇÃO DAS TABELAS  xxxxxxxxxxxxxxxx ================= //
 
     return (
@@ -293,7 +314,17 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
                         <BotaoLinkJogo linkJogo={item.jogos_link} />
                       )}
 
-                      
+                      {modulo === "sugestaoMelhoria" && (
+                        <BotaoStatusSugestao
+                          sugestaoId={item.sugestao_melhoria_id}
+                          statusAtual={item.sugestao_melhoria_status}
+                          descricao={item.sugestao_melhoria_descricao}
+                        />
+                       
+                      )}
+
+
+              
                       <button 
                         onClick={() => handleEditModal(item)}
                         className="flex items-center px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-700 transition-colors border border-white shadow-md shadow-yellow-500/50">

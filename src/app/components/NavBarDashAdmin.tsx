@@ -1,4 +1,4 @@
-import { FaUser, FaGamepad, FaLayerGroup,FaMeteor,FaTachometerAlt } from "react-icons/fa";
+import { FaUser, FaGamepad, FaLayerGroup,FaMeteor,FaTachometerAlt,FaLightbulb } from "react-icons/fa";
 import Link from "next/link";
 
 
@@ -49,6 +49,16 @@ export default function NavBarDashAdmin({changePage}) {
           >
             <FaMeteor className="mr-2" />
             <span>Emblemas</span>
+          </Link>
+
+
+          <Link
+            href="#sugestoes"
+            onClick={() => changePage("sugestoes")}
+            className="relative flex items-center px-4 py-3 bg-indigo-700 rounded-lg hover:bg-indigo-600 transition"
+          >
+            <FaLightbulb className="mr-2" />
+            <span>Sugestão e Melhoria</span>
           </Link>
         </nav>
      </>

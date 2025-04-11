@@ -1,8 +1,9 @@
 // 'use client';
 // import { motion, AnimatePresence } from 'framer-motion';
-// import { FaCheckCircle, FaClock, FaTimes, FaInfoCircle } from 'react-icons/fa';
+// import { FaCheckCircle, FaClock, FaTimes, FaInfoCircle, FaChevronDown } from 'react-icons/fa';
 // import axios from 'axios';
 // import { useState } from 'react';
+// import { useRouter } from 'next/navigation';
 
 // type Status = 'enviada' | 'validada' | 'rejeitada';
 
@@ -21,17 +22,27 @@
 // }) {
 //   const [loading, setLoading] = useState(false);
 //   const [showModal, setShowModal] = useState(false);
-//   const [selectedStatus, setSelectedStatus] = useState<Status>(statusAtual);
+//   const [selectedStatus, setSelectedStatus] = useState<Status | ''>('');
 //   const [successMessage, setSuccessMessage] = useState('');
 //   const [pulse, setPulse] = useState(false);
-//   const [updatingTable, setUpdatingTable] = useState(false);
-  
-//   // Botão desabilitado apenas para status "validada" ou "rejeitada"
 //   const desabilitado = statusAtual === 'validada' || statusAtual === 'rejeitada';
+//   const router = useRouter();
 
 //   const statusOptions = [
-//     { value: 'validada', label: 'Validada', icon: <FaCheckCircle className="mr-2" /> },
-//     { value: 'rejeitada', label: 'Rejeitada', icon: <FaTimes className="mr-2" /> },
+//     { 
+//       value: 'validada', 
+//       label: 'Validada', 
+//       icon: <FaCheckCircle className="mr-2 text-green-500" />,
+//       bgColor: 'bg-green-50',
+//       textColor: 'text-green-700'
+//     },
+//     { 
+//       value: 'rejeitada', 
+//       label: 'Rejeitada', 
+//       icon: <FaTimes className="mr-2 text-red-500" />,
+//       bgColor: 'bg-red-50',
+//       textColor: 'text-red-700'
+//     },
 //   ];
 
 //   const statusData = {
@@ -55,52 +66,48 @@
 //     },
 //   };
 
-//   const currentStatus = statusData[statusAtual] || {
-//     color: 'bg-gray-100 text-gray-800',
-//     icon: <FaClock className="w-5 h-5" />,
-//     label: statusAtual,
-//     buttonClass: 'bg-gray-600 hover:bg-gray-700 focus:ring-gray-500'
-//   };
-
+//   const currentStatus = statusData[statusAtual];
 
 //   const alterarStatus = async () => {
-//     if (selectedStatus === statusAtual) {
+//     if (!selectedStatus || selectedStatus === statusAtual) {
 //       setShowModal(false);
 //       return;
 //     }
-
+  
 //     setLoading(true);
 //     try {
 //       const response = await axios.put(`/api/sugestoes/${sugestaoId}`, {
 //         status: selectedStatus,
 //       });
-
+  
 //       if (response.status === 200) {
 //         setSuccessMessage('Status atualizado com sucesso!');
-//         onStatusChange?.(selectedStatus);
 //         setPulse(true);
-
-//         // Atualiza a tabela se a função foi fornecida
-//         if (onUpdateTable) {
-//           setUpdatingTable(true);
-//           await onUpdateTable();
-//           setUpdatingTable(false);
-//         }
-
+  
+//         onStatusChange?.(selectedStatus);
+//         await onUpdateTable?.();
+  
 //         setTimeout(() => {
 //           setSuccessMessage('');
-//           setShowModal(false);
 //           setPulse(false);
-//         }, 2000);
+//           setShowModal(false);
+  
+//           setTimeout(() => {
+//             router.refresh();
+//           }, 500);
+//         }, 1500);
+//       } else {
+//         setSuccessMessage('Falha ao atualizar o status.');
+//         setTimeout(() => setSuccessMessage(''), 3000);
 //       }
 //     } catch (error) {
 //       console.error('Erro ao alterar status da sugestão:', error);
+//       setSuccessMessage('Erro ao atualizar status.');
+//       setTimeout(() => setSuccessMessage(''), 3000);
 //     } finally {
 //       setLoading(false);
 //     }
 //   };
-
-//   console.log(statusAtual)
 
 //   return (
 //     <>
@@ -112,150 +119,123 @@
 //         onClick={() => !desabilitado && setShowModal(true)}
 //         disabled={desabilitado}
 //         className={`
-//           w-12 h-12 rounded-full flex items-center justify-center shadow-md transition-colors
+//           w-12 h-12 rounded-full flex items-center justify-center shadow-md transition-all
 //           focus:outline-none focus:ring-2 focus:ring-offset-2 text-white
 //           ${currentStatus.buttonClass}
-//           ${loading || updatingTable ? 'opacity-80 cursor-not-allowed' : ''}
+//           ${loading ? 'opacity-80 cursor-not-allowed' : ''}
 //         `}
 //         title={`Status atual: ${currentStatus.label}`}
 //       >
-//         {loading || updatingTable ? (
+//         {loading ? (
 //           <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
 //         ) : (
 //           currentStatus.icon
 //         )}
 //       </motion.button>
 
-//       {/* Modal de Alteração de Status */}
+//       {/* Modal Aprimorado */}
 //       <AnimatePresence>
 //         {showModal && (
-//           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 backdrop-blur-sm p-4">
+//           <div className="fixed inset-0 z-50 bg-black/30 backdrop-blur-sm flex items-center justify-center p-4">
 //             <motion.div
-//               initial={{ opacity: 0, scale: 0.95 }}
-//               animate={{ opacity: 1, scale: 1 }}
-//               exit={{ opacity: 0, scale: 0.95 }}
-//               transition={{ type: 'spring', damping: 25 }}
-//               className="relative bg-white rounded-xl shadow-xl max-w-md w-full overflow-hidden"
+//               initial={{ opacity: 0, y: 20, scale: 0.98 }}
+//               animate={{ opacity: 1, y: 0, scale: 1 }}
+//               exit={{ opacity: 0, y: 20, scale: 0.98 }}
+//               transition={{ 
+//                 type: "spring",
+//                 damping: 25,
+//                 stiffness: 300
+//               }}
+//               className="bg-white rounded-xl shadow-2xl max-w-md w-full overflow-hidden"
 //             >
-//               <button
-//                 onClick={() => setShowModal(false)}
-//                 className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 p-1 rounded-full hover:bg-gray-100"
-//               >
-//                 <FaTimes className="w-5 h-5" />
-//               </button>
-
-//               <div className="p-6">
-//                 <h3 className="text-xl font-bold text-gray-800 mb-6 flex items-center gap-2">
-//                   <FaInfoCircle className="text-blue-500" />
-//                   Alterar Status da Sugestão
-//                 </h3>
-
-//                 <div className="space-y-6">
-//                   {/* Descrição */}
-//                   <motion.div
-//                     initial={{ opacity: 0, y: 10 }}
-//                     animate={{ opacity: 1, y: 0 }}
-//                     className="bg-gray-50 p-4 rounded-lg border border-gray-200"
+//               {/* Cabeçalho do Modal */}
+//               <div className="bg-gradient-to-r from-blue-500 to-blue-600 p-5 text-white">
+//                 <div className="flex justify-between items-center">
+//                   <div className="flex items-center space-x-3">
+//                     <FaInfoCircle className="text-blue-200 text-xl" />
+//                     <h2 className="text-xl font-semibold">Alterar Status da Sugestão</h2>
+//                   </div>
+//                   <button
+//                     onClick={() => setShowModal(false)}
+//                     className="text-blue-100 hover:text-white transition-colors p-1 rounded-full"
 //                   >
-//                     <div className="flex items-center gap-2 text-gray-600 mb-3">
-//                       <FaInfoCircle className="w-4 h-4" />
-//                       <span className="text-sm font-medium">Descrição</span>
-//                     </div>
-//                     <div className="bg-white p-3 rounded border border-gray-100">
-//                       <p className="text-gray-700 whitespace-pre-line text-sm">
-//                         {descricao || <span className="text-gray-400 italic">Nenhuma descrição fornecida</span>}
-//                       </p>
-//                     </div>
-//                   </motion.div>
-
-//                   {/* Status Atual e Novo */}
-//                   <motion.div
-//                     initial={{ opacity: 0, y: 10 }}
-//                     animate={{ opacity: 1, y: 0 }}
-//                     transition={{ delay: 0.1 }}
-//                     className="space-y-4"
-//                   >
-//                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-//                       <div>
-//                         <label className="block text-sm text-gray-600 mb-2">Status Atual</label>
-//                         <div className={`px-4 py-2 rounded-lg flex items-center gap-3 ${currentStatus.color}`}>
-//                           {currentStatus.icon}
-//                           <span className="font-medium">{currentStatus.label}</span>
-//                         </div>
-//                       </div>
-//                       <div>
-//                         <label htmlFor="status-select" className="block text-sm text-gray-600 mb-2">
-//                           Novo Status
-//                         </label>
-//                         <div className="relative">
-//                           <select
-//                             id="status-select"
-//                             value={selectedStatus}
-//                             onChange={(e) => setSelectedStatus(e.target.value as Status)}
-//                             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 appearance-none pr-10"
-//                           >
-//                             {statusOptions.map((option) => (
-//                               <option key={option.value} value={option.value}>
-//                                 {option.label}
-//                               </option>
-//                             ))}
-//                           </select>
-//                           <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-//                             <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-//                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-//                             </svg>
-//                           </div>
-//                         </div>
-//                       </div>
-//                     </div>
-//                   </motion.div>
-
-//                   {/* Mensagem de Sucesso */}
-//                   <AnimatePresence>
-//                     {successMessage && (
-//                       <motion.div
-//                         initial={{ opacity: 0, y: -10 }}
-//                         animate={{ opacity: 1, y: 0 }}
-//                         exit={{ opacity: 0, y: -10 }}
-//                         className="p-3 bg-green-100 text-green-800 rounded-lg flex items-center gap-2 border border-green-200"
-//                       >
-//                         <FaCheckCircle className="text-green-600 flex-shrink-0" />
-//                         <span className="text-sm">{successMessage}</span>
-//                         {updatingTable && (
-//                           <div className="ml-2 w-4 h-4 border-2 border-green-600 border-t-transparent rounded-full animate-spin"></div>
-//                         )}
-//                       </motion.div>
-//                     )}
-//                   </AnimatePresence>
-
-//                   {/* Ações */}
-//                   <motion.div
-//                     initial={{ opacity: 0, y: 10 }}
-//                     animate={{ opacity: 1, y: 0 }}
-//                     transition={{ delay: 0.2 }}
-//                     className="flex justify-end gap-3 pt-2"
-//                   >
-//                     <button
-//                       onClick={() => setShowModal(false)}
-//                       className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
-//                     >
-//                       Cancelar
-//                     </button>
-//                     <button
-//                       onClick={alterarStatus}
-//                       disabled={loading || updatingTable}
-//                       className={`px-4 py-2 rounded-lg text-white ${
-//                         loading || updatingTable ? 'bg-gray-600' : 'bg-blue-600 hover:bg-blue-700'
-//                       } flex items-center justify-center min-w-24 transition-colors`}
-//                     >
-//                       {loading || updatingTable ? (
-//                         <span className="inline-block h-4 w-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
-//                       ) : (
-//                         'Confirmar'
-//                       )}
-//                     </button>
-//                   </motion.div>
+//                     <FaTimes className="text-lg" />
+//                   </button>
 //                 </div>
+//               </div>
+
+//               {/* Corpo do Modal */}
+//               <div className="p-6">
+//                 <p className="text-gray-600 mb-6 leading-relaxed">{descricao}</p>
+
+//                 <div className="mb-6">
+//                   <label className="block text-sm font-medium text-gray-700 mb-2">Novo Status</label>
+//                   <div className="relative">
+//                     <select
+//                       value={selectedStatus}
+//                       onChange={(e) => setSelectedStatus(e.target.value as Status)}
+//                       className="appearance-none w-full pl-3 pr-10 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+//                     >
+//                       <option value="">Selecione o novo status</option>
+//                       {statusOptions.map((option) => (
+//                         <option key={option.value} value={option.value}>
+//                           {option.label}
+//                         </option>
+//                       ))}
+//                     </select>
+//                     <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+//                       <FaChevronDown className="text-gray-400" />
+//                     </div>
+//                   </div>
+//                 </div>
+
+//                 {successMessage && (
+//                   <motion.div
+//                     initial={{ opacity: 0, y: -10 }}
+//                     animate={{ opacity: 1, y: 0 }}
+//                     className="bg-green-50 border-l-4 border-green-500 p-4 mb-6 rounded-r"
+//                   >
+//                     <div className="flex items-center">
+//                       <FaCheckCircle className="text-green-500 mr-3" />
+//                       <span className="text-green-700 font-medium">{successMessage}</span>
+//                     </div>
+//                   </motion.div>
+//                 )}
+//               </div>
+
+//               {/* Rodapé do Modal */}
+//               <div className="bg-gray-50 px-6 py-4 flex justify-end space-x-3 border-t border-gray-200">
+//                 <motion.button
+//                   whileHover={{ scale: 1.02 }}
+//                   whileTap={{ scale: 0.98 }}
+//                   onClick={() => setShowModal(false)}
+//                   className="px-5 py-2 rounded-lg border border-gray-300 text-gray-700 font-medium hover:bg-gray-100 transition-colors"
+//                 >
+//                   Cancelar
+//                 </motion.button>
+//                 <motion.button
+//                   whileHover={{ scale: 1.02 }}
+//                   whileTap={{ scale: 0.98 }}
+//                   onClick={alterarStatus}
+//                   disabled={loading || !selectedStatus}
+//                   className={`px-5 py-2 rounded-lg font-medium text-white transition-colors ${
+//                     loading 
+//                       ? 'bg-gray-400 cursor-not-allowed' 
+//                       : !selectedStatus 
+//                         ? 'bg-blue-400 cursor-not-allowed' 
+//                         : 'bg-blue-600 hover:bg-blue-700'
+//                   }`}
+//                 >
+//                   {loading ? (
+//                     <span className="flex items-center justify-center">
+//                       <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+//                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+//                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+//                       </svg>
+//                       Salvando...
+//                     </span>
+//                   ) : 'Confirmar'}
+//                 </motion.button>
 //               </div>
 //             </motion.div>
 //           </div>
@@ -265,17 +245,23 @@
 //   );
 // }
 
+
+
 'use client';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaCheckCircle, FaClock, FaTimes, FaInfoCircle } from 'react-icons/fa';
+import { FaCheckCircle, FaClock, FaTimes, FaInfoCircle, FaChevronDown } from 'react-icons/fa';
 import axios from 'axios';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 type Status = 'enviada' | 'validada' | 'rejeitada';
 
+// Status padrão para fallback
+const DEFAULT_STATUS: Status = 'enviada';
+
 export default function BotaoStatusSugestao({
   sugestaoId,
-  statusAtual,
+  statusAtual: initialStatus,
   descricao,
   onStatusChange,
   onUpdateTable,
@@ -288,17 +274,28 @@ export default function BotaoStatusSugestao({
 }) {
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  // const [selectedStatus, setSelectedStatus] = useState<Status>(statusAtual);
   const [selectedStatus, setSelectedStatus] = useState<Status | ''>('');
-
   const [successMessage, setSuccessMessage] = useState('');
   const [pulse, setPulse] = useState(false);
-
-  const desabilitado = statusAtual === 'validada' || statusAtual === 'rejeitada';
+  const [localStatus, setLocalStatus] = useState<Status>(initialStatus || DEFAULT_STATUS);
+  const desabilitado = localStatus === 'validada' || localStatus === 'rejeitada';
+  const router = useRouter();
 
   const statusOptions = [
-    { value: 'validada', label: 'Validada', icon: <FaCheckCircle className="mr-2" /> },
-    { value: 'rejeitada', label: 'Rejeitada', icon: <FaTimes className="mr-2" /> },
+    { 
+      value: 'validada', 
+      label: 'Validada', 
+      icon: <FaCheckCircle className="mr-2 text-green-500" />,
+      bgColor: 'bg-green-50',
+      textColor: 'text-green-700'
+    },
+    { 
+      value: 'rejeitada', 
+      label: 'Rejeitada', 
+      icon: <FaTimes className="mr-2 text-red-500" />,
+      bgColor: 'bg-red-50',
+      textColor: 'text-red-700'
+    },
   ];
 
   const statusData = {
@@ -322,32 +319,47 @@ export default function BotaoStatusSugestao({
     },
   };
 
-  const currentStatus = statusData[statusAtual];
+  // Função segura para obter o status atual
+  const getCurrentStatus = () => {
+    return statusData[localStatus] || statusData[DEFAULT_STATUS];
+  };
+
+  const currentStatus = getCurrentStatus();
 
   const alterarStatus = async () => {
-    if (!selectedStatus || selectedStatus === statusAtual) {
+    if (!selectedStatus || selectedStatus === localStatus) {
       setShowModal(false);
       return;
     }
-    
-
+  
     setLoading(true);
     try {
       const response = await axios.put(`/api/sugestoes/${sugestaoId}`, {
         status: selectedStatus,
       });
-
+  
       if (response.status === 200) {
         setSuccessMessage('Status atualizado com sucesso!');
         setPulse(true);
-
+        
+        // Atualiza apenas o estado local deste componente
+        setLocalStatus(selectedStatus);
+        
+        // Notifica o componente pai se necessário
         onStatusChange?.(selectedStatus);
-        await onUpdateTable?.();
+
+        // Atualiza a tabela se existir o callback
+        if (onUpdateTable) {
+          await onUpdateTable();
+        }
 
         setTimeout(() => {
           setSuccessMessage('');
           setPulse(false);
           setShowModal(false);
+          
+          // Atualização garantida
+          window.location.reload();
         }, 1500);
       } else {
         setSuccessMessage('Falha ao atualizar o status.');
@@ -364,7 +376,6 @@ export default function BotaoStatusSugestao({
 
   return (
     <>
-      {/* Botão de Status */}
       <motion.button
         whileHover={!desabilitado ? { scale: 1.05 } : {}}
         whileTap={!desabilitado ? { scale: 0.95 } : {}}
@@ -372,7 +383,7 @@ export default function BotaoStatusSugestao({
         onClick={() => !desabilitado && setShowModal(true)}
         disabled={desabilitado}
         className={`
-          w-12 h-12 rounded-full flex items-center justify-center shadow-md transition-colors
+          w-12 h-12 rounded-full flex items-center justify-center shadow-md transition-all
           focus:outline-none focus:ring-2 focus:ring-offset-2 text-white
           ${currentStatus.buttonClass}
           ${loading ? 'opacity-80 cursor-not-allowed' : ''}
@@ -386,68 +397,105 @@ export default function BotaoStatusSugestao({
         )}
       </motion.button>
 
-      {/* Modal */}
       <AnimatePresence>
         {showModal && (
-          <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center p-4">
+          <div className="fixed inset-0 z-50 bg-black/30 backdrop-blur-sm flex items-center justify-center p-4">
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.3 }}
-              className="bg-white rounded-xl shadow-lg max-w-md w-full p-6 relative"
+              initial={{ opacity: 0, y: 20, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 20, scale: 0.98 }}
+              transition={{ 
+                type: "spring",
+                damping: 25,
+                stiffness: 300
+              }}
+              className="bg-white rounded-xl shadow-2xl max-w-md w-full overflow-hidden"
             >
-              <button
-                onClick={() => setShowModal(false)}
-                className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
-              >
-                <FaTimes />
-              </button>
-
-              <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                <FaInfoCircle className="text-blue-500" />
-                Alterar Status da Sugestão
-              </h2>
-
-              <p className="text-sm text-gray-600 mb-4">{descricao}</p>
-
-              <label className="block text-sm mb-2">Novo Status</label>
-              <select
-                value={selectedStatus}
-                onChange={(e) => setSelectedStatus(e.target.value as Status)}
-                className="w-full border rounded-lg px-3 py-2 mb-4"
-              >
-                <option value="">Selecione o novo status</option>
-                {statusOptions.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-
-              {successMessage && (
-                <div className="bg-green-100 text-green-700 p-2 rounded mb-4 flex items-center gap-2 text-sm">
-                  <FaCheckCircle />
-                  {successMessage}
+              <div className="bg-gradient-to-r from-blue-500 to-blue-600 p-5 text-white">
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center space-x-3">
+                    <FaInfoCircle className="text-blue-200 text-xl" />
+                    <h2 className="text-xl font-semibold">Alterar Status da Sugestão</h2>
+                  </div>
+                  <button
+                    onClick={() => setShowModal(false)}
+                    className="text-blue-100 hover:text-white transition-colors p-1 rounded-full"
+                  >
+                    <FaTimes className="text-lg" />
+                  </button>
                 </div>
-              )}
+              </div>
 
-              <div className="flex justify-end gap-2">
-                <button
+              <div className="p-6">
+                <p className="text-gray-600 mb-6 leading-relaxed">{descricao}</p>
+
+                <div className="mb-6">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Novo Status</label>
+                  <div className="relative">
+                    <select
+                      value={selectedStatus}
+                      onChange={(e) => setSelectedStatus(e.target.value as Status)}
+                      className="appearance-none w-full pl-3 pr-10 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                    >
+                      <option value="">Selecione o novo status</option>
+                      {statusOptions.map((option) => (
+                        <option key={option.value} value={option.value}>
+                          {option.label}
+                        </option>
+                      ))}
+                    </select>
+                    <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                      <FaChevronDown className="text-gray-400" />
+                    </div>
+                  </div>
+                </div>
+
+                {successMessage && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="bg-green-50 border-l-4 border-green-500 p-4 mb-6 rounded-r"
+                  >
+                    <div className="flex items-center">
+                      <FaCheckCircle className="text-green-500 mr-3" />
+                      <span className="text-green-700 font-medium">{successMessage}</span>
+                    </div>
+                  </motion.div>
+                )}
+              </div>
+
+              <div className="bg-gray-50 px-6 py-4 flex justify-end space-x-3 border-t border-gray-200">
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                   onClick={() => setShowModal(false)}
-                  className="px-4 py-2 border rounded text-sm hover:bg-gray-100"
+                  className="px-5 py-2 rounded-lg border border-gray-300 text-gray-700 font-medium hover:bg-gray-100 transition-colors"
                 >
                   Cancelar
-                </button>
-                <button
+                </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                   onClick={alterarStatus}
-                  disabled={loading}
-                  className={`px-4 py-2 rounded text-sm text-white ${
-                    loading ? 'bg-gray-500' : 'bg-blue-600 hover:bg-blue-700'
+                  disabled={loading || !selectedStatus}
+                  className={`px-5 py-2 rounded-lg font-medium text-white transition-colors ${
+                    loading 
+                      ? 'bg-gray-400 cursor-not-allowed' 
+                      : !selectedStatus 
+                        ? 'bg-blue-400 cursor-not-allowed' 
+                        : 'bg-blue-600 hover:bg-blue-700'
                   }`}
                 >
-                  {loading ? 'Salvando...' : 'Confirmar'}
-                </button>
+                  {loading ? (
+                    <span className="flex items-center justify-center">
+                      <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Salvando...
+                    </span>
+                  ) : 'Confirmar'}
+                </motion.button>
               </div>
             </motion.div>
           </div>

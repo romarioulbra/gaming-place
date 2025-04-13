@@ -29,6 +29,7 @@
 //   }
 // }
 
+
 import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 
@@ -129,6 +130,91 @@ export async function PUT(
         error: error instanceof Error ? error.message : 'Erro desconhecido',
       }),
     });
+  } finally {
+    await prisma.$disconnect();
+  }
+}
+
+
+
+
+// export async function DELETE(
+//   request: Request,
+//   { params }: { params: { sugestaoId: string } }
+// ) {
+//   try {
+//     const id = parseInt(params.sugestaoId);
+
+//     if (isNaN(id)) {
+//       return new NextResponse('ID inválido', { status: 400 });
+//     }
+
+//     // Verifica se a sugestão existe
+//     const sugestaoExistente = await prisma.sugestao_melhoria.findUnique({
+//       where: { sugestao_melhoria_id: id },
+//     });
+
+//     if (!sugestaoExistente) {
+//       return new NextResponse('Sugestão não encontrada', { status: 404 });
+//     }
+
+//     // Exclui apenas a sugestão (o usuário permanece intacto devido à relação no Prisma)
+//     await prisma.sugestao_melhoria.delete({
+//       where: { sugestao_melhoria_id: id },
+//     });
+
+//     return new NextResponse(null, { status: 204 }); // Resposta sem conteúdo para sucesso
+
+//   } catch (error) {
+//     console.error('Erro ao excluir sugestão:', error);
+//     return new NextResponse('Erro interno ao excluir sugestão', { status: 500 });
+//   } finally {
+//     await prisma.$disconnect();
+//   }
+// }
+
+export async function DELETE(
+  request: Request,
+  { params }: { params: { sugestaoId: string } }
+) {
+  try {
+    const id = parseInt(params.sugestaoId);
+
+    if (isNaN(id)) {
+      return NextResponse.json(
+        { error: 'ID inválido' },
+        { status: 400 }
+      );
+    }
+
+    // Verifica se existe antes de deletar
+    const sugestao = await prisma.sugestao_melhoria.findUnique({
+      where: { sugestao_melhoria_id: id },
+    });
+
+    if (!sugestao) {
+      return NextResponse.json(
+        { error: 'Sugestão não encontrada' },
+        { status: 404 }
+      );
+    }
+
+    await prisma.sugestao_melhoria.delete({
+      where: { sugestao_melhoria_id: id },
+    });
+
+    // Retorna resposta JSON explícita
+    return NextResponse.json(
+      { success: true, message: 'Sugestão excluída com sucesso' },
+      { status: 200 }
+    );
+
+  } catch (error) {
+    console.error('Erro ao excluir sugestão:', error);
+    return NextResponse.json(
+      { error: 'Erro interno no servidor' },
+      { status: 500 }
+    );
   } finally {
     await prisma.$disconnect();
   }

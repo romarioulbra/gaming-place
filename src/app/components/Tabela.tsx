@@ -131,8 +131,8 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
     case "sugestaoMelhoria":
       id = selectedItem?.sugestao_melhoria_id || null;
       nome = selectedItem?.sugestao_melhoria_nome || null;
-      caminho_api = `/api/sugestao?sugestao_melhoria_id=${id}`
-      caminhoApiDel = `/api/sugestao/${id}`
+      caminho_api = `/api/sugestoes?sugestao_melhoria_id=${id}`
+      caminhoApiDel = `/api/sugestoes/${id}`
       nomeModulo = "Sugestao e Melhoria"
       break;
   }

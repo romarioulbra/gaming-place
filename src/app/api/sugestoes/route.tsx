@@ -12,7 +12,7 @@ export async function GET() {
           usuario: true, // inclui os dados do usuário relacionado
         },
         orderBy: {
-          sugestao_melhoria_id: 'desc', // ordena da mais recente para a mais antiga
+          sugestao_melhoria_id: 'asc', // ordena da mais recente para a mais antiga (desc)
         },
       }),
       prisma.sugestao_melhoria.count(),

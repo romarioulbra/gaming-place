@@ -357,13 +357,13 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
                       />
                     )}
 
-              
+                    {modulo !== "sugestaoMelhoria" && (
                       <button 
                         onClick={() => handleEditModal(item)}
                         className="flex items-center px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-700 transition-colors border border-white shadow-md shadow-yellow-500/50">
                         <FaPencilAlt className="w-4 h-4" />
                       </button>
-
+                    )}
                      
                       <button 
                         className="flex items-center px-3 py-1 bg-red-500 text-white rounded hover:bg-red-700 transition-colors border border-white shadow-md shadow-red-500/50"

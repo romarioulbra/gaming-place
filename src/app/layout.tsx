@@ -17,11 +17,11 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet"/>
       </head> 
       <body>
-        <Navbar/>
         <SessionProvider>
+          <Navbar/>
           {children}
+          <Footer/>
         </SessionProvider> 
-        <Footer/>
       </body>
     </html>
   );

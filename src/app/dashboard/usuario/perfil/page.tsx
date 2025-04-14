@@ -11,6 +11,7 @@ import  EnviarSugestão from "../../../components/EnviarSugestão";
 
 export default function Perfil() {
   const { data: session, status } = useSession();
+
   const [perfil, setPerfil] = useState({
     perfil_imagem: "/img/avatar_perfil.jpg",
     perfil_cidade: "Cidade não informada",
@@ -44,7 +45,7 @@ export default function Perfil() {
   const { perfil_imagem, perfil_cidade, perfil_pontos, emblema } = perfil;
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  console.log(session);
+  // console.log(session);
   return (
     <div className="bg-gradient-to-b from-gray-300 to-indigo-200 min-h-screen flex justify-center items-center">
       <div className="w-full max-w-4xl p-6 bg-purple-600 text-white rounded-xl shadow-lg space-y-6 m-2">

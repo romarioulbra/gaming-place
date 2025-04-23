@@ -26,12 +26,12 @@ export default function JogosCategorias() {
     }, []);
 
  // Função para abrir o modal e buscar os jogos de uma categoria
- const openModal = async (categoria) => {
-  setSelectedJogo(categoria); 
+ const openModal = async (catJogos) => {
+  setSelectedJogo(catJogos); 
   setLoading(true); 
   try {
     // Busca os jogos relacionados à categoria
-    const response = await axios.get(`/api/categoria_jogos/${categoria.categoria_jogo_id}`);
+    const response = await axios.get(`/api/categoria_jogos/${catJogos.categoria_jogo_id}`);
     setJogos(response.data); 
   } catch (error) {
     console.error("Erro ao buscar jogos da categoria:", error);
@@ -114,10 +114,11 @@ export default function JogosCategorias() {
         )}
 
         {/* Botão de Ação */}
-        <Link href='/jogos'>
+        {/* <Link href='/jogos'> */}
+        <Link href="/jogos/todosJogos">
           <button 
             className="px-8 py-3 bg-fuchsia-600 text-white font-bold rounded hover:bg-fuchsia-700 transition duration-300">
-            Conheça os jogos
+            Conheça os Jogos
           </button>
         </Link>
       </div>

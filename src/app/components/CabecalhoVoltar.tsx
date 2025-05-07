@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation"; 
 import LoadingOverlay from "../components/LoadingOverlay";
-import Link from "next/link";
+// import Link from "next/link";
 
 
 export default function CabecalhoVoltar({ Icone }) {
@@ -33,7 +33,7 @@ export default function CabecalhoVoltar({ Icone }) {
       {isLoading ? (
         <LoadingOverlay isLoading={isLoading} />
       ) : (
-        <div className="flex-auto ml-4 mr-4 mt-4 mb-4">
+        <div className="flex-auto ml-10 mr-10 mt-4 mb-4">
           <div className="p-8 border border-gray-300 shadow-lg flex justify-between items-center bg-white rounded-lg">
             {/* Botões alinhados à esquerda */}
             <div className="flex space-x-2">

@@ -55,7 +55,7 @@ export default function CadastroUsuario() {
 
   return (
     <>
-      <h1 className="text-center mt-32 mb-3 text-2xl font-bold">Cadastro de Usuários</h1>
+      <h1 className="text-center  mt-32 mb-3 text-2xl font-bold">Cadastro de Usuários</h1>
       <CabecalhoVoltar  
         Icone = {FaUserPlus}
       />
@@ -70,7 +70,7 @@ export default function CadastroUsuario() {
         />
       )}
 
-      <div className="flex-auto ml-4 mr-4 mt-24 mb-4">
+      <div className="flex-auto ml-10 mr-10 mt-24 mb-10">
         <div className="p-8 border border-gray-300 shadow-lg bg-white rounded-lg mr-2 ml-2"> 
           <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg mt-2 ">
             <div className="p-6">

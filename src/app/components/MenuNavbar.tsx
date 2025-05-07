@@ -179,7 +179,7 @@ export default function Navbar() {
         { label: "Início", path: "/" },
         { label: "Sobre", path: "/sobre" },
         { label: "Jogos", path: "/jogos/categorias" },
-        { label: "Login", path: "/conta" },
+        { label: "Conta", path: "/conta" },
       ];
     }
   
@@ -190,7 +190,7 @@ export default function Navbar() {
           { label: "Sobre", path: "/sobre" },
           { label: "Jogos", path: "/jogos/categorias" },
           { label: "Conta", path: "/conta" },
-          // { label: "Configuração", path: "/configuracao" },
+          { label: "Configuração", path: "/dashboard/administrador" },
         ];
       default:
         return [
@@ -198,6 +198,7 @@ export default function Navbar() {
           { label: "Sobre", path: "/sobre" },
           { label: "Jogos", path: "/jogos/categorias" },
           { label: "Conta", path: "/conta" },
+          { label: "Dashboard", path: "/dashboard/usuario/login" },
         ];
     }
   };
@@ -243,7 +244,7 @@ export default function Navbar() {
             </Link>
           ))}
 
-          {status === "authenticated" && (
+          {/* {status === "authenticated" && (
             <div className="flex items-center ml-4 cursor-pointer" onClick={handleProfileClick}>
               <Image
                 src={perfil.perfil_imagem}
@@ -253,7 +254,7 @@ export default function Navbar() {
                 height={40}
               />
             </div>
-          )}
+          )} */}
         </div>
       </div>
 

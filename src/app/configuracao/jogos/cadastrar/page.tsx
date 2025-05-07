@@ -39,7 +39,8 @@ export default function CadastrarJogos() {
         const response = await fetch("/api/categoria_jogos");
         const data = await response.json();
         // setJogos(data);
-        setJogos(data.jogos);
+        // setJogos(data.jogos);
+        setJogos(data.cat_jogos);
       } catch (error) {
         console.error("Erro ao buscar Jogos:", error);
       }

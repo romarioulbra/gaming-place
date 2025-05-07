@@ -99,13 +99,13 @@ export default function AlterarUsuarios({ dados,tipoModal }) {
                   valorInput={formData.usuario_email}
                   metodoSubmit={(e) => handleInputChange("usuario_email", e.target.value)}
                 />
-                <InputForm
+                {/* <InputForm
                   tipoInput="text"
                   label="Senha"
                   placeholder="Senha do Usuário"
                   valorInput={formData.usuario_senha}
                   metodoSubmit={(e) => handleInputChange("usuario_senha", e.target.value)}
-                />
+                /> */}
                 <InputForm
                   tipoInput="select"
                   label="Nível"

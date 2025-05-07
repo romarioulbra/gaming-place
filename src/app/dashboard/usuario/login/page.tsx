@@ -71,9 +71,9 @@ export default function Dashboard() {
 
   return (
     <>
-      <div className="min-h-screen bg-gradient-to-b from-gray-300 to-indigo-200 pt-4">
+      <div className="min-h-screen bg-gradient-to-b from-gray-300 to-indigo-200 pt-14">
         {/* Boas-vindas */}
-        <main className="flex flex-col items-center justify-center text-center mt-10">
+        <main className="flex flex-col items-center justify-center text-center">
           {/* Exibe a imagem do perfil com efeitos */}
           <div className="relative w-60 h-60 rounded-full p-1 transition-all duration-300">
             <div className="absolute inset-0 bg-white/20 rounded-full"></div> {/* Fundo desfocado */}
@@ -184,7 +184,7 @@ export default function Dashboard() {
         </section> */}
 
 
-        <div className="mt-10 mx-8 text-center bg-white/30 backdrop-blur-sm p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/20 hover:border-white/40 hover:-translate-y-1 hover:bg-white/40 group">
+        <div className="mt-16 mx-8 text-center bg-white/30 backdrop-blur-sm p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/20 hover:border-white/40 hover:-translate-y-1 hover:bg-white/40 group">
           <h2 className="text-2xl font-extrabold text-black mb-4 drop-shadow-lg bg-gradient-to-r from-black/80 to-black/60 bg-clip-text text-transparent">
             Seu Espaço, Suas Conquistas
             <span className="ml-2 opacity-0 group-hover:opacity-100 transition-opacity duration-700 inline-block">🚀</span>
@@ -201,8 +201,6 @@ export default function Dashboard() {
             />
           </div>
         </div>
-
-
       </div>
     </>
   );

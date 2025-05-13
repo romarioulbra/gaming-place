@@ -1,10 +1,14 @@
 
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client"; 
+import { PrismaClient,Prisma } from "@prisma/client"; 
 import path from "path";
 import fs from "fs/promises";
 
 const prisma = new PrismaClient();
+
+
+// const updateData: Prisma.emblemasUpdateInput = {};
+
 
 export async function PUT(req: NextRequest, { params }: { params: { emblema_id: string } }) {
   try {
@@ -36,7 +40,7 @@ export async function PUT(req: NextRequest, { params }: { params: { emblema_id: 
     }
 
     // Dados para atualização
-    const updateData: Record<string, any> = {};
+    const updateData: Prisma.emblemasUpdateInput = {};
     if (emblema_nome) updateData.emblema_nome = emblema_nome;
     if (emblema_criterio) updateData.emblema_criterio = emblema_criterio;
     if (emblemas_pontos) updateData.emblemas_pontos = emblemas_pontos;

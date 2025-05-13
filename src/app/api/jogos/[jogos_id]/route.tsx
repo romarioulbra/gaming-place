@@ -6,6 +6,7 @@ import fs from "fs/promises";
 
 const prisma = new PrismaClient();
 
+
 export async function PUT(req: NextRequest, { params }: { params: { jogos_id: string } }) {
   try {
     const { jogos_id } = params;

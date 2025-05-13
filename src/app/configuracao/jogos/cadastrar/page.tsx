@@ -118,7 +118,7 @@ export default function CadastrarJogos() {
         />
       )}
 
-      <div className="flex-auto ml-4 mr-4 mt-4 mb-4">
+      <div className="flex-auto ml-10 mr-10 mt-4 mb-4">
         <div className="p-8 border border-gray-300 shadow-lg bg-white rounded-lg mr-2 ml-2">
           <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg mt-2">
             <div className="p-6">

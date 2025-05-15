@@ -8,6 +8,7 @@ import Emblemas from "../../configuracao/emblemas/page";
 import SugestoesMelhorias from "@/app/configuracao/sugestoes_melhoria/page";
 import ConfigPanel from "../../configuracao/page";
 import NavBarDashAdmin from "@/app/components/NavBarDashAdmin";
+import CategoriaEmblemas from "@/app/configuracao/emblemas_categoria/page";
 
 
 export default function AdminDashboard() {
@@ -44,6 +45,7 @@ export default function AdminDashboard() {
               {currentPage === "jogos" && <Jogos />}
               {currentPage === "jogos_categoria" && <CategoriaJogos />}
               {currentPage === "emblemas" && <Emblemas />}
+              {currentPage === "emblemas_categoria" && <CategoriaEmblemas />}
               {currentPage === "sugestoes" && <SugestoesMelhorias />}
             </div>
           </div>

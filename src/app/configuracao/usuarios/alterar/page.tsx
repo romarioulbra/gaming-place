@@ -21,8 +21,7 @@ export default function AlterarUsuarios({ dados,tipoModal }) {
   };
 
   // Função para salvar os dados com mensagem no modal
-  
-  const handleSave = async () => {
+   const handleSave = async () => {
     setLoading(true); // Indica que a operação começou
     setModalText("Salvando alterações, por favor aguarde...");
   

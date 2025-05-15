@@ -42,13 +42,14 @@ model categoria_jogos {
 }
 
 model emblemas {
-  emblema_id       Int      @id @default(autoincrement())
+  emblema_id       Int             @id @default(autoincrement())
   emblema_nome     String
   emblema_criterio String
   emblema_imagem   String
   emblemas_pontos  String
   emblemas_status  String
   perfis           perfis[]
+  tipo_emblemas    tipo_emblemas[] // ← relação 1:N
 }
 
 model perfis {
@@ -72,4 +73,12 @@ model sugestao_melhoria {
   // Relação com usuarios
   usuario_id                  Int
   usuario                     usuarios @relation(fields: [usuario_id], references: [usuario_id], onDelete: Cascade)
+}
+
+model tipo_emblemas {
+  tipo_emblema_id       Int      @id @default(autoincrement())
+  tipo_emblema_criterio String
+  tipo_emblema_pontos   Int
+  emblema               emblemas @relation(fields: [emblema_id], references: [emblema_id], onDelete: Cascade)
+  emblema_id            Int
 }

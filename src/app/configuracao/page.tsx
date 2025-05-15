@@ -1,6 +1,7 @@
 'use client';
 
 import { FaUser, FaGamepad, FaLayerGroup, FaMeteor,FaLightbulb } from "react-icons/fa";
+import { GiFallingBlob} from "react-icons/gi";
 import { useState,useEffect } from "react";
 import Usuarios from "./usuarios/page";
 import Jogos from "./jogos/page";
@@ -9,7 +10,9 @@ import Emblemas from "./emblemas/page";
 import LoadingOverlay from "../components/LoadingOverlay"; 
 import axios from "axios";
 import SugestoesMelhorias from "./sugestoes_melhoria/page";
+import CategoriaEmblemas from "./emblemas_categoria/page";
 // import CadastrarUsuario from "./usuarios/cadastrar/page";
+import { TypewriterEffect } from "@/app/components/EscreverEfeito";
 
 
 export default function ConfigPanel() {
@@ -21,6 +24,7 @@ export default function ConfigPanel() {
   const [numeroJogos, setNumeroJogos] = useState(0);
   const [numCatJogos, setNumCatJogos] = useState(0);
   const [numEmblemas, setNumEmblemas] = useState(0);
+  const [numCatEmblemas, setNumCatEmblemas] = useState(0);
   const [numSugestoes, setNumSugestoes] = useState(0);
 
   // Função para buscar o total de usuários
@@ -80,6 +84,20 @@ export default function ConfigPanel() {
     fetchTotalEmblemas();
   }, []);
 
+
+  // Função para buscar o total de Emblemas
+  useEffect(() => {
+    async function fetchTotalCatEmblemas() {
+      try {
+        const response = await axios.get('/api/categoria_emblemas');
+        setNumCatEmblemas(response.data.totalCatEmblemas);
+      } catch (error) {
+        console.error('Erro ao buscar categorias de emblemas', error);
+      }
+    }
+    fetchTotalCatEmblemas();
+  }, []);
+
   // Função para buscar o total de Emblemas
   useEffect(() => {
     async function fetchTotalSugestoes() {
@@ -94,8 +112,6 @@ export default function ConfigPanel() {
   }, []);
   
 
-
-
   // Função para mudar a página com atraso
   const changePageWithDelay = (page) => {
     setIsLoading(true); // Ativa o loading
@@ -104,6 +120,22 @@ export default function ConfigPanel() {
       setIsLoading(false); // Desativa o loading
     }, 1500); // Atraso de 1 segundo (ajustável)
   };
+
+
+
+
+    const fullText = [
+    "AAqui você pode gerenciar todas as informações do sistema, ",
+    "incluir usuários, ",
+    " jogos, ",
+    "categorias de jogos, ",
+    "categorias de emblemas e sugestões e melhorias.",
+    " Use o menu lateral para navegar entre as seções."
+  ].join(''); // Junta tudo em uma única string
+
+
+
+
 
   return (
     <div className="min-h-screen flex flex-col relative">
@@ -161,7 +193,7 @@ export default function ConfigPanel() {
               >
                 <FaLayerGroup className="w-10 h-10 mr-4" />
                 <div>
-                  <h3 className="text-xl font-semibold">Categorias</h3>
+                  <h3 className="text-xl font-semibold">Categorias de Jogos</h3>
                   <p className="text-sm">Organize os jogos em categorias.</p>
                 </div>
                 
@@ -188,6 +220,24 @@ export default function ConfigPanel() {
                 </div>
               </div>
 
+              {/* Card - Categorias de Emblemas */}
+              <div
+                className="bg-cyan-600 text-white p-6 rounded-lg shadow-md flex items-center cursor-pointer hover:bg-cyan-500 transition relative"
+                onClick={() => changePageWithDelay("emblemas_categoria")}
+              >
+                <GiFallingBlob className="w-16 h-16 mr-4" />
+                <div>
+                  <h3 className="text-xl font-semibold">Categorias de Emblemas</h3>
+                  <p className="text-sm">Classifique os emblemas por tipos ou finalidades.</p>
+                </div>
+
+                {/* Círculo com a quantidade de categorias de emblemas */}
+                <div className="absolute top-0 right-0 -mt-2 -mr-2 bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">
+                  {numCatEmblemas}
+                </div>
+              </div>
+
+
               {/* Card - Sugestões e Melhorias */}
                 <div
                   className="bg-green-600 text-white p-6 rounded-lg shadow-md flex items-center cursor-pointer hover:bg-green-500 transition relative"
@@ -211,10 +261,22 @@ export default function ConfigPanel() {
             <div className="mt-12">
               <h3 className="text-2xl font-bold text-gray-800 mb-4">Visão Geral</h3>
               <div className="bg-gray-100 p-6 rounded-lg shadow-md">
-                <p className="text-gray-700">
+                {/* <p className="text-gray-700">
                   Aqui você pode gerenciar todas as informações do sistema, incluindo usuários,
-                  jogos e categorias. Use o menu lateral para navegar entre as seções.
-                </p>
+                  jogos, categorias de jogos, emblemas, categorias de emblemas e sugestões e melhorias. Use o menu lateral para navegar entre as seções.
+                </p> */}
+
+
+
+                <TypewriterEffect 
+                  text={fullText}
+                  speed={30}
+                  delay={500}
+                  cursor={true}
+                  blinkWhenComplete={true} // Ativa o efeito de piscar
+                  blinkSpeed={600} // Velocidade do piscar (opcional)
+                  className="font-semibold"
+                />
               </div>
             </div>
 
@@ -230,8 +292,9 @@ export default function ConfigPanel() {
             <h2 className="text-3xl font-bold text-gray-800">
               {currentPage === "usuarios" && "Usuários"}
               {currentPage === "jogos" && "Jogos"}
-              {currentPage === "jogos_categoria" && "Categorias"}
+              {currentPage === "jogos_categoria" && "Categorias de Jogos"}
               {currentPage === "emblemas" && "Emblemas"}
+              {currentPage === "emblemas_categoria" && "Categorias de Emblemas"}
               {currentPage === "sugestoes" && "Sugestoes"}
             </h2>
             <button
@@ -249,6 +312,7 @@ export default function ConfigPanel() {
             {currentPage === "jogos" && <Jogos />}
             {currentPage === "jogos_categoria" && <CategoriaJogos />}
             {currentPage === "emblemas" && <Emblemas />}
+            {currentPage === "emblemas_categoria" && <CategoriaEmblemas/>}
             {currentPage === "sugestoes" && <SugestoesMelhorias />}
 
           </div>

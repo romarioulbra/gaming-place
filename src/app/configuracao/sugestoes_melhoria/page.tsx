@@ -6,36 +6,34 @@ import Tabela from "../../components/Tabela";
 import { FaLightbulb} from "react-icons/fa";
 import CabecalhoViwer from "../../components/CabecalhoViwer";
 
-// import Fly from "@/app/components/Flyout";
-
 export default function SugestoesMelhorias() {
     
   // variáveis globais
   const nomeModulo = 'Sugestoes e Melhorias';
 
-  // const atributosCabTab = ["ID", "Titulo", "Nome", "Descrição", "Status","Pessoa que enviou"];
-  // const atributosDados = ["sugestao_melhoria_id", "sugestao_melhoria_titulo", "sugestao_melhoria_nome", "sugestao_melhoria_descricao", "sugestao_melhoria_status","usuario_id"];
-  const atributosCabTab = ["ID", "Titulo", "Nome","Status"];
-  const atributosDados = ["sugestao_melhoria_id", "sugestao_melhoria_titulo", "sugestao_melhoria_nome","sugestao_melhoria_status"];
-    
-
+  const atributosCabTab = ["ID", "Nome","Status"];
+  const atributosDados = ["sugestao_melhoria_id", "sugestao_melhoria_nome","sugestao_melhoria_status"];
   const [sugestoes, setSugestoes] = useState([]);
+  
+  console.log('Dados de sugestões'+sugestoes);
+ 
 
   useEffect(() => {
     async function fetchSugestoes() {
       try {
         const response = await axios.get('/api/sugestoes');
-        setSugestoes(response.data.sug_melhoria);         // lista de sugestões
-        // setNumSugestoes(response.data.totalSugestoes);    // total de sugestões
+        setSugestoes(response.data.sug_melhoria);// lista de sugestões
+         console.log('Dados de sugestões'+sugestoes);
       } catch (error) {
         console.error('Erro ao buscar Sugestões de Melhorias:', error);
       }
-    }
-  
+    } 
     fetchSugestoes();
   }, []);
 
- 
+  
+
+
   return (
     <>
       <CabecalhoViwer 

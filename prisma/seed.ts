@@ -113,7 +113,7 @@ async function main() {
       },
       {
         tipo_emblema_id: 5,
-        tipo_emblema_criterio: 'Conquistar 3 emblemas ou recompensas sem microtransações',
+        tipo_emblema_criterio: 'Postar avaliações de jogos gratuitos ou acessíveis',
         tipo_emblema_pontos: 200,
         emblema_id: 5 // Tio Patinhas
       }
@@ -178,34 +178,34 @@ async function main() {
   const jogos = await prisma.jogos.createMany({
     data: [
       {
-        jogos_nome: 'Aventura na Comunidade',
-        jogos_descricao: 'Ajude a construir uma comunidade melhor',
-        jogos_link: 'https://jogo-comunidade.com',
-        jogos_url_img: '/img/jogos/comunidade.jpg',
-        jogos_autor: 'Equipe Gaming Place',
+        jogos_nome: 'Logic Girl',
+        jogos_descricao: 'Um jogo mobile para incentivar mulheres na aprendizagem de logica de programação e despertar o interesse para a área de TI.',
+        jogos_link: 'https://play.unity.com/en/games/1abfdfae-9416-4a88-b1a0-c640e97d5654/logic-girl',
+        jogos_url_img: '/img/logic_girl.png',
+        jogos_autor: 'Stefan Luks',
         categoria_jogo_id: 1 // Comunidade
       },
       {
-        jogos_nome: 'Desafios Educacionais',
-        jogos_descricao: 'Aprenda brincando com desafios educativos',
-        jogos_link: 'https://jogo-educacao.com',
-        jogos_url_img: '/img/jogos/educacao.jpg',
-        jogos_autor: 'Equipe Gaming Place',
+        jogos_nome: 'KnightScrum',
+        jogos_descricao: 'É um jogo mobile de gênero RPG, desenvolvido com intuito de auxiliar no estudo e na prática dos conceitos da Métodologia de Desenvolvimento Ágil Scrum',
+        jogos_link: 'http://www.knightscrum.com.br/',
+        jogos_url_img: '/img/KnightScrum.png',
+        jogos_autor: 'Raphael A Bentes',
         categoria_jogo_id: 2 // Educação
       },
       {
-        jogos_nome: 'Guardião do Meio Ambiente',
-        jogos_descricao: 'Proteja a natureza neste jogo emocionante',
-        jogos_link: 'https://jogo-meio-ambiente.com',
+        jogos_nome: 'Terra Verde',
+        jogos_descricao: 'Terraverde é um jogo para dispositivos móveis (Android) estilo RPG (Role-Playing Game) simplificado',
+        jogos_link: 'https://sites.google.com/rede.ulbra.br/terraverde',
         jogos_url_img: '/img/jogos/meio-ambiente.jpg',
-        jogos_autor: 'Equipe Gaming Place',
+        jogos_autor: 'Adan',
         categoria_jogo_id: 3 // Meio Ambiente
       },
       {
         jogos_nome: 'Aventura na Saúde',
         jogos_descricao: 'Aprenda sobre saúde de forma divertida',
         jogos_link: 'https://jogo-saude.com',
-        jogos_url_img: '/img/jogos/saude.jpg',
+        jogos_url_img: '/img/terraVerde.jpg',
         jogos_autor: 'Equipe Gaming Place',
         categoria_jogo_id: 4 // Saúde
       }

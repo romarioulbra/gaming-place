@@ -4,9 +4,9 @@ import bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
 
-const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'admin@gamingplace.com';
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'admin@gmail.com';
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'Admin@123';
-const DEFAULT_USER_PASSWORD = 'User@123';
+const DEFAULT_USER_PASSWORD = process.env.DEFAULT_USER_PASSWORD || 'Usuario@123';
 
 async function main() {
   console.log('🌱 Iniciando seed do banco de dados...');
@@ -17,19 +17,19 @@ async function main() {
     data: [
       {
         categoria_jogo_area_atuacao: 'Comunidade',
-        categoria_jogo_icone: '/icons/categoria_jogos/comunidade.svg'
+        categoria_jogo_icone: '/upload/categoria_jogos/comunidade.svg'
       },
       {
         categoria_jogo_area_atuacao: 'Educação',
-        categoria_jogo_icone: '/icons/categoria_jogos/educacao.svg'
+        categoria_jogo_icone: '/upload/categoria_jogos/educacao.svg'
       },
       {
         categoria_jogo_area_atuacao: 'Meio Ambiente',
-        categoria_jogo_icone: '/icons/categoria_jogos/meio-ambiente.svg'
+        categoria_jogo_icone: '/upload/categoria_jogos/meio-ambiente.svg'
       },
       {
         categoria_jogo_area_atuacao: 'Saúde',
-        categoria_jogo_icone: '/icons/categoria_jogos/saude.svg'
+        categoria_jogo_icone: '/upload/categoria_jogos/saude.svg'
       }
     ],
     skipDuplicates: true
@@ -42,40 +42,40 @@ async function main() {
       {
         emblema_id: 1,
         emblema_nome: 'Dora Aventureira',
-        emblema_criterio: 'Completou 3 jogos de aventura',
-        emblema_imagem: '/img/emblemas/dora_aventureira.png',
-        emblemas_pontos: '30',
+        emblema_criterio: 'Explorador, curioso, desbravador',
+        emblema_imagem: '/upload/emblemas/dora_aventureira.png',
+        emblemas_pontos: '100',
         emblemas_status: 'Ativo'
       },
       {
         emblema_id: 2,
         emblema_nome: 'Harry Potter',
-        emblema_criterio: 'Completou 5 jogos de magia',
-        emblema_imagem: '/img/emblemas/harry_potter.jpg',
+        emblema_criterio: 'Criativo, geek, amante de conhecimento',
+        emblema_imagem: '/upload/emblemas/harry_potter.jpg',
         emblemas_pontos: '50',
         emblemas_status: 'Ativo'
       },
       {
         emblema_id: 3,
         emblema_nome: 'Manhattan',
-        emblema_criterio: 'Completou 7 jogos de estratégia',
-        emblema_imagem: '/img/emblemas/manhattan.jpg',
-        emblemas_pontos: '70',
+        emblema_criterio: 'Estrategista, competitivo e elegante',
+        emblema_imagem: '/upload/emblemas/manhattan.jpg',
+        emblemas_pontos: '85',
         emblemas_status: 'Ativo'
       },
       {
         emblema_id: 4,
         emblema_nome: 'Robin Hood',
-        emblema_criterio: 'Completou 10 jogos de aventura',
-        emblema_imagem: '/img/emblemas/robin_hood.png',
+        emblema_criterio: 'Colaborativo, altruísta, espírito de equipe',
+        emblema_imagem: '/upload/emblemas/robin_hood.png',
         emblemas_pontos: '100',
         emblemas_status: 'Ativo'
       },
       {
         emblema_id: 5,
         emblema_nome: 'Tio Patinhas',
-        emblema_criterio: 'Conquistou todos os emblemas',
-        emblema_imagem: '/img/emblemas/tio_patinhas.png',
+        emblema_criterio: 'Econômico, acumulador, analítico',
+        emblema_imagem: '/upload/emblemas/tio_patinhas.png',
         emblemas_pontos: '200',
         emblemas_status: 'Ativo'
       }
@@ -89,31 +89,31 @@ async function main() {
     data: [
       {
         tipo_emblema_id: 1,
-        tipo_emblema_criterio: 'Completou 3 jogos',
-        tipo_emblema_pontos: 30,
+        tipo_emblema_criterio: 'Reportar bugs ou inconsistências que afetam a jogabilidade',
+        tipo_emblema_pontos: 100,
         emblema_id: 1 // Dora Aventureira
       },
       {
         tipo_emblema_id: 2,
-        tipo_emblema_criterio: 'Completou 5 jogos',
+        tipo_emblema_criterio: 'Sugerir nomes, personagens ou histórias para jogos em desenvolvimento',
         tipo_emblema_pontos: 50,
         emblema_id: 2 // Harry Potter
       },
       {
         tipo_emblema_id: 3,
-        tipo_emblema_criterio: 'Completou 7 jogos',
-        tipo_emblema_pontos: 70,
+        tipo_emblema_criterio: 'Sugerir melhorias ou atualizações para jogos da plataforma',
+        tipo_emblema_pontos: 85,
         emblema_id: 3 // Manhattan
       },
       {
         tipo_emblema_id: 4,
-        tipo_emblema_criterio: 'Completou 10 jogos',
+        tipo_emblema_criterio: 'Enviar feedbacks construtivos sobre experiências multiplayer',
         tipo_emblema_pontos: 100,
         emblema_id: 4 // Robin Hood
       },
       {
         tipo_emblema_id: 5,
-        tipo_emblema_criterio: 'Conquistou todos os emblemas',
+        tipo_emblema_criterio: 'Conquistar 3 emblemas ou recompensas sem microtransações',
         tipo_emblema_pontos: 200,
         emblema_id: 5 // Tio Patinhas
       }
@@ -134,7 +134,7 @@ async function main() {
       usuario_nivel: 'Administrador',
       perfis: {
         create: {
-          perfil_imagem: '/img/perfil/avatar_perfil.jpg',
+          perfil_imagem: '/upload/perfil/avatar_perfil.jpg',
           perfil_cidade: 'Palmas',
           perfil_pontos: 1000,
           perfil_nivel: 10,
@@ -151,16 +151,16 @@ async function main() {
   console.log('👤 Criando usuário normal...');
   const senhaUserCriptografada = await bcrypt.hash(DEFAULT_USER_PASSWORD, 10);
   const usuarioNormal = await prisma.usuarios.upsert({
-    where: { usuario_email: 'user@gamingplace.com' },
+    where: { usuario_email: 'usuario@gmail.com' },
     update: {},
     create: {
-      usuario_nome: 'Usuário Normal',
-      usuario_email: 'user@gamingplace.com',
+      usuario_nome: 'Normal',
+      usuario_email: 'usuario@gmail.com',
       usuario_senha: senhaUserCriptografada,
       usuario_nivel: 'Normal',
       perfis: {
         create: {
-          perfil_imagem: '/img/perfil/avatar_perfil.jpg',
+          perfil_imagem: '/upload/perfil/avatar_perfil.jpg',
           perfil_cidade: 'Palmas',
           perfil_pontos: 100,
           perfil_nivel: 1,
@@ -218,7 +218,7 @@ async function main() {
   console.log(`📧 Email: ${ADMIN_EMAIL}`);
   console.log(`🔒 Senha: ${ADMIN_PASSWORD}`);
   console.log('👤 Credenciais do usuário normal:');
-  console.log('📧 Email: user@gamingplace.com');
+  console.log('📧 Email: usuario@gaming_place.com');
   console.log(`🔒 Senha: ${DEFAULT_USER_PASSWORD}`);
 }
 

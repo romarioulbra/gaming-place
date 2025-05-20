@@ -9,7 +9,7 @@ import CabecalhoViwer from "../../components/CabecalhoViwer";
 export default function SugestoesMelhorias() {
     
   // variáveis globais
-  const nomeModulo = 'Sugestoes e Melhorias';
+  const nomeModulo = 'Sugestões e Melhorias';
 
   const atributosCabTab = ["ID", "Nome","Status"];
   const atributosDados = ["sugestao_melhoria_id", "sugestao_melhoria_nome","sugestao_melhoria_status"];

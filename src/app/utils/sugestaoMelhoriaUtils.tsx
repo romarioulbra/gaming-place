@@ -25,11 +25,12 @@ export async function getTodosSugMelhoria() {
 }
 
 
-
-// Função para contar o total de Emblemas
+// Função para contar o total de Sugestão e Melhoria
 export async function getTotalSugMelhoria() {
   try {
-    return await prisma.sugestao_melhoria.count();
+    const count = await prisma.sugestao_melhoria.count();
+    console.log("Total de sugestões/melhorias:", count);
+    return count;
   } catch (error) {
     console.error("Erro ao contar Sugestão e Melhorias:", error);
     throw new Error("Erro ao contar Sugestão e Melhorias");

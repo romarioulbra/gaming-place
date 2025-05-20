@@ -1,100 +1,40 @@
-// import { NextResponse } from 'next/server';
-// import { PrismaClient } from "@prisma/client";
-// import { getTotalSugMelhoria,getTodosSugMelhoria } from '@/app/utils/sugestaoMelhoriaUtils';
-
-
-// const prisma = new PrismaClient();
-
-// // GET: Lista todas as sugestões
-// export async function GET() {
-//   try {
-//     const [sug_melhoria, getTotalSugMelhoria] = await Promise.all([
-//       prisma.sugestao_melhoria.findMany({
-//         include: {
-//           usuario: true, // inclui os dados do usuário relacionado
-//         },
-//         orderBy: {
-//           sugestao_melhoria_id: 'asc', // ordena da mais recente para a mais antiga (desc)
-//         },
-//       }),
-//       prisma.sugestao_melhoria.count(),
-//     ]);
-
-//     return NextResponse.json({ sug_melhoria, getTotalSugMelhoria }, { status: 200 });
-//   } catch (error: any) {
-//     console.error('Erro ao buscar sugestões:', error);
-//     return NextResponse.json(
-//       {
-//         error: 'Erro ao buscar sugestões',
-//         details: error.message,
-//       },
-//       { status: 500 }
-//     );
-//   }
-// }
-
-
-// export async function POST(request: Request) {
-//   try {
-//     const body = await request.json();
-//     const { name, suggestion, userId, tipoEmblemaId } = body;
-
-//     if (!name || !suggestion || !userId || !tipoEmblemaId) {
-//       return NextResponse.json({ error: 'Campos obrigatórios não preenchidos' }, { status: 400 });
-//     }
-
-//     const novaSugestao = await prisma.sugestao_melhoria.create({
-//       data: {
-//         sugestao_melhoria_nome: name,
-//         sugestao_melhoria_descricao: suggestion,
-//         sugestao_melhoria_status: 'enviado', // ou qualquer status padrão
-//         usuario_id: parseInt(userId),
-//         tipo_emblema_id: tipoEmblemaId,
-//       }
-//     });
-
-//     return NextResponse.json(novaSugestao, { status: 201 });
-//   } catch (error) {
-//     console.error('Erro ao salvar sugestão:', error);
-//     return NextResponse.json({ error: 'Erro interno do servidor' }, { status: 500 });
-//   }
-// }
-
-
 import { NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 import { getTodosSugMelhoria, getTotalSugMelhoria } from '@/app/utils/sugestaoMelhoriaUtils';
 
 const prisma = new PrismaClient();
 
-
 export async function GET() {
   try {
-    const sugestoes = await getTodosSugMelhoria();
-    const total = await getTotalSugMelhoria();
+    console.log('Iniciando busca de sugestões...');
+    const [sugestoes, total] = await Promise.all([
+      getTodosSugMelhoria(),
+      getTotalSugMelhoria()
+    ]);
 
-    return NextResponse.json(
-      {
-        sug_melhoria: sugestoes,
-        totalSugMelhoria: total,
-      },
-      { status: 200 }
-    );
+    console.log(`Encontradas ${sugestoes.length} sugestões de ${total} total`);
+    
+    return NextResponse.json({
+      sug_melhoria: sugestoes,
+      totalSugMelhoria: total,
+    }, { status: 200 });
+
   } catch (error: any) {
-    console.error('Erro ao buscar sugestões:', error);
-    return NextResponse.json(
-      {
-        error: 'Erro ao buscar sugestões',
-        details: error.message || "Erro desconhecido",
-      },
-      { status: 500 }
-    );
+    console.error('Erro completo:', {
+      message: error.message,
+      stack: error.stack,
+      name: error.name
+    });
+    
+    return NextResponse.json({
+      error: 'Erro ao buscar sugestões',
+      details: process.env.NODE_ENV === 'development' 
+        ? error.message 
+        : 'Erro interno',
+      type: error.name
+    }, { status: 500 });
   }
 }
-
-
-
-
 
 
 

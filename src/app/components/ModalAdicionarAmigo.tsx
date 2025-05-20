@@ -1,92 +1,3 @@
-// Esse tá top
-// 'use client';
-// import EmailForm from './EmailForm';
-
-// export default function ModalAdicionarAmigo({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: (open: boolean) => void }) {
-//   if (!isOpen) return null;
-
-//   return (
-//     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 backdrop-blur-sm transition-opacity duration-300">
-//       <div className="relative w-[95%] max-w-4xl bg-white text-gray-800 rounded-xl shadow-2xl overflow-hidden flex flex-col md:flex-row h-[80vh] border-2 border-indigo-100 transform transition-all duration-500 scale-95 hover:scale-100">
-        
-//         {/* Seção do formulário */}
-//         <div className="w-full md:w-1/2 p-8 flex flex-col justify-center bg-gradient-to-br from-white to-indigo-50 hover:to-indigo-100 transition-all duration-500">
-//           <div className="text-center mb-8 transform hover:scale-105 transition-transform duration-300">
-//             <h2 className="text-3xl font-bold text-indigo-700 mb-2 drop-shadow-md">Indique Amigos</h2>
-//             <p className="text-indigo-500 font-medium animate-pulse">Ganhe recompensas por cada amigo cadastrado</p>
-//           </div>
-//           <EmailForm />
-//         </div>
-
-//         {/* Seção de informações */}
-//         <div className="w-full md:w-1/2 p-8 flex flex-col justify-center bg-gradient-to-br from-indigo-50 to-purple-50 hover:from-indigo-100 hover:to-purple-100 transition-all duration-500">
-//           <div className="space-y-6">
-//             <div className="flex items-center mb-6 group">
-//               <div className="bg-indigo-600 text-white p-2 rounded-lg mr-3 transform group-hover:rotate-6 transition-transform duration-300 shadow-lg group-hover:shadow-indigo-400/50">
-//                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-//                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-//                 </svg>
-//               </div>
-//               <h3 className="text-xl font-bold text-indigo-800 group-hover:text-indigo-900 transition-colors duration-300">VANTAGENS DO PROGRAMA</h3>
-//             </div>
-
-//             <ul className="space-y-4">
-//               <li className="flex items-start bg-white/80 p-3 rounded-lg border-l-4 border-green-500 hover:bg-white hover:shadow-md hover:-translate-y-1 transition-all duration-300">
-//                 <span className="text-green-500 font-bold mr-2 hover:scale-125 transition-transform duration-200">✓</span>
-//                 <span className="group-hover:text-gray-900 transition-colors duration-300">Indique amigos e ganhe <strong className="text-indigo-700 group-hover:text-indigo-900 transition-colors duration-300">100 pontos</strong> por cadastro</span>
-//               </li>
-//               <li className="flex items-start bg-white/80 p-3 rounded-lg border-l-4 border-blue-500 hover:bg-white hover:shadow-md hover:-translate-y-1 transition-all duration-300">
-//                 <span className="text-blue-500 font-bold mr-2 hover:scale-125 transition-transform duration-200">✓</span>
-//                 <span className="group-hover:text-gray-900 transition-colors duration-300">Amigos ganham <strong className="text-indigo-700 group-hover:text-indigo-900 transition-colors duration-300">50 pontos</strong> de boas-vindas</span>
-//               </li>
-//               <li className="flex items-start bg-white/80 p-3 rounded-lg border-l-4 border-purple-500 hover:bg-white hover:shadow-md hover:-translate-y-1 transition-all duration-300">
-//                 <span className="text-purple-500 font-bold mr-2 hover:scale-125 transition-transform duration-200">✓</span>
-//                 <span className="group-hover:text-gray-900 transition-colors duration-300">Troque pontos por <strong className="text-indigo-700 group-hover:text-indigo-900 transition-colors duration-300">recompensas</strong></span>
-//               </li>
-//               <li className="flex items-start bg-white/80 p-3 rounded-lg border-l-4 border-yellow-500 hover:bg-white hover:shadow-md hover:-translate-y-1 transition-all duration-300">
-//                 <span className="text-yellow-500 font-bold mr-2 hover:scale-125 transition-transform duration-200">✓</span>
-//                 <span className="group-hover:text-gray-900 transition-colors duration-300">Desbloqueie <strong className="text-indigo-700 group-hover:text-indigo-900 transition-colors duration-300">benefícios exclusivos</strong></span>
-//               </li>
-//             </ul>
-
-//             <div className="mt-6 bg-white/90 p-4 rounded-lg border border-indigo-100 shadow-sm hover:shadow-md hover:border-indigo-200 transition-all duration-300">
-//               <h4 className="font-bold text-indigo-700 mb-3 flex items-center hover:text-indigo-800 transition-colors duration-300">
-//                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-indigo-500 hover:rotate-12 transition-transform duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-//                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-//                 </svg>
-//                 Como funciona?
-//               </h4>
-//               <ol className="list-decimal list-inside space-y-2 text-sm text-gray-700 pl-2">
-//                 <li className="pb-1 hover:text-gray-900 transition-colors duration-200">Preencha os dados do amigo</li>
-//                 <li className="pb-1 hover:text-gray-900 transition-colors duration-200">Enviaremos um convite personalizado</li>
-//                 <li className="hover:text-gray-900 transition-colors duration-200">Você ganha pontos quando ele ativar a conta</li>
-//               </ol>
-//             </div>
-
-//             <div className="mt-4 flex items-start bg-indigo-100/50 p-3 rounded-lg hover:bg-indigo-200/30 hover:shadow-inner transition-all duration-300">
-//               <span className="text-indigo-600 mr-2 hover:animate-bounce transition-transform duration-500">💡</span>
-//               <p className="text-sm text-indigo-700 hover:text-indigo-800 transition-colors duration-300">
-//                 <strong className="font-semibold">Dica importante:</strong> Indique mais amigos para alcançar recompensas melhores mais rápido!
-//               </p>
-//             </div>
-//           </div>
-//         </div>
-
-//         <button 
-//           onClick={() => setIsOpen(false)}
-//           className="absolute top-4 right-4 text-indigo-600 hover:text-indigo-900 bg-white/80 hover:bg-white p-2 rounded-full shadow-sm transition-all duration-300 hover:rotate-90 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50"
-//           aria-label="Fechar modal"
-//         >
-//           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-//             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-//           </svg>
-//         </button>
-//       </div>
-//     </div>
-//   );
-// }
-
-
 'use client';
 import { useEffect, useState } from 'react';
 import EmailForm from './EmailForm';
@@ -157,7 +68,7 @@ export default function ModalAdicionarAmigo({ isOpen, setIsOpen }: { isOpen: boo
               {!isMobile && ' por cada amigo cadastrado'}
             </p>
           </div>
-          <EmailForm />
+          <EmailForm/>
         </div>
 
         {/* Seção de informações */}

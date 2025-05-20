@@ -1,11 +1,14 @@
 'use client';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { useSession } from "next-auth/react";
 
 export default function EmailForm() {
   const [formData, setFormData] = useState({ name: '', email: '' });
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState('');
+  
+  const { data: session, status } = useSession();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -52,6 +55,8 @@ export default function EmailForm() {
     return () => clearInterval(interval);
   }, []);
 
+    const { nome, email, nivel, id } = session.usuario;
+
   return (
     <div className=" p-14 bg-white shadow-2xl rounded-xl border border-gray-200 flex flex-col items-center">
       <div className="flex justify-center items-center mb-6">
@@ -74,7 +79,21 @@ export default function EmailForm() {
             type="text"
             name="name"
             placeholder="Seu Nome"
-            value={formData.name}
+            // value={formData.name}
+            value={nome}
+            onChange={handleChange}
+            className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-600 text-lg text-black"
+            required
+          />
+        </div>
+        
+        <div>
+          <input
+            type="text"
+            name="usuario"
+            placeholder="Seu Nome"
+            // value={formData.name}
+            value={id}
             onChange={handleChange}
             className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-600 text-lg text-black"
             required

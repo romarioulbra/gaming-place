@@ -8,16 +8,23 @@ datasource db {
 }
 
 model usuarios {
-  usuario_id        Int                 @id @default(autoincrement())
+  usuario_id        Int      @id @default(autoincrement())
   usuario_nome      String
-  usuario_email     String              @unique
+  usuario_email     String   @unique
   usuario_senha     String
   usuario_nivel     String
-  usuario_criacao   DateTime            @default(now())
-  usuario_alteracao DateTime            @updatedAt
+  usuario_criacao   DateTime @default(now())
+  usuario_alteracao DateTime @updatedAt
   perfis            perfis[]
+
   // Relação inversa (um usuário pode ter várias sugestões)
-  sugestoes         sugestao_melhoria[]
+  sugestoes sugestao_melhoria[]
+
+  // Relação com indicação de Amigo
+  indicacoes_feitas indicacao_amigo[] @relation("indicacoes_do_usuario")
+  indicacao_amigo   indicacao_amigo[]
+
+  @@map("usuarios")
 }
 
 model jogos {
@@ -41,26 +48,31 @@ model categoria_jogos {
 }
 
 model emblemas {
-  emblema_id       Int             @id @default(autoincrement())
+  emblema_id       Int    @id @default(autoincrement())
   emblema_nome     String
   emblema_criterio String
   emblema_imagem   String
   emblemas_pontos  String
   emblemas_status  String
-  perfis           perfis[]
-  tipo_emblemas    tipo_emblemas[] // ← relação 1:N
+
+  perfis perfis[]
+
+  tipo_emblemas tipo_emblemas[] // ← relação 1:N
 }
 
 model perfis {
-  perfil_id       Int      @id @default(autoincrement())
-  perfil_imagem   String
-  perfil_cidade   String
-  perfil_pontos   Int      @default(0)
-  perfil_nivel    Int      @default(1)
+  perfil_id     Int    @id @default(autoincrement())
+  perfil_imagem String
+  perfil_cidade String
+  perfil_pontos Int    @default(0)
+  perfil_nivel  Int    @default(1)
+
   perfil_usuarios usuarios @relation(fields: [usuario], references: [usuario_id], onDelete: Cascade)
+
   perfil_emblemas emblemas @relation(fields: [emblema], references: [emblema_id], onDelete: Cascade)
-  usuario         Int
-  emblema         Int
+
+  usuario Int
+  emblema Int
 }
 
 model sugestao_melhoria {
@@ -85,4 +97,30 @@ model tipo_emblemas {
   emblema_id Int
 
   sugestoes_melhoria sugestao_melhoria[] // relação inversa opcional (1:N)
+}
+
+enum StatusConvite {
+  ENVIADO
+  RECEBIDO
+  CADASTRADO
+}
+
+model indicacao_amigo {
+  indicacao_amigo_id              Int           @id @default(autoincrement())
+  indicacao_amigo_indicador       Int
+  indicacao_amigo_email_indicador String
+  indicacao_amigo_email_indicado  String
+  status_convite                  StatusConvite @default(ENVIADO)
+  data_indicacao                  DateTime      @default(now())
+  indicacao_amigo_criacao         DateTime      @default(now())
+  indicacao_amigo_alteracao       DateTime      @updatedAt
+
+  usuario_indicador  usuarios? @relation(fields: [indicacao_amigo_indicador], references: [usuario_id], onDelete: Cascade)
+  usuarios           usuarios? @relation(fields: [usuariosUsuario_id], references: [usuario_id])
+  usuariosUsuario_id Int?
+
+  @@index([indicacao_amigo_indicador])
+  @@index([indicacao_amigo_email_indicado])
+  @@index([status_convite])
+  @@map("indicacao_amigos")
 }

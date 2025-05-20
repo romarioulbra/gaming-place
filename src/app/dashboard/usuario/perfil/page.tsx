@@ -85,16 +85,12 @@ export default function Perfil() {
           >
             Adicionar amigos
           </button>
-          
-          {/* <button className="flex-1 bg-blue-600 py-2 rounded-lg hover:bg-blue-700">
-            Enviar sugestão
-          </button> */}
 
           <EnviarSugestão dadosUsuario={session}/>
         </div>
 
         {/* Renderiza o modal quando estiver aberto */}
-        {isModalOpen && <ModalAdicionarAmigo isOpen={isModalOpen} setIsOpen={setIsModalOpen} />}
+        {isModalOpen && <ModalAdicionarAmigo isOpen={isModalOpen} setIsOpen={setIsModalOpen}/>}
       </div>
     </div>
   );

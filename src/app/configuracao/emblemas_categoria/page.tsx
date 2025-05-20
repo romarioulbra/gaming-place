@@ -8,7 +8,7 @@ import CabecalhoViwer from "../../components/CabecalhoViwer";
 export default function CategoriaEmblemas() {
   
  // variáveis globais
- const atributosCabTab = ["ID", "Critério", "Pontos", "Emblemas"];
+ const atributosCabTab = ["ID", "Critério", "Pontos", "Emblemas (tipo)"];
  const atributosDados = ["tipo_emblema_id", "tipo_emblema_criterio", "tipo_emblema_pontos","emblema_id" ];
  const nomeModulo = 'Categoria de Emblemas';
  const [catEmblemas, setcatEmblemas] = useState([]);

@@ -11,7 +11,6 @@ import LoadingOverlay from "../components/LoadingOverlay";
 import axios from "axios";
 import SugestoesMelhorias from "./sugestoes_melhoria/page";
 import CategoriaEmblemas from "./emblemas_categoria/page";
-// import CadastrarUsuario from "./usuarios/cadastrar/page";
 import { TypewriterEffect } from "@/app/components/EscreverEfeito";
 
 
@@ -40,6 +39,7 @@ export default function ConfigPanel() {
 
     fetchTotalUsuarios();
   }, []);
+
 
   // Função para buscar o total de jogos
   useEffect(() => {
@@ -98,19 +98,28 @@ export default function ConfigPanel() {
     fetchTotalCatEmblemas();
   }, []);
 
-  // Função para buscar o total de Emblemas
+  // Função para buscar o total de Sugestões
   useEffect(() => {
     async function fetchTotalSugestoes() {
       try {
         const response = await axios.get('/api/sugestoes');
-        setNumSugestoes(response.data.totalSugestoes);
+        // Correção: usar a propriedade correta que sua API retorna
+        setNumSugestoes(response.data.totalSugMelhoria);
+        
+        // Para ver o valor atualizado, use um useEffect separado
+        console.log('Dados recebidos:', response.data);
       } catch (error) {
-        console.error('Erro ao buscar Sugestoes', error);
+        console.error('Erro ao buscar Sugestoes:', error);
       }
     }
     fetchTotalSugestoes();
   }, []);
-  
+
+  // Adicione este useEffect para monitorar as mudanças em numSugestoes
+  useEffect(() => {
+    console.log('Numero de Sugestões atualizado:', numSugestoes);
+  }, [numSugestoes]);
+
 
   // Função para mudar a página com atraso
   const changePageWithDelay = (page) => {
@@ -120,8 +129,6 @@ export default function ConfigPanel() {
       setIsLoading(false); // Desativa o loading
     }, 1500); // Atraso de 1 segundo (ajustável)
   };
-
-
 
 
     const fullText = [
@@ -135,8 +142,6 @@ export default function ConfigPanel() {
 
 
 
-
-
   return (
     <div className="min-h-screen flex flex-col relative">
       {/* Overlay de Carregamento */}
@@ -145,7 +150,7 @@ export default function ConfigPanel() {
       {/* Dashboard */}
       {currentPage === "dashboard" && !isLoading && (
         <div className="flex-1 bg-slate-50">
-          <div className="container mx-auto px-6 py-8">
+          <div className="container mx-auto px-6 py-6">
             {/* Título */}
             <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">
               Bem-vindo ao Painel Administrativo
@@ -261,13 +266,6 @@ export default function ConfigPanel() {
             <div className="mt-12">
               <h3 className="text-2xl font-bold text-gray-800 mb-4">Visão Geral</h3>
               <div className="bg-gray-100 p-6 rounded-lg shadow-md">
-                {/* <p className="text-gray-700">
-                  Aqui você pode gerenciar todas as informações do sistema, incluindo usuários,
-                  jogos, categorias de jogos, emblemas, categorias de emblemas e sugestões e melhorias. Use o menu lateral para navegar entre as seções.
-                </p> */}
-
-
-
                 <TypewriterEffect 
                   text={fullText}
                   speed={30}

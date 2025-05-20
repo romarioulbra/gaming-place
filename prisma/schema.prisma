@@ -20,11 +20,7 @@ model usuarios {
   // Relação inversa (um usuário pode ter várias sugestões)
   sugestoes sugestao_melhoria[]
 
-  // Relação com indicação de Amigo
-  indicacoes_feitas indicacao_amigo[] @relation("indicacoes_do_usuario")
-  indicacao_amigo   indicacao_amigo[]
-
-  @@map("usuarios")
+  indicacao_amigo indicacao_amigo[]
 }
 
 model jogos {
@@ -107,20 +103,11 @@ enum StatusConvite {
 
 model indicacao_amigo {
   indicacao_amigo_id              Int           @id @default(autoincrement())
-  indicacao_amigo_indicador       Int
+  usuario_indicador_id            Int
   indicacao_amigo_email_indicador String
   indicacao_amigo_email_indicado  String
   status_convite                  StatusConvite @default(ENVIADO)
   data_indicacao                  DateTime      @default(now())
-  indicacao_amigo_criacao         DateTime      @default(now())
-  indicacao_amigo_alteracao       DateTime      @updatedAt
 
-  usuario_indicador  usuarios? @relation(fields: [indicacao_amigo_indicador], references: [usuario_id], onDelete: Cascade)
-  usuarios           usuarios? @relation(fields: [usuariosUsuario_id], references: [usuario_id])
-  usuariosUsuario_id Int?
-
-  @@index([indicacao_amigo_indicador])
-  @@index([indicacao_amigo_email_indicado])
-  @@index([status_convite])
-  @@map("indicacao_amigos")
+  usuario usuarios @relation(fields: [usuario_indicador_id], references: [usuario_id], onDelete: Cascade)
 }

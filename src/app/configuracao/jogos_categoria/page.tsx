@@ -18,13 +18,13 @@ export default function CategoriaJogos() {
       try {
         const response = await axios.get('/api/categoria_jogos');
         setcatJogos(response.data.cat_jogos);
-        console.log(catJogos); 
+        // console.log(catJogos); 
       } catch (error) {
         console.error('Erro ao buscar Categoria de Jogos:', error);
       }
     }
     fetchCatJogos();
-  }, []);
+  }, [catJogos]);
   
   return (
       <>

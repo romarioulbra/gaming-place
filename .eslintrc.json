@@ -1,3 +1,19 @@
+// {
+//   "extends": ["next/core-web-vitals", "next/typescript"]
+// }
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
+  "overrides": [
+    {
+      "files": ["src/app/api/**/*.tsx"],
+      "rules": {
+        "no-restricted-syntax": [
+          "error",
+          {
+            "selector": "Program",
+            "message": "Não use arquivos .tsx dentro de rotas API. Use .ts"
+          }
+        ]
+      }
+    }
+  ]
 }

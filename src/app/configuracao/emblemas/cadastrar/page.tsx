@@ -47,6 +47,12 @@ export default function CadastrarEmblemas() {
     fetchEmblemas();
   }, []);
 
+
+  useEffect(() => {
+  console.log(emblemas);
+}, [emblemas]);
+
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 

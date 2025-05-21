@@ -108,6 +108,7 @@ model indicacao_amigo {
   indicacao_amigo_email_indicado  String
   status_convite                  StatusConvite @default(ENVIADO)
   data_indicacao                  DateTime      @default(now())
+  // token_indicacao                 String
 
   usuario usuarios @relation(fields: [usuario_indicador_id], references: [usuario_id], onDelete: Cascade)
 }

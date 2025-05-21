@@ -1,6 +1,6 @@
 
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client"; 
+import { PrismaClient, Prisma } from "@prisma/client"; 
 import path from "path";
 import fs from "fs/promises";
 
@@ -32,7 +32,7 @@ export async function PUT(req: NextRequest, { params }: { params: { jogos_id: st
       return NextResponse.json({ error: "Todos os campos obrigatórios devem ser preenchidos." }, { status: 400 });
     }
 
-    const updateData: any = {
+    const updateData: Prisma.jogosUpdateInput  = {
       jogos_nome: jogos_nome.toString(),
       jogos_descricao: jogos_descricao.toString(),
       jogos_link: jogos_link.toString(),

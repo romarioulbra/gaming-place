@@ -19,19 +19,24 @@ export async function GET() {
       totalSugMelhoria: total,
     }, { status: 200 });
 
-  } catch (error: any) {
-    console.error('Erro completo:', {
-      message: error.message,
-      stack: error.stack,
-      name: error.name
-    });
+  } catch (error: unknown) {
+    let message = "Erro desconhecido";
+    let stack = "";
+    let name = "";
+
+
+    if (error instanceof Error) {
+    message = error.message;
+    stack = error.stack || "";
+    name = error.name;
+  }
     
+     console.error('Erro completo:', { message, stack, name });
+
     return NextResponse.json({
-      error: 'Erro ao buscar sugestões',
-      details: process.env.NODE_ENV === 'development' 
-        ? error.message 
-        : 'Erro interno',
-      type: error.name
+    error: 'Erro ao buscar sugestões',
+    details: process.env.NODE_ENV === 'development' ? message : 'Erro interno',
+    type: name
     }, { status: 500 });
   }
 }

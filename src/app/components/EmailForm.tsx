@@ -144,8 +144,21 @@ export default function EmailForm() {
   const { data: session, status } = useSession();
   
   const [currentImage, setCurrentImage] = useState('/img/astronauta-1.jpg');
-  const images = ['/img/astronauta-1.jpg', '/img/astronauta-2.jpg', '/img/astronauta-3.jpg'];
+  
+  useEffect(() => {
+    const images = ['/img/astronauta-1.jpg', '/img/astronauta-2.jpg', '/img/astronauta-3.jpg'];
+    const interval = setInterval(() => {
+      setCurrentImage((prevImage) => {
+        const currentIndex = images.indexOf(prevImage);
+        const nextIndex = (currentIndex + 1) % images.length;
+        return images[nextIndex];
+      });
+    }, 3000);
 
+    return () => clearInterval(interval);
+  }, []);
+
+  
   if (status === 'loading') {
     return <div className="p-14 text-center">Carregando...</div>;
   }
@@ -158,7 +171,7 @@ export default function EmailForm() {
     );
   }
 
- const { nome, email,id } = session.usuario;
+ const {email,id } = session.usuario;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -205,17 +218,7 @@ export default function EmailForm() {
     }
   };
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImage((prevImage) => {
-        const currentIndex = images.indexOf(prevImage);
-        const nextIndex = (currentIndex + 1) % images.length;
-        return images[nextIndex];
-      });
-    }, 3000);
 
-    return () => clearInterval(interval);
-  }, [images]);
 
   return (
     <div className="p-14 bg-white shadow-2xl rounded-xl border border-gray-200 flex flex-col items-center">

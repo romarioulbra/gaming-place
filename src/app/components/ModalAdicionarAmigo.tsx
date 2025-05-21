@@ -22,7 +22,7 @@ export default function ModalAdicionarAmigo({ isOpen, setIsOpen }: { isOpen: boo
 
   const isMobile = windowSize.width < 768;
   const isSmallMobile = windowSize.width < 400;
-  const isTablet = windowSize.width >= 768 && windowSize.width < 1024;
+  // const isTablet = windowSize.width >= 768 && windowSize.width < 1024;
   const isDesktop = windowSize.width >= 1024;
 
   if (!isOpen) return null;

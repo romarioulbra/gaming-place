@@ -15,11 +15,7 @@ export default function TabelaJogos({ data,atributosCabTab,atributosDados }: Tab
 
     
     const [isLoading, setIsLoading] = useState(false);
-   
     const [modalText, setModalText] = useState("Tem certeza que deseja excluir o Registro abaixo?");
-
-    const [tabelaDados,setTabelaDados] = useState(data);
-
     const nomeModulo= 'Jogos';
     const [modalAberto,setModalAberto] = useState(false);
     const [modalType, setModalType] = useState<'editar' | 'excluir' | null>(null);

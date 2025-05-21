@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import {useEffect } from "react";
 import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 
 export default function Toast({ message, type, onClose }) {

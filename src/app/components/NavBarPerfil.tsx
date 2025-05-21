@@ -7,7 +7,6 @@ import { useState, useEffect } from "react";
 import PerfilDropdown from "./PerfilDropdown";
 
 export default function NavbarPerfil() {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const { data: session, status, update } = useSession();
   
   // Defina valores padrão para evitar erros caso session seja undefined

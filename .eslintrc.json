@@ -1,19 +1,24 @@
 // {
 //   "extends": ["next/core-web-vitals", "next/typescript"]
 // }
+// {
+//   "overrides": [
+//     {
+//       "files": ["src/app/api/**/*.tsx"],
+//       "rules": {
+//         "no-restricted-syntax": [
+//           "error",
+//           {
+//             "selector": "Program",
+//             "message": "Não use arquivos .tsx dentro de rotas API. Use .ts"
+//           }
+//         ]
+//       }
+//     }
+//   ]
+// }
+
 {
-  "overrides": [
-    {
-      "files": ["src/app/api/**/*.tsx"],
-      "rules": {
-        "no-restricted-syntax": [
-          "error",
-          {
-            "selector": "Program",
-            "message": "Não use arquivos .tsx dentro de rotas API. Use .ts"
-          }
-        ]
-      }
-    }
-  ]
+  "extends": ["next", "next/core-web-vitals"],
+  "plugins": ["@next/next"]
 }

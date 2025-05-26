@@ -45,7 +45,7 @@ async function main() {
         emblema_criterio: 'Explorador, curioso, desbravador',
         emblema_imagem: '/upload/emblemas/dora_aventureira.png',
         emblemas_pontos: '100',
-        emblemas_status: 'Ativo'
+        emblemas_status: 'desbloqueado'
       },
       {
         emblema_id: 2,
@@ -53,7 +53,7 @@ async function main() {
         emblema_criterio: 'Criativo, geek, amante de conhecimento',
         emblema_imagem: '/upload/emblemas/harry_potter.jpg',
         emblemas_pontos: '50',
-        emblemas_status: 'Ativo'
+        emblemas_status: 'bloqueado'
       },
       {
         emblema_id: 3,
@@ -61,7 +61,7 @@ async function main() {
         emblema_criterio: 'Estrategista, competitivo e elegante',
         emblema_imagem: '/upload/emblemas/manhattan.jpg',
         emblemas_pontos: '85',
-        emblemas_status: 'Ativo'
+        emblemas_status: 'bloqueado'
       },
       {
         emblema_id: 4,
@@ -69,7 +69,7 @@ async function main() {
         emblema_criterio: 'Colaborativo, altruísta, espírito de equipe',
         emblema_imagem: '/upload/emblemas/robin_hood.png',
         emblemas_pontos: '100',
-        emblemas_status: 'Ativo'
+        emblemas_status: 'bloqueado'
       },
       {
         emblema_id: 5,
@@ -77,7 +77,7 @@ async function main() {
         emblema_criterio: 'Econômico, acumulador, analítico',
         emblema_imagem: '/upload/emblemas/tio_patinhas.png',
         emblemas_pontos: '200',
-        emblemas_status: 'Ativo'
+        emblemas_status: 'bloqueado'
       }
     ],
     skipDuplicates: true

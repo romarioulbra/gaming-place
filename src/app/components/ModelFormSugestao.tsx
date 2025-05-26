@@ -228,7 +228,7 @@ export function ModelFormSugestao({ onClose, dadosUsuario }: { onClose: () => vo
               <li className="flex items-start bg-white p-3 rounded-lg border-l-4 border-green-500 hover:shadow-md hover:-translate-y-1 transition-all duration-300">
                 <span className="text-green-500 font-bold mr-2 hover:scale-125 transition-transform duration-200">✓</span>
                 <span>
-                  <strong className="text-indigo-700">100 pontos</strong> por sugestão enviada
+                  <strong className="text-indigo-700">Receba pontos</strong> por sugestão enviada
                   <p className="text-xs text-gray-500 mt-1">Pontos creditados após análise da sugestão</p>
                 </span>
               </li>

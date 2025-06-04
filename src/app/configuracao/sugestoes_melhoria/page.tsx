@@ -18,6 +18,20 @@ export default function SugestoesMelhorias() {
   console.log('Dados de sugestões'+sugestoes);
  
 
+  // useEffect(() => {
+  //   async function fetchSugestoes() {
+  //     try {
+  //       const response = await axios.get('/api/sugestoes');
+  //       setSugestoes(response.data.sug_melhoria);// lista de sugestões
+  //        console.log('Dados de sugestões'+sugestoes);
+  //     } catch (error) {
+  //       console.error('Erro ao buscar Sugestões de Melhorias:', error);
+  //     }
+  //   } 
+  //   fetchSugestoes();
+  // }, [sugestoes]); 
+  
+  
   useEffect(() => {
     async function fetchSugestoes() {
       try {
@@ -29,7 +43,7 @@ export default function SugestoesMelhorias() {
       }
     } 
     fetchSugestoes();
-  }, [sugestoes]);
+  }, []);
 
   
   return (

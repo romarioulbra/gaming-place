@@ -6,7 +6,10 @@ const prisma = new PrismaClient();
 
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'admin@gmail.com';
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'Admin@123';
-const DEFAULT_USER_PASSWORD = process.env.DEFAULT_USER_PASSWORD || 'Usuario@123';
+
+const USER_EMAIL = process.env.USER_EMAIL || 'user@gmail.com';
+const USER_PASSWORD = process.env.USER_PASSWORD || 'User@123';
+// const DEFAULT_USER_PASSWORD = process.env.DEFAULT_USER_PASSWORD || 'User@123';
 
 async function main() {
   console.log('🌱 Iniciando seed do banco de dados...');
@@ -44,7 +47,8 @@ async function main() {
         emblema_nome: 'Dora Aventureira',
         emblema_criterio: 'Explorador, curioso, desbravador',
         emblema_imagem: '/upload/emblemas/dora_aventureira.png',
-        emblemas_pontos: '100',
+        emblemas_pontos_atuais:'0',
+        emblemas_pontos_total: '900',
         emblemas_status: 'desbloqueado'
       },
       {
@@ -52,7 +56,8 @@ async function main() {
         emblema_nome: 'Harry Potter',
         emblema_criterio: 'Criativo, geek, amante de conhecimento',
         emblema_imagem: '/upload/emblemas/harry_potter.jpg',
-        emblemas_pontos: '50',
+        emblemas_pontos_atuais:'0',
+        emblemas_pontos_total: '500',
         emblemas_status: 'bloqueado'
       },
       {
@@ -60,7 +65,8 @@ async function main() {
         emblema_nome: 'Manhattan',
         emblema_criterio: 'Estrategista, competitivo e elegante',
         emblema_imagem: '/upload/emblemas/manhattan.jpg',
-        emblemas_pontos: '85',
+        emblemas_pontos_atuais:'0',
+        emblemas_pontos_total: '600',
         emblemas_status: 'bloqueado'
       },
       {
@@ -68,7 +74,8 @@ async function main() {
         emblema_nome: 'Robin Hood',
         emblema_criterio: 'Colaborativo, altruísta, espírito de equipe',
         emblema_imagem: '/upload/emblemas/robin_hood.png',
-        emblemas_pontos: '100',
+        emblemas_pontos_atuais:'0',
+        emblemas_pontos_total: '500',
         emblemas_status: 'bloqueado'
       },
       {
@@ -76,7 +83,8 @@ async function main() {
         emblema_nome: 'Tio Patinhas',
         emblema_criterio: 'Econômico, acumulador, analítico',
         emblema_imagem: '/upload/emblemas/tio_patinhas.png',
-        emblemas_pontos: '200',
+        emblemas_pontos_atuais:'0',
+        emblemas_pontos_total: '750',
         emblemas_status: 'bloqueado'
       }
     ],
@@ -136,7 +144,7 @@ async function main() {
         create: {
           perfil_imagem: '/upload/perfil/avatar_perfil.jpg',
           perfil_cidade: 'Palmas',
-          perfil_pontos: 1000,
+          perfil_pontos: 0,
           perfil_nivel: 10,
           emblema: 5 // Tio Patinhas (emblema mais alto)
         }
@@ -149,20 +157,20 @@ async function main() {
 
   // 5. Criar usuário normal com avatar padrão
   console.log('👤 Criando usuário normal...');
-  const senhaUserCriptografada = await bcrypt.hash(DEFAULT_USER_PASSWORD, 10);
+  const senhaUserCriptografada = await bcrypt.hash(USER_PASSWORD, 10);
   const usuarioNormal = await prisma.usuarios.upsert({
-    where: { usuario_email: 'usuario@gmail.com' },
+    where: { usuario_email: USER_EMAIL},
     update: {},
     create: {
       usuario_nome: 'Normal',
-      usuario_email: 'usuario@gmail.com',
+      usuario_email: USER_EMAIL,
       usuario_senha: senhaUserCriptografada,
       usuario_nivel: 'Normal',
       perfis: {
         create: {
           perfil_imagem: '/upload/perfil/avatar_perfil.jpg',
           perfil_cidade: 'Palmas',
-          perfil_pontos: 100,
+          perfil_pontos: 0,
           perfil_nivel: 1,
           emblema: 1 // Dora Aventureira (emblema inicial)
         }
@@ -218,8 +226,8 @@ async function main() {
   console.log(`📧 Email: ${ADMIN_EMAIL}`);
   console.log(`🔒 Senha: ${ADMIN_PASSWORD}`);
   console.log('👤 Credenciais do usuário normal:');
-  console.log('📧 Email: usuario@gaming_place.com');
-  console.log(`🔒 Senha: ${DEFAULT_USER_PASSWORD}`);
+  console.log(`📧 Email: ${USER_EMAIL}`);
+  console.log(`🔒 Senha: ${USER_PASSWORD}`);
 }
 
 main()

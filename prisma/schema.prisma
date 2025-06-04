@@ -48,7 +48,8 @@ model emblemas {
   emblema_nome     String
   emblema_criterio String
   emblema_imagem   String
-  emblemas_pontos  String
+  emblemas_pontos_atuais  String
+  emblemas_pontos_total  String
   emblemas_status  String
 
   perfis perfis[]
@@ -108,7 +109,6 @@ model indicacao_amigo {
   indicacao_amigo_email_indicado  String
   status_convite                  StatusConvite @default(ENVIADO)
   data_indicacao                  DateTime      @default(now())
-  // token_indicacao                 String
 
   usuario usuarios @relation(fields: [usuario_indicador_id], references: [usuario_id], onDelete: Cascade)
 }

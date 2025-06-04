@@ -10,11 +10,9 @@ import ConfigPanel from "../../configuracao/page";
 import NavBarDashAdmin from "@/app/components/NavBarDashAdmin";
 import CategoriaEmblemas from "@/app/configuracao/emblemas_categoria/page";
 
-
 export default function AdminDashboard() {
 
   const [currentPage, setCurrentPage] = useState("dashboard"); // Estado para controlar a página exibida
-
   // Função para mudar a página
   const changePage = (page) => {
     setCurrentPage(page);
@@ -39,7 +37,6 @@ export default function AdminDashboard() {
                   <ConfigPanel />
                 </div>
               )}
-
               {currentPage === "configuracao" && <ConfigPanel />}
               {currentPage === "usuarios" && <Usuarios />}
               {currentPage === "jogos" && <Jogos />}

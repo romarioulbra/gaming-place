@@ -18,7 +18,6 @@ export function ModelFormSugestao({ onClose, dadosUsuario }: { onClose: () => vo
   const [successMessage, setSuccessMessage] = useState('');
   const [criterios, setCriterios] = useState<{ tipo_emblema_id: string, tipo_emblema_criterio: string }[]>([]);
 
-
   //Buscando Dados do BD para Recarregar na página
   useEffect(() => {
     async function fetchCriterios() {
@@ -156,8 +155,6 @@ export function ModelFormSugestao({ onClose, dadosUsuario }: { onClose: () => vo
             </div>
 
             <div className="space-y-1">
-
-              {/* <label htmlFor="sugestao_melhoria_nome" className="block text-sm font-medium text-gray-700">Seu Nome </label> */}
 
               <input
                 type="hidden"

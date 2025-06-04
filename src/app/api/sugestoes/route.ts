@@ -24,7 +24,6 @@ export async function GET() {
     let stack = "";
     let name = "";
 
-
     if (error instanceof Error) {
     message = error.message;
     stack = error.stack || "";
@@ -40,7 +39,6 @@ export async function GET() {
     }, { status: 500 });
   }
 }
-
 
 
 export async function POST(request: Request) {

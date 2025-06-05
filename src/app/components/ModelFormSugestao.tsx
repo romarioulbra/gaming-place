@@ -7,6 +7,7 @@ export function ModelFormSugestao({ onClose, dadosUsuario }: { onClose: () => vo
  
  const [formData, setFormData] = useState({
   sugestao_melhoria_nome: dadosUsuario?.usuario?.nome || '',
+  sugestao_melhoria_titulo: '',
   sugestao_melhoria_descricao: '',
   sugestao_melhoria_status: '',
   usuario_id: dadosUsuario?.usuario?.id?.toString() || '',
@@ -40,6 +41,7 @@ export function ModelFormSugestao({ onClose, dadosUsuario }: { onClose: () => vo
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         sugestao_melhoria_nome: formData.sugestao_melhoria_nome,
+        sugestao_melhoria_titulo: formData.sugestao_melhoria_titulo,
         sugestao_melhoria_descricao: formData.sugestao_melhoria_descricao,
         sugestao_melhoria_status: 'enviado',
         usuario_id: parseInt(formData.usuario_id),
@@ -52,6 +54,7 @@ export function ModelFormSugestao({ onClose, dadosUsuario }: { onClose: () => vo
     setSuccessMessage('Sugestão enviada com sucesso!');
     setFormData({
       sugestao_melhoria_nome: dadosUsuario?.usuario?.nome || '',
+      sugestao_melhoria_titulo: '',
       sugestao_melhoria_descricao: '',
       sugestao_melhoria_status: '',
       usuario_id: dadosUsuario?.usuario?.id?.toString() || '',
@@ -135,6 +138,20 @@ export function ModelFormSugestao({ onClose, dadosUsuario }: { onClose: () => vo
           </AnimatePresence>
 
           <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="space-y-1">
+              <label htmlFor="tipo_emblema_id" className="block text-sm font-medium text-gray-700">Assunto *</label>
+              <input
+                type="text"
+                id="sugestao_melhoria_titulo"
+                name="sugestao_melhoria_titulo"
+                required
+                value={formData.sugestao_melhoria_titulo}
+                onChange={handleChange}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-300"
+                placeholder="Informe o assunto da Sugestão"
+              />
+            </div>
+            
             <div className="space-y-1">
               <label htmlFor="tipo_emblema_id" className="block text-sm font-medium text-gray-700">Critérios *</label>
               <select

@@ -174,6 +174,7 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
         return (
           item.sugestao_melhoria_nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
           item.sugestao_melhoria_descricao.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          item.sugestao_melhoria_titulo.toLowerCase().includes(searchTerm.toLowerCase()) ||
           item.sugestao_melhoria_status.toLowerCase().includes(searchTerm.toLowerCase())
         );
 
@@ -321,6 +322,7 @@ export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
                           sugestaoId={item.sugestao_melhoria_id}
                           statusAtual={item.sugestao_melhoria_status}
                           descricao={item.sugestao_melhoria_descricao}
+                          titulo={item.sugestao_melhoria_titulo}
                           onStatusChange={(novoStatus) => 
                             handleStatusChange(item.sugestao_melhoria_id, novoStatus)
                           }

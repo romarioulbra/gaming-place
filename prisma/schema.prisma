@@ -75,6 +75,7 @@ model perfis {
 model sugestao_melhoria {
   sugestao_melhoria_id        Int      @id @default(autoincrement())
   sugestao_melhoria_nome      String
+  sugestao_melhoria_titulo    String
   sugestao_melhoria_descricao String   @db.VarChar(254)
   sugestao_melhoria_status    String
   // Relação com usuarios
@@ -125,10 +126,11 @@ model usuario_tipo_emblema {
   tipoEmblemaId                Int
   usuario_emblema_pontos       Int              @default(0)
   usuario_emblema_status       StatusTipoEmblema @default(DESBLOQUEADO)
+  sugestao_id                  Int?              // Adicione esta linha para relacionar com a sugestão
 
   usuario      usuarios         @relation(fields: [usuarioId], references: [usuario_id], onDelete: Cascade)
   tipoEmblema  tipo_emblemas @relation(fields: [tipoEmblemaId], references: [tipo_emblema_id], onDelete: Cascade)
-
+  sugestao     sugestao_melhoria? @relation(fields: [sugestao_id], references: [sugestao_melhoria_id])
 
   @@unique([usuarioId, tipoEmblemaId])
 }

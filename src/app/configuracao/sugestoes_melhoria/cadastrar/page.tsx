@@ -20,6 +20,7 @@ export default function CadastrarSugestoesMelhorias() {
 
   const [formData, setFormData] = useState({
     sugestao_melhoria_nome: "",
+    sugestao_melhoria_titulo: "",
     sugestao_melhoria_descricao: "",
     sugestao_melhoria_status: "",
     usuario_id: "",
@@ -94,6 +95,7 @@ export default function CadastrarSugestoesMelhorias() {
 
       setFormData({
         sugestao_melhoria_nome: "",
+        sugestao_melhoria_titulo: "",
         sugestao_melhoria_descricao: "",
         sugestao_melhoria_status: "",
         usuario_id: "",

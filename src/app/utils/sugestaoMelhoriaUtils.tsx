@@ -8,6 +8,7 @@ export async function getTodosSugMelhoria() {
       select: {
         sugestao_melhoria_id: true,
         sugestao_melhoria_nome: true,
+        sugestao_melhoria_titulo: true,
         sugestao_melhoria_descricao: true,
         sugestao_melhoria_status: true,
         usuario: {

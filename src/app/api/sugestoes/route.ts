@@ -47,6 +47,7 @@ export async function POST(request: Request) {
 
     const {
       sugestao_melhoria_nome,
+      sugestao_melhoria_titulo,
       sugestao_melhoria_descricao,
       sugestao_melhoria_status,
       usuario_id,
@@ -54,7 +55,8 @@ export async function POST(request: Request) {
     } = body;
 
     if (
-      !sugestao_melhoria_nome ||
+      !sugestao_melhoria_nome || 
+      !sugestao_melhoria_titulo ||
       !sugestao_melhoria_descricao ||
       usuario_id === undefined ||
       tipo_emblema_id === undefined
@@ -78,6 +80,7 @@ export async function POST(request: Request) {
     const novaSugestao = await prisma.sugestao_melhoria.create({
       data: {
         sugestao_melhoria_nome,
+        sugestao_melhoria_titulo,
         sugestao_melhoria_descricao,
         sugestao_melhoria_status: sugestao_melhoria_status || "enviado",
         usuario_id: usuarioIdNum,

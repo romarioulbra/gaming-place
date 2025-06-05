@@ -47,8 +47,8 @@ async function main() {
         emblema_nome: 'Dora Aventureira',
         emblema_criterio: 'Explorador, curioso, desbravador',
         emblema_imagem: '/upload/emblemas/dora_aventureira.png',
-        emblemas_pontos_atuais:'0',
-        emblemas_pontos_total: '900',
+        // emblemas_pontos_atuais:'0',
+        emblemas_pontos: 900,
         emblemas_status: 'desbloqueado'
       },
       {
@@ -56,8 +56,8 @@ async function main() {
         emblema_nome: 'Harry Potter',
         emblema_criterio: 'Criativo, geek, amante de conhecimento',
         emblema_imagem: '/upload/emblemas/harry_potter.jpg',
-        emblemas_pontos_atuais:'0',
-        emblemas_pontos_total: '500',
+        // emblemas_pontos_atuais:'0',
+        emblemas_pontos: 500,
         emblemas_status: 'bloqueado'
       },
       {
@@ -65,8 +65,8 @@ async function main() {
         emblema_nome: 'Manhattan',
         emblema_criterio: 'Estrategista, competitivo e elegante',
         emblema_imagem: '/upload/emblemas/manhattan.jpg',
-        emblemas_pontos_atuais:'0',
-        emblemas_pontos_total: '600',
+        // emblemas_pontos_atuais:'0',
+        emblemas_pontos: 600,
         emblemas_status: 'bloqueado'
       },
       {
@@ -74,8 +74,8 @@ async function main() {
         emblema_nome: 'Robin Hood',
         emblema_criterio: 'Colaborativo, altruísta, espírito de equipe',
         emblema_imagem: '/upload/emblemas/robin_hood.png',
-        emblemas_pontos_atuais:'0',
-        emblemas_pontos_total: '500',
+        // emblemas_pontos_atuais:'0',
+        emblemas_pontos: 500,
         emblemas_status: 'bloqueado'
       },
       {
@@ -83,8 +83,8 @@ async function main() {
         emblema_nome: 'Tio Patinhas',
         emblema_criterio: 'Econômico, acumulador, analítico',
         emblema_imagem: '/upload/emblemas/tio_patinhas.png',
-        emblemas_pontos_atuais:'0',
-        emblemas_pontos_total: '750',
+        // emblemas_pontos_atuais:'0',
+        emblemas_pontos: 750,
         emblemas_status: 'bloqueado'
       }
     ],
@@ -221,6 +221,33 @@ async function main() {
     skipDuplicates: true
   });
 
+  // 7. Relacionar usuário normal aos tipos de emblema
+  console.log('🔗 Relacionando usuário normal aos tipos de emblemas...');
+  const tiposEmblemas = await prisma.tipo_emblemas.findMany();
+
+  await Promise.all(
+    tiposEmblemas.map(async (tipo) => {
+      const status = tipo.emblema_id === 1 ? 'DESBLOQUEADO' : 'BLOQUEADO';
+
+      await prisma.usuario_tipo_emblema.upsert({
+        where: {
+          usuarioId_tipoEmblemaId: {
+            usuarioId: usuarioNormal.usuario_id,
+            tipoEmblemaId: tipo.tipo_emblema_id,
+          },
+        },
+        update: {},
+        create: {
+          usuarioId: usuarioNormal.usuario_id,
+          tipoEmblemaId: tipo.tipo_emblema_id,
+          usuario_emblema_pontos: 0,
+          usuario_emblema_status: status,
+        }
+      });
+    })
+  );
+
+
   console.log('✅ Seed concluído com sucesso!');
   console.log('🔑 Credenciais do administrador:');
   console.log(`📧 Email: ${ADMIN_EMAIL}`);
@@ -228,6 +255,7 @@ async function main() {
   console.log('👤 Credenciais do usuário normal:');
   console.log(`📧 Email: ${USER_EMAIL}`);
   console.log(`🔒 Senha: ${USER_PASSWORD}`);
+
 }
 
 main()

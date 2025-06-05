@@ -21,6 +21,8 @@ model usuarios {
   sugestoes sugestao_melhoria[]
 
   indicacao_amigo indicacao_amigo[]
+  usuario_tipo_emblemas usuario_tipo_emblema[]
+
 }
 
 model jogos {
@@ -30,7 +32,7 @@ model jogos {
   jogos_link        String
   jogos_url_img     String?
   jogos_autor       String?
-  // categoria_jogos   categoria_jogos @relation(fields: [categoria_jogo_id], references: [categoria_jogo_id])
+
   categoria_jogos   categoria_jogos @relation(fields: [categoria_jogo_id], references: [categoria_jogo_id], onDelete: Cascade)
   categoria_jogo_id Int
   createdAt         DateTime        @default(now())
@@ -48,8 +50,7 @@ model emblemas {
   emblema_nome     String
   emblema_criterio String
   emblema_imagem   String
-  emblemas_pontos_atuais  String
-  emblemas_pontos_total  String
+  emblemas_pontos  Int
   emblemas_status  String
 
   perfis perfis[]
@@ -65,7 +66,6 @@ model perfis {
   perfil_nivel  Int    @default(1)
 
   perfil_usuarios usuarios @relation(fields: [usuario], references: [usuario_id], onDelete: Cascade)
-
   perfil_emblemas emblemas @relation(fields: [emblema], references: [emblema_id], onDelete: Cascade)
 
   usuario Int
@@ -89,11 +89,12 @@ model tipo_emblemas {
   tipo_emblema_id       Int    @id @default(autoincrement())
   tipo_emblema_criterio String
   tipo_emblema_pontos   Int
-
-  emblema    emblemas @relation(fields: [emblema_id], references: [emblema_id], onDelete: Cascade)
   emblema_id Int
-
+  
+  emblema    emblemas @relation(fields: [emblema_id], references: [emblema_id], onDelete: Cascade)
   sugestoes_melhoria sugestao_melhoria[] // relação inversa opcional (1:N)
+  usuario_tipo_emblemas usuario_tipo_emblema[]
+
 }
 
 enum StatusConvite {
@@ -111,4 +112,23 @@ model indicacao_amigo {
   data_indicacao                  DateTime      @default(now())
 
   usuario usuarios @relation(fields: [usuario_indicador_id], references: [usuario_id], onDelete: Cascade)
+}
+
+enum StatusTipoEmblema {
+  BLOQUEADO
+  DESBLOQUEADO
+}
+
+model usuario_tipo_emblema {
+  usuario_emblema_id           Int               @id @default(autoincrement())
+  usuarioId                    Int
+  tipoEmblemaId                Int
+  usuario_emblema_pontos       Int              @default(0)
+  usuario_emblema_status       StatusTipoEmblema @default(DESBLOQUEADO)
+
+  usuario      usuarios         @relation(fields: [usuarioId], references: [usuario_id], onDelete: Cascade)
+  tipoEmblema  tipo_emblemas @relation(fields: [tipoEmblemaId], references: [tipo_emblema_id], onDelete: Cascade)
+
+
+  @@unique([usuarioId, tipoEmblemaId])
 }

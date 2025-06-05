@@ -97,7 +97,7 @@ export async function POST(req: Request) {
       data: {
         emblema_nome: String(emblema_nome),
         emblema_criterio: String(emblema_criterio),
-        emblemas_pontos: String(emblemas_pontos),
+        emblemas_pontos: Number(emblemas_pontos),
         emblemas_status: String(emblemas_status),
         emblema_imagem: `/upload/emblemas/${uniqueFileName}`,
       },

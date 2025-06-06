@@ -84,6 +84,8 @@ model sugestao_melhoria {
 
   tipo_emblema_id Int
   tipo_emblema    tipo_emblemas @relation(fields: [tipo_emblema_id], references: [tipo_emblema_id], onDelete: Cascade)
+  usuario_tipo_emblemas usuario_tipo_emblema[]  // relação 1:N reversa
+  
 }
 
 model tipo_emblemas {

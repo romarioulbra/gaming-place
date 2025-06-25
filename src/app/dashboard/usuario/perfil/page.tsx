@@ -68,7 +68,7 @@ export default function Perfil() {
             </div>
           </div>
           <div>
-            <p className="text-sm">Troféus: <span className="font-bold">{emblema}</span></p>
+            {/* <p className="text-sm">Troféus: <span className="font-bold">{emblema}</span></p> */}
             <p className="text-sm">Pontos: <span className="font-bold text-yellow-400">{perfil_pontos}</span></p>
             <p className="text-sm">Nível: <span className="font-bold text-green-400">{nivel}</span></p>
           </div>

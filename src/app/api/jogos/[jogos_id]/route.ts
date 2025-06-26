@@ -6,10 +6,9 @@ import fs from "fs/promises";
 
 const prisma = new PrismaClient();
 
-
-export async function PUT(req: NextRequest, { params }: { params: { jogos_id: string } }) {
+export async function PUT(req: NextRequest, { params }: { params: Promise<{ jogos_id: string }> }) {
   try {
-    const { jogos_id } = params;
+    const { jogos_id } = await params;
 
     // Validação do ID
     const jogosIdNumber = Number(jogos_id);
@@ -103,9 +102,9 @@ export async function PUT(req: NextRequest, { params }: { params: { jogos_id: st
 
 
 // Verifica se o método é DELETE
-export async function DELETE(req: NextRequest, { params }: { params: { jogos_id: string } }) {
+export async function DELETE(req: NextRequest, { params }: { params: Promise<{ jogos_id: string }> }) {
   try {
-    const { jogos_id } = params;
+    const { jogos_id } = await params;
 
     if (!jogos_id) {
       return NextResponse.json({ error: "ID do Jogo é obrigatório." }, { status: 400 });

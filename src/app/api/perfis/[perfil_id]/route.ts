@@ -5,9 +5,11 @@ import fs from "fs/promises";
 
 const prisma = new PrismaClient();
 
-export async function PUT(req: NextRequest, { params }: { params: { perfil_id: string } }) {
+
+
+export async function PUT(req: NextRequest, { params }: { params: Promise<{ perfil_id: string }> }) {
   try {
-    const { perfil_id } = params;
+    const { perfil_id } = await params;
 
     // Validação do ID
     const perfilIdNumber = Number(perfil_id);

@@ -3,13 +3,15 @@ import { PrismaClient } from "@prisma/client";
 import path from "path";
 import fs from "fs/promises";
 
+
+
 const prisma = new PrismaClient();
 
 export async function GET(
-  request: Request,
-  { params }: { params: { categoria_jogo_id: string } }
+  req: NextRequest,
+  { params }: { params: Promise<{ categoria_jogo_id: string }> }
 ) {
-  const { categoria_jogo_id } = params;
+  const { categoria_jogo_id } = await params;
 
   try {
     // Busca os jogos da categoria específica
@@ -45,9 +47,9 @@ interface CategoriaJogoUpdateData {
 }
 
 
-export async function PUT(req: NextRequest, { params }: { params: { categoria_jogo_id: string } }) {
+export async function PUT(req: NextRequest, { params }: { params: Promise<{ categoria_jogo_id: string }> }) {
   try {
-    const { categoria_jogo_id } = params;
+    const { categoria_jogo_id } = await params;
     const formData = await req.formData();
 
     const categoria_jogo_area_atuacao = formData.get("categoria_jogo_area_atuacao");

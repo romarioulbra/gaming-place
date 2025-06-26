@@ -43,7 +43,7 @@ export default function SugestoesMelhorias() {
       }
     } 
     fetchSugestoes();
-  }, []);
+  }, [sugestoes]);
 
   
   return (

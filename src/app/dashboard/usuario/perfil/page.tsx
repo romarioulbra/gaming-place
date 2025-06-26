@@ -10,6 +10,9 @@ import EnviarSugestão from "../../../components/EnviarSugestão";
 
 export default function Perfil() {
   const { data: session, status } = useSession();
+  const [refreshProgress, setRefreshProgress] = useState(false);
+  const [refreshKey, setRefreshKey] = useState(0);
+
 
   // Mover todos os hooks para o topo, antes de retornos condicionais
   const [perfil, setPerfil] = useState({
@@ -74,8 +77,8 @@ export default function Perfil() {
           </div>
         </div>
 
-        <BarraProgresso />
-        <Emblemas />
+        <BarraProgresso shouldRefresh={refreshProgress}/>
+        <Emblemas onEmblemCollected={() => setRefreshKey(prev => prev + 1)} />
         <Ranking />
 
         {/* Botões de Ação */}

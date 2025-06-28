@@ -37,8 +37,9 @@ export async function GET() {
 
     return NextResponse.json({ cat_jogos, totalCatJogos }, { status: 200 });
   } catch (error) {
+    const err = error as Error;
     return NextResponse.json(
-      { error: "Erro ao buscar Categorias de Jogos", details: error.message },
+      { error: "Erro ao buscar Categorias de Jogos", details: err.message },
       { status: 500 }
     );
   }

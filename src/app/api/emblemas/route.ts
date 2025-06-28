@@ -9,30 +9,6 @@ const prisma = new PrismaClient();
 
 
 // Função de Listagem de Dados de Jogos com Categorias de Jogos
-// export async function GET() {
-//   try {
-//     const emblemas = await prisma.emblemas.findMany({ 
-//       select: {
-//         emblema_id: true,
-//         emblema_nome: true,
-//         emblema_criterio: true,
-//         emblema_imagem: true,
-//         emblemas_pontos: true,
-//         emblemas_status: true, 
-//       },
-//     });
-    
-//     return NextResponse.json(emblemas, { status: 200 });
-//   } catch (error) {
-//     console.error('Erro ao buscar Jogos:', error.message);
-//     return NextResponse.json(
-//       { error: 'Erro ao buscar Jogos', details: error.message },
-//       { status: 500 }
-//     );
-//   }
-// }
-
-
 export async function GET() {
   try {
     const [emblemas, totalEmblemas] = await Promise.all([
@@ -42,8 +18,9 @@ export async function GET() {
 
     return NextResponse.json({ emblemas, totalEmblemas }, { status: 200 });
   } catch (error) {
+    const err = error as Error;
     return NextResponse.json(
-      { error: "Erro ao buscar Jogos", details: error.message },
+      { error: "Erro ao buscar Jogos", details: err.message },
       { status: 500 }
     );
   }
@@ -105,7 +82,8 @@ export async function POST(req: Request) {
 
     return NextResponse.json(newEmblemas, { status: 201 });
   } catch (error) {
-    console.error("Erro ao lançar jogo:", error.message, error.stack);
+    const err = error as Error;
+    console.error("Erro ao lançar jogo:", err.message, err.stack);
     return NextResponse.json({ error: "Erro ao lançar Novo Emblema." }, { status: 500 });
   }
 }

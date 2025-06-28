@@ -40,7 +40,7 @@ export async function PUT(request: NextRequest) {
       }
 
       await processarEmblemaUsuario(sugestao);
-      await atualizarPontosPerfil(sugestao.usuario_id);
+      // await atualizarPontosPerfil(sugestao.usuario_id);
     }
 
     return NextResponse.json({

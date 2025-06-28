@@ -23,8 +23,9 @@ export async function GET() {
       { status: 200 }
     );
   } catch (error) {
+     const err = error as Error;
     return NextResponse.json(
-      { error: 'Erro ao buscar Categorias de Emblemas', details: error.message },
+      { error: 'Erro ao buscar Categorias de Emblemas', details: err.message },
       { status: 500 }
     );
   }

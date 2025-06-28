@@ -31,9 +31,10 @@ export async function GET(
 
     return NextResponse.json(jogos, { status: 200 });
   } catch (error) {
-    console.error("Erro ao buscar jogos da categoria:", error.message);
+    const err = error as Error;
+    console.error("Erro ao buscar jogos da categoria:", err.message);
     return NextResponse.json(
-      { error: "Erro ao buscar jogos da categoria", details: error.message },
+      { error: "Erro ao buscar jogos da categoria", details: err.message },
       { status: 500 }
     );
   }

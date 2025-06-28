@@ -18,8 +18,9 @@ export async function GET() {
 
     return NextResponse.json({ users, totalUsuarios }, { status: 200 });
   } catch (error) {
+    const err = error as Error;
     return NextResponse.json(
-      { error: 'Erro ao buscar usuários', details: error.message },
+      { error: 'Erro ao buscar usuários', details: err.message },
       { status: 500 }
     );
   }

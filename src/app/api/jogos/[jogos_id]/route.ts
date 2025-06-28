@@ -36,7 +36,12 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ jogo
       jogos_descricao: jogos_descricao.toString(),
       jogos_link: jogos_link.toString(),
       jogos_autor: jogos_autor.toString(),
-      categoria_jogo_id: Number(categoria_jogo_id),
+      // categoria_jogo_id: Number(categoria_jogo_id),
+      categoria_jogos: {
+        connect: {
+          categoria_jogo_id: Number(categoria_jogo_id),
+        },
+      }
     };
 
     // Verificar e processar o arquivo de imagem
@@ -155,9 +160,10 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ j
 
     return NextResponse.json({ message: "Jogo excluído com sucesso." }, { status: 200 });
   } catch (error) {
+    const err = error as Error;
     console.error("Erro ao excluir Jogo:", {
-      message: error.message,
-      stack: error.stack,
+      message: err.message,
+      stack: err.stack,
     });
     return NextResponse.json({ error: "Erro ao excluir Jogo." }, { status: 500 });
   }

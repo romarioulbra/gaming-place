@@ -6,17 +6,12 @@ import Tabela from "../../components/Tabela";
 import { FaMeteor} from "react-icons/fa";
 import CabecalhoViwer from "../../components/CabecalhoViwer";
 
-// import Fly from "@/app/components/Flyout";
-
 export default function Emblemas() {
     
   // variáveis globais
   const nomeModulo = 'Emblemas';
 
-  // const atributosCabTab = ["ID", "Nome", "Critério", "Pontos","Status", "Imagem"];
   const atributosCabTab = ["ID", "Nome", "Perfil", "Pontos (total)","Status"];
-  
-  // const atributosDados = ["emblema_id", "emblema_nome", "emblema_criterio", "emblemas_pontos", "emblemas_status" ,"emblema_imagem"];
   const atributosDados = ["emblema_id", "emblema_nome", "emblema_criterio", "emblemas_pontos","emblemas_status"];
 
   const [emblemas, setEmblemas] = useState([]);

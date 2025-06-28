@@ -6,7 +6,7 @@ import ReactPaginate from 'react-paginate';
 import { GrCaretPrevious,GrCaretNext  } from "react-icons/gr";
 import { FaPencilAlt,FaTrashAlt,FaTrash  } from "react-icons/fa";
 import { ModalFormulario } from './ModalFormulario';
-import AlterarUsuarios from '../configuracao/usuarios/alterar/page';
+import AlterarUsuarios from '../configuracao/usuarios/alterar/AlterarUsuario';
 
 interface TableProps {
   data: { categoria_jogo_id: number; categoria_jogo_area_atuacao: string; }[];

@@ -6,15 +6,19 @@ import { GrCaretPrevious,GrCaretNext  } from "react-icons/gr";
 import { FaPencilAlt,FaTrashAlt,FaTrash  } from "react-icons/fa";
 import { ModalFormulario } from './ModalFormulario';
 import Alert from './Alert';
-import AlterarJogosCategoria from '../configuracao/jogos_categoria/alterar/page';
-import AlterarUsuarios from '../configuracao/usuarios/alterar/page';
-import AlterarJogos from '../configuracao/jogos/alterar/page';
-import AlterarEmblemas from '../configuracao/emblemas/alterar/page';
+import AlterarJogosCategoria from '../configuracao/jogos_categoria/alterar/AlterarJogoCategoria';
+import AlterarUsuarios from '../configuracao/usuarios/alterar/AlterarUsuario';
+import AlterarJogos from '../configuracao/jogos/alterar/AlterarJogo';
+// import AlterarJogos from '../configuracao/jogos/alterar/page';
+// import AlterarEmblemas from '../configuracao/emblemas/alterar/page';
+// import AlterarEmblemasCategoria from '../configuracao/emblemas_categoria/alterar/page';
+import AlterarEmblemas from '../configuracao/emblemas/alterar/AlterarEmblemas';
+import AlterarEmblemasCategoria from '../configuracao/emblemas_categoria/alterar/AlterarEmblemasCategoria';
 import Image from 'next/image';
 import BotaoSenha from './BotaoSenha';
 import BotaoLinkJogo from './BotaoLinkJogo';
 import BotaoStatusSugestao from './BotaoStatusSugestao';
-import AlterarEmblemasCategoria from '../configuracao/emblemas_categoria/alterar/page';
+
 
 export default function Tabela({ data,atributosCabTab,atributosDados,modulo}) {
     //  Variáveis Globais

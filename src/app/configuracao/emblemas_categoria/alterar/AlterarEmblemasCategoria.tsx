@@ -8,7 +8,7 @@ interface Emblema {
   emblema_nome: string;
 }
 
-interface TipoEmblema {
+export interface TipoEmblema {
   tipo_emblema_id: number;
   tipo_emblema_criterio: string;
   tipo_emblema_pontos: number;

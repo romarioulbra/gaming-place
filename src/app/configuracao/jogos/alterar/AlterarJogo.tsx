@@ -8,11 +8,11 @@ import Image from "next/image";
 interface JogoData {
   jogos_id: string;
   jogos_nome: string;
-  jogos_descricao: string;
-  jogos_link: string;
-  jogos_autor: string;
+  jogos_descricao?: string;
+  jogos_link?: string;
+  jogos_autor?: string;
   jogos_url_img?: string;
-  categoria_jogo_id: string;
+  categoria_jogo_id?: string;
   categoria_jogo_nome?: string;
 }
 

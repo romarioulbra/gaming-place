@@ -90,7 +90,14 @@ export default function Perfil() {
             Adicionar amigos
           </button>
 
-          <EnviarSugestão dadosUsuario={session}/>
+          {/* <EnviarSugestão dadosUsuario={session}/> */}
+          <EnviarSugestão dadosUsuario={{
+              usuario: {
+                id: session.usuario.id,
+                nome: session.usuario.nome,
+                email: session.usuario.email
+              }
+            }} />
         </div>
 
         {/* Renderiza o modal quando estiver aberto */}

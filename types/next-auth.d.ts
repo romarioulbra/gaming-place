@@ -7,7 +7,7 @@ declare module "next-auth" {
     usuario: {
       id: number;
       email: string;
-      name: string;
+      nome: string;
       nivel: string;
       perfil_imagem: string;
       cidade: string;
@@ -17,7 +17,7 @@ declare module "next-auth" {
   interface JWT {
     id: number;
     email: string;
-    name: string;
+    nome: string;
     nivel: string;
     perfil_imagem: string;
     perfil_cidade: string;

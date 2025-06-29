@@ -17,7 +17,7 @@ export default function Botao({ texto, cor, tipo = 'submit', onClick }: BotaoPro
   return (
     <button
       type={tipo}
-      className={`${coresClasses[cor]} px-4 py-2 w-full text-white p-2 rounded-lg font-bold hover:bg-blue-700 transition duration-300 border-white border shadow-md  shadow-slate-400`}
+      className={`${coresClasses[cor??'azul']} px-4 py-2 w-full text-white p-2 rounded-lg font-bold hover:bg-blue-700 transition duration-300 border-white border shadow-md  shadow-slate-400`}
       onClick={onClick} // O onClick será executado se passado
     >
       {texto}

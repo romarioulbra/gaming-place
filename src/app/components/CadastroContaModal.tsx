@@ -48,7 +48,7 @@ export const CadastroContaModal: React.FC<Props> = ({
       <div className="p-8 border border-gray-300 shadow-lg bg-white rounded-lg">
         {alertVisible && (
           <Alert
-            message={alertMessage}
+            // message={alertMessage ?? }
             tipoAlert={alertType}
             texto={alertMessage}
             cor={alertType === "sucesso" ? "verde" : "vermelho"}

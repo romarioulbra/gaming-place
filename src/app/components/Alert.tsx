@@ -22,11 +22,11 @@ export default function Alert({ texto, cor, tipoAlert}: AlertProps) {
 
   return (
     <div
-      className={`flex items-center ml-5 mr-5 pt-5 pb-5 justify-center p-4 rounded border ${coresAlert[cor]} `}
+      className={`flex items-center ml-5 mr-5 pt-5 pb-5 justify-center p-4 rounded border ${coresAlert[cor?? 'azul']} `}
       role="alert"
     >
       <strong className="font-bold mr-2">
-        {titulosAlert[tipoAlert]}
+        {titulosAlert[tipoAlert ?? 'informacao']}
       </strong>
       <span className="text-sm">{texto}</span>
     </div>

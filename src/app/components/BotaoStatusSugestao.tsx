@@ -2,7 +2,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaCheckCircle, FaClock, FaTimes, FaInfoCircle, FaChevronDown, FaQuoteLeft, FaQuoteRight } from 'react-icons/fa';
 import axios from 'axios';
-import { useState } from 'react';
+import { useState,ReactNode } from 'react';
 import { FcAbout  } from "react-icons/fc";
 
 type Status = 'enviada' | 'validada' | 'rejeitada';
@@ -27,7 +27,8 @@ export default function BotaoStatusSugestao({
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState<Status | ''>('');
-  const [successMessage, setSuccessMessage] = useState('');
+  // const [successMessage, setSuccessMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState<ReactNode>('');
   const [pulse, setPulse] = useState(false);
   const [localStatus, setLocalStatus] = useState<Status>(initialStatus || DEFAULT_STATUS);
 
@@ -57,98 +58,6 @@ export default function BotaoStatusSugestao({
   };
 
   const currentStatus = statusData[localStatus] || statusData[DEFAULT_STATUS];
-
-//   const alterarStatus = async () => {
-//   if (!selectedStatus || selectedStatus === localStatus) {
-//     setShowModal(false);
-//     return;
-//   }
-//   setLoading(true);
-//   try {
-//     const response = await axios.put(`/api/sugestoes/${sugestaoId}`, { status: selectedStatus });
-    
-//     if (response.status === 200) {
-//       setSuccessMessage(
-//         <div className="flex items-center gap-2 text-green-700">
-//           <FaCheckCircle className="text-green-500 text-xl" />
-//           <span className="font-medium">Status atualizado com sucesso!</span>
-//         </div>
-//       );
-      
-//       setLocalStatus(selectedStatus);
-//       // Chama a callback de status change se existir
-//       if (onStatusChange) {
-//         onStatusChange(selectedStatus); // Esta é a função correta a ser chamada
-//       }
-      
-//       onUpdateTable && (await onUpdateTable());
-      
-//       setTimeout(() => {
-//         setShowModal(false);
-//         setSuccessMessage('');
-//       }, 2000);
-//     } else {
-//       throw new Error('Resposta inesperada do servidor');
-//     }
-//   } catch (error) {
-//     console.error('Erro ao alterar status:', error);
-//     setSuccessMessage(
-//       <div className="flex items-center gap-2 text-red-700">
-//         <FaTimes className="text-red-500 text-xl" />
-//         <span className="font-medium">
-//           {axios.isAxiosError(error) 
-//             ? error.response?.data?.message || 'Erro ao atualizar status' 
-//             : 'Erro desconhecido'}
-//         </span>
-//       </div>
-//     );
-//   } finally {
-//     setLoading(false);
-//   }
-// };
-
-// const alterarStatus = async () => {
-//   if (!selectedStatus || selectedStatus === localStatus) {
-//     setShowModal(false);
-//     return;
-//   }
-
-//   setLoading(true);
-//   try {
-//     const response = await fetch(`/api/validar-sugestao/${sugestaoId}`, {
-//       method: 'PUT',
-//       headers: { 'Content-Type': 'application/json' },
-//       body: JSON.stringify({ status: selectedStatus }),
-//     });
-
-//     if (response.ok) {
-//       setSuccessMessage('Status atualizado com sucesso!');
-//       setPulse(true);
-//       setLocalStatus(selectedStatus);
-//       onStatusChange?.(selectedStatus);
-
-//       if (onUpdateTable) {
-//         await onUpdateTable();
-//       }
-
-//       setTimeout(() => {
-//         setSuccessMessage('');
-//         setPulse(false);
-//         setShowModal(false);
-//         window.location.reload();
-//       }, 1500);
-//     } else {
-//       throw new Error('Falha ao atualizar status');
-//     }
-//   } catch (error) {
-//     setSuccessMessage('Erro ao atualizar status.');
-//     setTimeout(() => setSuccessMessage(''), 3000);
-//   } finally {
-//     setLoading(false);
-//   }
-// };
-
-
 
 
 const alterarStatus = async () => {

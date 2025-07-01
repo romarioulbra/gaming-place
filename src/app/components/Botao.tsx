@@ -3,6 +3,7 @@ interface BotaoProps {
   tipo?: 'button' | 'submit'; // Tipo do botão, opcional, padrão será 'submit'
   onClick?: () => void; 
   cor?: 'verde' | 'azul' | 'amarelo' | 'vermelho'; // Parâmetro de cor      // Função opcional que será chamada quando clicado, se for 'button'
+  disabled?: boolean;
 }
 
 export default function Botao({ texto, cor, tipo = 'submit', onClick }: BotaoProps) {

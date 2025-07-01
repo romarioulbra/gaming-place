@@ -144,11 +144,11 @@ export default function AlterarEmblemasCategorias({ dados }: { dados: TipoEmblem
 
       {alert && (
         <Alert
-          message={alert.message}
+          // message={alert.message}
           tipoAlert={alert.type}
           texto={alert.message}
           cor={alert.type === "sucesso" ? "verde" : "vermelho"}
-          onClose={() => setAlert(null)}
+          // onClose={() => setAlert(null)}
         />
       )}
 

@@ -75,10 +75,10 @@ export default function AlterarJogos({ dados }: { dados: JogoData }) {
     try {
       const formDados = new FormData();
       formDados.append("jogos_nome", formData.jogos_nome);
-      formDados.append("jogos_descricao", formData.jogos_descricao);
-      formDados.append("jogos_link", formData.jogos_link);
-      formDados.append("jogos_autor", formData.jogos_autor);
-      formDados.append("categoria_jogo_id", formData.categoria_jogo_id);
+      formDados.append("jogos_descricao", formData.jogos_descricao  || "");
+      formDados.append("jogos_link", formData.jogos_link  || "");
+      formDados.append("jogos_autor", formData.jogos_autor || "");
+      formDados.append("categoria_jogo_id", formData.categoria_jogo_id || "");
 
       if (file) {
         formDados.append("jogos_url_img", file);

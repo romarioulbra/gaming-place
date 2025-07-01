@@ -114,7 +114,6 @@ export default function CadastrarEmblemas() {
 
       {alertVisible && (
         <Alert
-          message={alertMessage}
           tipoAlert={alertType}
           texto={alertMessage}
           cor={alertType === "sucesso" ? "verde" : "vermelho"}

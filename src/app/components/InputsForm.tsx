@@ -209,6 +209,13 @@
 'use client'
 // import { useState } from 'react';
 
+interface SelectDataOption {
+  [key: string]: string | number;
+  id: string | number;
+  name: string;
+}
+
+
 interface FormularioProps {
   tipoInput: 
     | 'text' 
@@ -225,11 +232,17 @@ interface FormularioProps {
   label: string;
   placeholder?: string;
   options?: string[];
- dadosSelect?: { [key: string]: string }[]; // Ajuste aqui conforme o tipo real
+  // dadosSelect?: { [key: string]: string }[]; // Ajuste aqui conforme o tipo real
+  dadosSelect?: SelectDataOption[];
   idSelect?: string;
   nomeSelect?: string;
   idFileInput?: string;
 
+  disabled?: boolean; // ✅ Adicione esta linha
+  required?: boolean;
+  min?: string | number;
+  rows?: number;
+  
   metodoSubmit?: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
   valorInput?: string | number;
   fileSVG?: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -292,24 +305,54 @@ export default function InputForm({
           </select>
         )}
 
-        {tipoInput === 'selectDados' && (
-          <select
-            id={label.toLowerCase()}
-            name={label.toLowerCase()}
-            value={valorInput}
-            onChange={metodoSubmit}
-            className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4 placeholder-slate-500 text-black"
-            required
-          >
-            <option value="">Selecione uma Opção</option>
-            {dadosSelect.map((option) => (
-              <option key={option[idSelect]} value={option[idSelect]}>
-                {option[nomeSelect].toUpperCase()}
-              </option>
-            ))}
-          </select>
-        )}
+       {tipoInput === 'selectDados' && (
+        <select
+          id={label.toLowerCase()}
+          name={label.toLowerCase()}
+          value={valorInput}
+          onChange={metodoSubmit}
+          className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4 placeholder-slate-500 text-black"
+          required
+        >
+          <option value="">Selecione uma Opção</option>
+          {dadosSelect.map((option) => (
+            <option key={String(option[idSelect])} value={String(option[idSelect])}>
+              {String(option[nomeSelect]).toUpperCase()}
+            </option>
+          ))}
+        </select>
+      )}
 
+
+      {/* {tipoInput === 'selectDados' && (
+        <select
+          id={label.toLowerCase()}
+          name={label.toLowerCase()}
+          value={valorInput}
+          onChange={metodoSubmit}
+          className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4 placeholder-slate-500 text-black"
+          required
+          // disabled={disabled} // Adicionado suporte a disabled
+        >
+          <option value="">Selecione uma Opção</option>
+          {dadosSelect?.map((option) => {
+            // Verificação de segurança para os dados
+            if (!option || !option[idSelect] || !option[nomeSelect]) {
+              console.warn('Opção inválida no selectDados:', option);
+              return null;
+            }
+
+            const value = String(option[idSelect]);
+            const labelText = String(option[nomeSelect]).toUpperCase();
+
+            return (
+              <option key={value} value={value}>
+                {labelText}
+              </option>
+            );
+          })}
+        </select>
+      )} */}
         {tipoInput === 'textarea' && (
           <textarea
             id={label.toLowerCase()}

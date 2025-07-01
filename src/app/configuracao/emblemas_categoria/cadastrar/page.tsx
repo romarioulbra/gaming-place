@@ -541,6 +541,28 @@ export default function CadastrarEmblemasCategorias() {
                     disabled={isLoading || emblemas.length === 0}
                     required
                   />
+
+                    {/* <InputForm
+                    tipoInput="selectDados"  // Alterado para selectDados
+                    label="Emblema"
+                    // dadosSelect={emblemas}  // Passa o array completo
+                    dadosSelect={emblemas.map((e) => ({
+                       id: e.emblema_id.toString(),
+                      name: e.emblema_nome,
+                      original_id: e.emblema_id
+                    }))}
+                    idSelect="id"   // Nome do campo para value
+                    nomeSelect="name" // Nome do campo para display
+                    valorInput={formData.emblema_id?.toString() || ""}
+                    metodoSubmit={(e) => setFormData({ 
+                      ...formData, 
+                      emblema_id: e.target.value ? Number(e.target.value) : null 
+                    })}
+                    disabled={isLoading || emblemas.length === 0}
+                    required
+                  /> */}
+
+
                 </div>
                 <div className="flex-1">
                   <InputForm

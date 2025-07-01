@@ -123,12 +123,13 @@ enum StatusTipoEmblema {
 }
 
 model usuario_tipo_emblema {
-  usuario_emblema_id           Int               @id @default(autoincrement())
-  usuarioId                    Int
-  tipoEmblemaId                Int
-  usuario_emblema_pontos       Int              @default(0)
-  usuario_emblema_status       StatusTipoEmblema @default(DESBLOQUEADO)
-  sugestao_id                  Int?              // Adicione esta linha para relacionar com a sugestão
+  usuario_emblema_id                    Int        @id @default(autoincrement())
+  usuarioId                             Int
+  tipoEmblemaId                         Int
+  usuario_emblema_pontos                Int        @default(0)
+  usuario_emblemas_pontos_acumulativo   Int        @default(0) 
+  usuario_emblema_status                StatusTipoEmblema @default(DESBLOQUEADO)
+  sugestao_id                           Int?              // Adicione esta linha para relacionar com a sugestão
 
   usuario      usuarios         @relation(fields: [usuarioId], references: [usuario_id], onDelete: Cascade)
   tipoEmblema  tipo_emblemas @relation(fields: [tipoEmblemaId], references: [tipo_emblema_id], onDelete: Cascade)

@@ -248,20 +248,24 @@ type EmblemaUsuario = {
   emblema_id: number;
   desbloqueado: boolean;
   pontos: number;
+  pontos_acumulativos: number;
   status: 'BLOQUEADO' | 'DESBLOQUEADO';
   coletado: boolean;
 };
 
-type EmblemaCompleto = Emblema & {
-  desbloqueado: boolean;
-  pontos: number;
-  status: 'BLOQUEADO' | 'DESBLOQUEADO';
-  coletado: boolean;
-};
+// type EmblemaCompleto = Emblema & {
+//   desbloqueado: boolean;
+//   pontos: number;
+//   pontos_acumulativos: number;
+//   status: 'BLOQUEADO' | 'DESBLOQUEADO';
+//   coletado: boolean;
+// };
 
 type EmblemasProps = {
   onEmblemCollected?: () => void;
 };
+
+type EmblemaCompleto = Emblema & EmblemaUsuario;
 
 export default function Emblemas({ onEmblemCollected }: EmblemasProps) {
   const { data: session } = useSession();
@@ -335,25 +339,38 @@ export default function Emblemas({ onEmblemCollected }: EmblemasProps) {
     setIsCollecting(true);
     
     try {
-      await axios.post("/api/coletar-emblemas", {
+      const response =  await axios.post("/api/coletar-emblemas", {
         usuarioId: session?.usuario?.id,
-        emblemaId: selectedEmblema.emblema_id,
-        pontos: selectedEmblema.pontos,
-      });
+        emblemaId: selectedEmblema.emblema_id
+        });
       
+
+      if (!response.data.success) {
+      throw new Error(response.data.error || "Falha na coleta");
+    }
+
       // Atualiza o estado local para refletir a coleta
       setEmblemasUsuario(prev => 
         prev.map(e => 
           e.emblema_id === selectedEmblema.emblema_id 
-            ? { ...e, coletado: true } 
+            ? { 
+              ...e, 
+              status: "BLOQUEADO", // Bloqueia
+              pontos: 0, // Zera pontos
+              pontos_acumulativos: response.data.data.novosAcumulativos,
+              coletado: true
+            } 
             : e
         )
       );
       setRefreshProgress(prev => !prev);
       setShowConfetti(true);
       onEmblemCollected?.();
+
+
     } catch (error) {
       console.error("Erro ao coletar emblema:", error);
+      alert("Erro ao coletar emblema. Por favor, tente novamente.");
     } finally {
       setIsCollecting(false);
       setIsOpen(false);
@@ -439,8 +456,31 @@ export default function Emblemas({ onEmblemCollected }: EmblemasProps) {
                 Pontos necessários: <span className="font-bold">{selectedEmblema.emblemas_pontos || 0}</span>
               </p>
               <p className="mt-2 text-sm text-yellow-400">
-                Seus pontos: <span className="font-bold">{selectedEmblema.pontos || 0}</span>
+                Seus pontos atuais para coleta: <span className="font-bold">{selectedEmblema.pontos || 0}</span>
               </p>
+
+              {/* Pontos acumulados (já coletados) */}
+              <p className="text-sm text-green-400 flex justify-between">
+                <span>Pontos acumulados:</span>
+                <span className="font-bold">{selectedEmblema.pontos_acumulativos || 0}</span>
+              </p>
+
+
+             {/* <p className="mt-2 text-sm text-yellow-400">
+              Pontos a transferir: <span className="font-bold">{selectedEmblema.pontos || 0}</span>
+            </p> */}
+
+            {selectedEmblema.desbloqueado && !selectedEmblema.coletado && (
+              <p className="mt-2 text-sm text-green-400 animate-pulse">
+                +{selectedEmblema.pontos} pontos serão adicionados ao seu perfil!
+              </p>
+            )}
+
+            {/* <p className="text-xs text-gray-400 mt-2">
+              Debug: Status={selectedEmblema.status}, 
+              Pontos={selectedEmblema.pontos}, 
+              Acumulados={selectedEmblema.pontos_acumulativos}
+            </p> */}
               <button
                 onClick={selectedEmblema.desbloqueado ? handleCollectEmblem : handleCloseModal}
                 disabled={(selectedEmblema.desbloqueado && selectedEmblema.coletado) || isCollecting}
